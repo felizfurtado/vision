@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Testimonials • Vision Vibe Management Consulting FZC</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+    body { background:#080e14; color:#fff; line-height:1.5; -webkit-font-smoothing:antialiased; cursor: none; }
+    img { width:100%; display:block; object-fit:cover; }
+    .container { width:90%; max-width:1400px; margin:auto; position:relative; z-index:2; }
+    
+    /* Grid Background */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Squares */
+    .square {
+      position: fixed;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.01);
+      backdrop-filter: blur(20px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .s1 { width: 100px; height: 100px; top: 12%; left: 4%; }
+    .s2 { width: 160px; height: 160px; top: 18%; right: 5%; }
+    .s3 { width: 80px; height: 80px; top: 45%; left: 8%; }
+    .s4 { width: 140px; height: 140px; top: 55%; right: 12%; }
+    .s5 { width: 60px; height: 60px; top: 72%; left: 3%; }
+    .s6 { width: 110px; height: 110px; top: 78%; right: 6%; }
+    .s7 { width: 90px; height: 90px; top: 88%; left: 15%; }
+    .s8 { width: 130px; height: 130px; top: 92%; right: 20%; }
+
+    /* Custom Cursor */
+    #cursor { width: 12px; height: 12px; border-radius: 50%; background: #2ecc71; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.08s, width 0.25s, height 0.25s; }
+    #cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(46,204,113,0.5); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s; }
+    
+    a:hover ~ #cursor, button:hover ~ #cursor { width: 24px; height: 24px; background: #27ae60; }
+    a:hover ~ #cursor-ring, button:hover ~ #cursor-ring { width: 48px; height: 48px; border-color: rgba(46,204,113,0.8); }
+    
+    /* Header */
+    header { position:absolute; width:100%; z-index:10; padding:30px 0; }
+    .nav { display:flex; justify-content:space-between; align-items:center; }
+    .right-nav { display:flex; gap:15px; align-items:center; }
+    .talk-btn { background:#2ecc71; color:#080e14; border:none; padding:14px 30px; border-radius:50px; cursor:pointer; font-weight:600; font-size:14px; transition:0.3s ease; }
+    .talk-btn:hover { background:#27ae60; }
+    .menu-btn { width:50px; height:50px; border-radius:50%; background:#2ecc71; color:#080e14; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; transition:0.3s ease; }
+    .menu-btn:hover { background:#27ae60; }
+
+    /* Page Hero */
+    .page-hero { min-height: 45vh; position: relative; overflow: hidden; background: #080e14; display: flex; align-items: flex-end; padding-bottom: 60px; }
+    .page-hero-image { position: absolute; inset: 0; opacity: 0.2; }
+    .page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-title { font-size: 4.5vw; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; letter-spacing: -0.5px; }
+    .page-hero-breadcrumb { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    .page-hero-breadcrumb a { color: #2ecc71; text-decoration: none; }
+
+    /* Stats Banner */
+    .stats-banner {
+      background: rgba(46,204,113,0.03);
+      border-bottom: 1px solid rgba(46,204,113,0.1);
+      padding: 50px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+    .stat-item .stat-number {
+      font-family: 'Teko', sans-serif;
+      font-size: 48px;
+      font-weight: 600;
+      color: #2ecc71;
+      line-height: 1;
+    }
+    .stat-item .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+
+    /* Testimonials Section */
+    .testimonials-page { padding: 100px 0; position: relative; z-index: 1; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2ecc71; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; }
+    .section-eyebrow::before, .section-eyebrow::after { content: ''; width: 40px; height: 1px; background: #2ecc71; opacity: 0.5; }
+    .section-headline { font-size: 3.2vw; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.1; letter-spacing: -0.5px; }
+
+    /* Testimonial Grid */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .testimonial-card {
+      background: #080e14;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 32px;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(46,204,113,0.3);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+    }
+    .quote-icon {
+      font-size: 42px;
+      color: rgba(46,204,113,0.15);
+      position: absolute;
+      top: 30px;
+      right: 30px;
+    }
+    .testimonial-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 28px;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+    .client-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+    }
+    .client-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(46,204,113,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .client-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .client-avatar i {
+      font-size: 28px;
+      color: #2ecc71;
+    }
+    .client-details h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .client-details p {
+      font-size: 11px;
+      color: #2ecc71;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+    .stars {
+      margin-top: 6px;
+      color: #ffc107;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    /* Video Testimonials Section */
+    .video-section { padding: 60px 0 100px; position: relative; z-index: 1; }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .video-card {
+      background: #080e14;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      transition: all 0.35s ease;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(46,204,113,0.3);
+    }
+    .video-thumb {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .video-card:hover .video-thumb img {
+      transform: scale(1.03);
+    }
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: #2ecc71;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #080e14;
+      font-size: 22px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .play-btn:hover {
+      background: #27ae60;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    .video-content {
+      padding: 28px 30px;
+    }
+    .video-content h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .video-content p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Trust Bar */
+    .trust-bar {
+      background: rgba(46,204,113,0.03);
+      border-top: 1px solid rgba(46,204,113,0.08);
+      border-bottom: 1px solid rgba(46,204,113,0.08);
+      padding: 40px 0;
+    }
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .trust-logos span {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* CTA */
+    .cta-section { padding: 100px 0; position: relative; z-index: 1; text-align: center; }
+    .cta-inner { max-width: 700px; margin: 0 auto; }
+    .cta-headline { font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 24px; }
+    .cta-headline em { color: #2ecc71; font-style: normal; }
+    .cta-body { color: rgba(255,255,255,0.5); margin-bottom: 32px; font-size: 15px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: #2ecc71; color: #080e14; text-decoration: none; padding: 16px 36px; font-weight: 700; font-size: 14px; transition: 0.3s; }
+    .cta-btn:hover { background: #27ae60; }
+
+    /* Footer */
+    .footer-v2 { background: #080e14; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+    .fv2__top { padding: 70px 0 50px; max-width: 1400px; margin: 0 auto; width: 90%; display: grid; grid-template-columns: 280px 1fr; gap: 70px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .fv2__brand h3 { color: #2ecc71; font-size: 20px; margin-bottom: 16px; }
+    .fv2__tagline { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.8; margin-bottom: 24px; }
+    .fv2__socials { display: flex; gap: 10px; }
+    .fv2__social { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); transition: all 0.2s; text-decoration: none; font-size: 15px; }
+    .fv2__social:hover { border-color: #2ecc71; color: #2ecc71; }
+    .fv2__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .fv2__col { display: flex; flex-direction: column; gap: 10px; }
+    .fv2__col-head { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 8px; }
+    .fv2__lnk { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); transition: color 0.2s; text-decoration: none; }
+    .fv2__lnk:hover { color: #fff; }
+    .fv2__addr { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    .fv2__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #2ecc71; text-decoration: none; }
+    .fv2__bottom { max-width: 1400px; margin: 0 auto; width: 90%; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .fv2__copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+    .fv2__legal { display: flex; gap: 24px; }
+    .fv2__legal-lnk { font-size: 11px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .fv2__legal-lnk:hover { color: rgba(255,255,255,0.55); }
+    .fv2__region { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .square, #cursor, #cursor-ring { display: none; }
+      body, * { cursor: auto !important; }
+      .page-hero-title { font-size: 10vw; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+      .testimonial-grid { grid-template-columns: 1fr; gap: 24px; }
+      .video-grid { grid-template-columns: 1fr; }
+      .section-headline { font-size: 9vw; }
+      .fv2__top { grid-template-columns: 1fr; gap: 40px; }
+      .fv2__cols { grid-template-columns: 1fr; gap: 32px; }
+      .fv2__bottom { flex-direction: column; text-align: center; gap: 12px; }
+      .trust-logos { gap: 30px; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-overlay"></div>
+  <div class="square s1"></div><div class="square s2"></div><div class="square s3"></div>
+  <div class="square s4"></div><div class="square s5"></div><div class="square s6"></div>
+  <div class="square s7"></div><div class="square s8"></div>
+
+  <div id="cursor"></div><div id="cursor-ring"></div>
+
+  <header>
+    <div class="container nav">
+      <div class="logo"><img src="img.png" alt="Vision Vibe Management" style="height:70px; width:100px; display:block;"></div>
+      <div class="right-nav">
+        <button class="talk-btn">Get Free Consultation</button>
+        <div class="menu-btn"><i class="fas fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-image">
+      <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop" alt="Client Testimonials">
+    </div>
+    <div class="container page-hero-content">
+      <h1 class="page-hero-title">Client Testimonials</h1>
+      <div class="page-hero-breadcrumb"><a href="#">Home</a> / <span>Testimonials</span></div>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <div class="stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Happy Clients</div></div>
+        <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client Retention</div></div>
+        <div class="stat-item"><div class="stat-number">4.9</div><div class="stat-label">Google Rating</div></div>
+        <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">5-Star Reviews</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Written Testimonials -->
+  <section class="testimonials-page">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">What Our Clients Say</div>
+        <h2 class="section-headline">Trusted by Businesses Across the UAE</h2>
+      </div>
+      <div class="testimonial-grid">
+        
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"Vision Vibe has been an absolute game-changer for our company. Their accounting and tax consultancy services are top-notch. They saved us over 30% in tax liabilities and streamlined our entire financial process. Highly recommended!"</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed Al Mansoori">
+            </div>
+            <div class="client-details">
+              <h4>Ahmed Al Mansoori</h4>
+              <p>CEO, Al Mansoori Trading</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"The team at Vision Vibe handled our company formation in Dubai Free Zone seamlessly. From documentation to visa processing, everything was done professionally and on time. Their PRO services are exceptional."</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Johnson">
+            </div>
+            <div class="client-details">
+              <h4>Sarah Johnson</h4>
+              <p>Founder, TechHub ME</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"We've been working with Vision Vibe for over 3 years now. Their audit support and financial advisory have given us complete peace of mind. Professional, responsive, and truly dedicated to their clients."</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rajesh Khanna">
+            </div>
+            <div class="client-details">
+              <h4>Rajesh Khanna</h4>
+              <p>Director, Khanna Group</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"Excellent business consultancy services! Vision Vibe helped us restructure our operations and improve profitability by 40% within 6 months. Their strategic insights are invaluable."</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Fatima Al Zaabi">
+            </div>
+            <div class="client-details">
+              <h4>Fatima Al Zaabi</h4>
+              <p>Managing Partner, Al Zaabi Holdings</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"The tax compliance support from Vision Vibe is outstanding. They handled our corporate tax registration and filing flawlessly. Their team is always available to answer our queries. 5 stars!"</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="Mohammed Rashed">
+            </div>
+            <div class="client-details">
+              <h4>Mohammed Rashed</h4>
+              <p>CFO, Rashed Logistics</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 6 -->
+        <div class="testimonial-card">
+          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+          <p class="testimonial-text">"From startup to scaling, Vision Vibe has been with us every step of the way. Their bookkeeping and financial reporting services are accurate and timely. Highly professional team!"</p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Lisa Chen">
+            </div>
+            <div class="client-details">
+              <h4>Lisa Chen</h4>
+              <p>Co-Founder, EcoMart UAE</p>
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Testimonials -->
+  <section class="video-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Video Reviews</div>
+        <h2 class="section-headline">Hear From Our Clients</h2>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=2074&auto=format&fit=crop" alt="Video testimonial">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="video-content">
+            <h4>Ahmed Al Mansoori - CEO, Al Mansoori Trading</h4>
+            <p>"Vision Vibe transformed our financial operations completely. Watch to learn how."</p>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop" alt="Video testimonial">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="video-content">
+            <h4>Sarah Johnson - Founder, TechHub ME</h4>
+            <p>"The best decision we made was partnering with Vision Vibe for our company setup."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-logos">
+        <span>★★★★★ Google Rating</span>
+        <span>98% Client Satisfaction</span>
+        <span>500+ Businesses Supported</span>
+        <span>4.9/5 Average Rating</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-headline">Join Our <em>Happy Clients</em></h2>
+        <p class="cta-body">Experience the Vision Vibe difference. Schedule your free consultation today and see why 500+ businesses trust us.</p>
+        <a href="#" class="cta-btn">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-v2">
+    <div class="fv2__top">
+      <div class="fv2__brand">
+        <h3>VISION VIBE MANAGEMENT CONSULTING FZC</h3>
+        <p class="fv2__tagline">Empowering businesses across the UAE with expert financial, tax, and advisory solutions.</p>
+        <div class="fv2__socials">
+          <a href="#" class="fv2__social"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="fv2__cols">
+        <div class="fv2__col">
+          <div class="fv2__col-head">Services</div>
+          <a href="#" class="fv2__lnk">Accounting & Bookkeeping</a>
+          <a href="#" class="fv2__lnk">Tax Consultancy</a>
+          <a href="#" class="fv2__lnk">Audit Support</a>
+          <a href="#" class="fv2__lnk">Business Consultancy</a>
+          <a href="#" class="fv2__lnk">Company Formation</a>
+          <a href="#" class="fv2__lnk">PRO Services</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Company</div>
+          <a href="#" class="fv2__lnk">About Us</a>
+          <a href="#" class="fv2__lnk">Our Approach</a>
+          <a href="#" class="fv2__lnk">Industries</a>
+          <a href="#" class="fv2__lnk">Contact</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Get In Touch</div>
+          <p class="fv2__addr">B.C. 1306233, Ajman Free Zone C1 Building, Ajman Free Zone, Ajman, UAE</p>
+          <a href="mailto:info@visionvibeconsulting.com" class="fv2__lnk">info@visionvibeconsulting.com</a>
+          <a href="tel:+971525147440" class="fv2__lnk">+971 52 514 7440</a>
+          <a href="#" class="fv2__cta">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="fv2__bottom">
+      <span class="fv2__copy">© 2025 Vision Vibe Management Consulting FZC. All rights reserved.</span>
+      <div class="fv2__legal">
+        <a href="#" class="fv2__legal-lnk">Privacy Policy</a>
+        <a href="#" class="fv2__legal-lnk">Terms of Use</a>
+        <a href="#" class="fv2__legal-lnk">Cookie Policy</a>
+      </div>
+      <span class="fv2__region">UAE · GCC · MENA</span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Vision Vibe Management Consulting FZC • UAE</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+    body { background:#080e14; color:#fff; line-height:1.5; -webkit-font-smoothing:antialiased; cursor: none; }
+    img { width:100%; display:block; object-fit:cover; }
+    .container { width:90%; max-width:1400px; margin:auto; position:relative; z-index:2; }
+    
+    /* ─── GLOBAL GRID BACKGROUND (between hero and footer) ─── */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── FLOATING SQUARES ─── */
+    .square {
+      position: fixed;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.01);
+      backdrop-filter: blur(20px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .s1 { width: 100px; height: 100px; top: 12%; left: 4%; }
+    .s2 { width: 160px; height: 160px; top: 18%; right: 5%; }
+    .s3 { width: 80px; height: 80px; top: 45%; left: 8%; }
+    .s4 { width: 140px; height: 140px; top: 55%; right: 12%; }
+    .s5 { width: 60px; height: 60px; top: 72%; left: 3%; }
+    .s6 { width: 110px; height: 110px; top: 78%; right: 6%; }
+    .s7 { width: 90px; height: 90px; top: 88%; left: 15%; }
+    .s8 { width: 130px; height: 130px; top: 92%; right: 20%; }
+
+    /* Hero and Footer block the grid */
+    .hero, .footer-v2 {
+      position: relative;
+      z-index: 1;
+      background: #080e14;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #2ecc71;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.08s, width 0.25s, height 0.25s, background 0.25s;
+      mix-blend-mode: normal;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,204,113,0.5);
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s, opacity 0.3s;
+    }
+    
+    a:hover ~ #cursor,
+    button:hover ~ #cursor,
+    .service-card:hover ~ #cursor,
+    .hero-btn:hover ~ #cursor,
+    .about-cta:hover ~ #cursor,
+    .cta-btn-primary:hover ~ #cursor,
+    .cta-btn-secondary:hover ~ #cursor,
+    .talk-btn:hover ~ #cursor,
+    .menu-btn:hover ~ #cursor {
+      width: 24px;
+      height: 24px;
+      background: #27ae60;
+    }
+    
+    a:hover ~ #cursor-ring,
+    button:hover ~ #cursor-ring,
+    .service-card:hover ~ #cursor-ring,
+    .hero-btn:hover ~ #cursor-ring,
+    .about-cta:hover ~ #cursor-ring,
+    .cta-btn-primary:hover ~ #cursor-ring,
+    .cta-btn-secondary:hover ~ #cursor-ring,
+    .talk-btn:hover ~ #cursor-ring,
+    .menu-btn:hover ~ #cursor-ring {
+      width: 48px;
+      height: 48px;
+      border-color: rgba(46,204,113,0.8);
+    }
+
+    /* HEADER */
+    header { position:absolute; width:100%; z-index:10; padding:30px 0; }
+    .nav { display:flex; justify-content:space-between; align-items:center; }
+    /* .logo { font-size:24px; font-weight:800; line-height:1.2; letter-spacing:1px; color:#fff; }
+    .logo span { color:#2ecc71; } */
+    .right-nav { display:flex; gap:15px; align-items:center; }
+    .talk-btn { background:#2ecc71; color:#080e14; border:none; padding:14px 30px; border-radius:50px; cursor:pointer; font-weight:600; font-size:14px; transition:0.3s ease; letter-spacing:0.5px; }
+    .talk-btn:hover { background:#27ae60; }
+    .menu-btn { width:50px; height:50px; border-radius:50%; background:#2ecc71; color:#080e14; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; transition:0.3s ease; }
+    .menu-btn:hover { background:#27ae60; }
+
+    /* HERO */
+    .hero { min-height:100vh; position:relative; overflow:hidden; background:#080e14; }
+    .hero-image { position:absolute; inset:0; opacity:0.22; }
+    .hero-image img { width:100%; height:100%; object-fit:cover; }
+    .hero-image::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,11,15,0.3) 0%,rgba(5,11,15,0.92) 100%); }
+    .hero-content { position:relative; z-index:2; height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; padding-bottom:80px; }
+    .hero-title { font-size:4.5vw; font-weight:900; line-height:1.05; text-transform:uppercase; margin-bottom:25px; color:#fff; text-shadow:0 5px 25px rgba(0,0,0,0.6); letter-spacing:-0.5px; }
+    .hero-sub { font-size:1.15vw; max-width:750px; margin:0 auto 40px; color:rgba(255,255,255,0.8); font-weight:400; line-height:1.7; }
+    .hero-buttons { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+    .hero-btn { background:#2ecc71; color:#080e14; text-decoration:none; padding:16px 40px; border-radius:50px; font-weight:700; font-size:15px; transition:0.3s ease; border:2px solid #2ecc71; letter-spacing:0.3px; }
+    .hero-btn.outline { background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.45); }
+    .hero-btn.outline:hover { background:rgba(255,255,255,0.08); border-color:#fff; }
+    .hero-btn:hover { background:#27ae60; border-color:#27ae60; }
+    /* Floating Cards — Left Side */
+.floating-cards-left {
+  position: absolute;
+  left: 5%;
+  top: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 3;
+}
+
+/* Floating Cards — Right Side */
+.floating-cards-right {
+  position: absolute;
+  right: 8%;
+  top: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 3;
+}
+
+.float-card {
+  background: rgba(5,11,15,0.7);
+  backdrop-filter: blur(16px);
+  padding: 18px 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: float 4.5s ease-in-out infinite;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+  letter-spacing: 0.3px;
+}
+
+.floating-cards-left .float-card:nth-child(1) { animation-delay: 0s; }
+.floating-cards-left .float-card:nth-child(2) { animation-delay: 0.7s; }
+.floating-cards-right .float-card:nth-child(1) { animation-delay: 1.4s; }
+.floating-cards-right .float-card:nth-child(2) { animation-delay: 2.1s; }
+
+@keyframes float { 
+  0% { transform: translateY(0px); } 
+  50% { transform: translateY(-6px); } 
+  100% { transform: translateY(0px); } 
+}
+
+.float-card i { 
+  font-size: 18px; 
+  color: #2ecc71; 
+  width: 22px; 
+  text-align: center; 
+}
+    /* TRUST BANNER */
+    .trust-banner { background:#0a1219; border-top:1px solid rgba(46,204,113,0.15); border-bottom:1px solid rgba(46,204,113,0.15); padding:18px 0; display:flex; justify-content:center; flex-wrap:wrap; gap:45px; color:#bbb; font-weight:500; font-size:13px; letter-spacing:0.4px; position:relative; z-index:2; }
+    .trust-banner i { color:#2ecc71; margin-right:6px; font-size:12px; }
+
+    /* SECTIONS */
+    .section { padding:100px 0; background:transparent; position:relative; z-index:1; }
+    .section-title { font-size:3.8vw; line-height:1.05; font-weight:900; text-transform:uppercase; margin-bottom:20px; color:#fff; letter-spacing:-0.5px; }
+    .section-sub { color:rgba(255,255,255,0.6); max-width:650px; margin-bottom:55px; font-size:16px; line-height:1.7; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+
+    /* ─── ABOUT — REDESIGNED ─── */
+    .about-section { padding:100px 0; background:transparent; position:relative; overflow:hidden; z-index:1; }
+    .about-section::before { content:'ABOUT'; position:absolute; right:-20px; top:50%; transform:translateY(-50%); font-family:'Teko',sans-serif; font-size:220px; font-weight:700; color:rgba(255,255,255,0.018); line-height:1; pointer-events:none; letter-spacing:-8px; white-space:nowrap; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-left { position:relative; }
+    .about-img-wrap { position:relative; }
+    .about-img-wrap img { width:100%; height:520px; object-fit:cover; display:block; }
+    .about-img-accent { position:absolute; bottom:-24px; right:-24px; width:160px; height:160px; border:2px solid rgba(46,204,113,0.25); pointer-events:none; z-index:0; }
+    .about-img-accent2 { position:absolute; top:-16px; left:-16px; width:80px; height:80px; border:1px solid rgba(46,204,113,0.15); pointer-events:none; }
+    .about-img-badge { position:absolute; bottom:32px; left:-32px; background:#080e14; border:1px solid rgba(255,255,255,0.1); padding:22px 26px; z-index:2; backdrop-filter:blur(10px); }
+    .about-img-badge .badge-num { font-family:'Teko',sans-serif; font-size:52px; font-weight:300; color:#2ecc71; line-height:1; letter-spacing:-2px; }
+    .about-img-badge .badge-label { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:4px; }
+    .about-right {}
+    .about-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+    .about-eyebrow::after { content:''; width:40px; height:1px; background:#2ecc71; opacity:0.5; }
+    .about-headline { font-size:clamp(26px,3vw,46px); font-weight:900; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:-0.5px; margin-bottom:24px; }
+    .about-headline em { color:#2ecc71; font-style:normal; }
+    .about-body { font-size:15px; color:rgba(255,255,255,0.55); line-height:1.8; margin-bottom:40px; }
+    .about-pillars { display:flex; flex-direction:column; gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .about-pillar { background:#080e14; padding:20px 24px; display:flex; align-items:center; gap:18px; transition:background 0.3s; cursor:default; }
+    .about-pillar:hover { background:#0a1219; }
+    .about-pillar-icon { width:36px; height:36px; background:rgba(46,204,113,0.1); display:flex; align-items:center; justify-content:center; font-size:16px; color:#2ecc71; flex-shrink:0; }
+    .about-pillar-text { display:flex; flex-direction:column; gap:2px; }
+    .about-pillar-title { font-size:13px; font-weight:700; color:#fff; letter-spacing:0.2px; }
+    .about-pillar-sub { font-size:12px; color:rgba(255,255,255,0.35); }
+    .about-cta { display:inline-flex; align-items:center; gap:10px; background:#2ecc71; color:#080e14; text-decoration:none; padding:15px 32px; font-weight:700; font-size:13px; letter-spacing:0.5px; transition:0.3s ease; }
+    .about-cta:hover { background:#27ae60; }
+
+    /* SERVICES */
+    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); overflow:hidden; }
+    .service-card { background:#080e14; padding:45px 35px; transition:all 0.35s ease; position:relative; display:flex; flex-direction:column; cursor:default; }
+    .service-card:hover { background:#0a1219; }
+    .service-card::after { content:attr(data-n); position:absolute; bottom:-8px; right:20px; font-family:'Teko',sans-serif; font-size:90px; font-weight:700; color:rgba(255,255,255,0.03); line-height:1; pointer-events:none; transition:color 0.3s; letter-spacing:-2px; }
+    .service-card:hover::after { color:rgba(46,204,113,0.06); }
+    .service-icon { width:42px; height:42px; background:rgba(46,204,113,0.12); display:flex; align-items:center; justify-content:center; margin-bottom:28px; transition:transform 0.2s; font-size:20px; color:#2ecc71; }
+    .service-card:hover .service-icon { transform:scale(1.04); }
+    .service-card h3 { font-family:'Teko',sans-serif; font-size:26px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:14px; line-height:1.1; }
+    .service-card p { color:rgba(255,255,255,0.5); font-size:14px; line-height:1.7; font-weight:400; }
+    .service-link { display:inline-flex; align-items:center; gap:8px; margin-top:28px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#2ecc71; opacity:0; transform:translateY(6px); transition:opacity 0.25s,transform 0.25s; text-decoration:none; }
+    .service-card:hover .service-link { opacity:1; transform:translateY(0); }
+    .service-link i { font-size:13px; }
+
+    /* ─── WHY CHOOSE US ─── */
+    .why-section { padding:100px 0; background:transparent; position:relative; z-index:1; }
+    .why-header { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:64px; }
+    .why-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+    .why-eyebrow::after { content:''; width:40px; height:1px; background:#2ecc71; opacity:0.5; }
+    .why-headline { font-size:clamp(26px,3.2vw,48px); font-weight:900; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:-0.5px; max-width:500px; }
+    .why-list { display:flex; flex-direction:column; gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); }
+    .why-row { display:grid; grid-template-columns:60px 1fr 1fr 1fr; gap:1px; background:rgba(255,255,255,0.05); }
+    .why-row:first-child .why-cell { border-top:none; }
+    .why-cell { background:#080e14; padding:40px 36px; position:relative; overflow:hidden; transition:background 0.3s; cursor:default; }
+    .why-cell:hover { background:#0a1219; }
+    .why-index { background:#080e14; display:flex; align-items:flex-start; justify-content:center; padding-top:42px; }
+    .why-index span { font-family:'Teko',sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; color:rgba(255,255,255,0.18); writing-mode:vertical-rl; text-transform:uppercase; }
+    .why-cell-icon { width:40px; height:40px; background:rgba(46,204,113,0.1); display:flex; align-items:center; justify-content:center; font-size:18px; color:#2ecc71; margin-bottom:22px; flex-shrink:0; transition:transform 0.25s; }
+    .why-cell:hover .why-cell-icon { transform:scale(1.08); }
+    .why-cell h4 { font-family:'Teko',sans-serif; font-size:22px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; margin-bottom:10px; line-height:1.1; color:#fff; }
+    .why-cell p { font-size:13px; color:rgba(255,255,255,0.42); line-height:1.75; }
+    .why-cell::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:#2ecc71; transform:scaleX(0); transform-origin:left; transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .why-cell:hover::before { transform:scaleX(1); }
+
+    /* ─── INDUSTRIES ─── */
+    .industries-section { padding:100px 0; background:transparent; position:relative; z-index:1; }
+    .ind-header { margin-bottom:60px; }
+    .ind-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+    .ind-eyebrow::after { content:''; width:40px; height:1px; background:#2ecc71; opacity:0.5; }
+    .ind-headline { font-size:clamp(26px,3.2vw,48px); font-weight:900; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:-0.5px; }
+    .ind-track { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); }
+    .ind-item { background:#080e14; padding:0; position:relative; overflow:hidden; cursor:default; transition:background 0.3s; }
+    .ind-item:hover { background:#0c1620; }
+    .ind-inner { padding:36px 30px 32px; display:flex; flex-direction:column; height:100%; }
+    .ind-num { font-family:'Teko',sans-serif; font-size:11px; font-weight:600; letter-spacing:2.5px; color:rgba(255,255,255,0.15); text-transform:uppercase; margin-bottom:28px; }
+    .ind-icon-wrap { width:48px; height:48px; border:1px solid rgba(46,204,113,0.2); display:flex; align-items:center; justify-content:center; font-size:22px; color:#2ecc71; margin-bottom:20px; transition:all 0.3s; }
+    .ind-item:hover .ind-icon-wrap { border-color:#2ecc71; background:rgba(46,204,113,0.08); }
+    .ind-name { font-size:15px; font-weight:700; color:#fff; margin-bottom:8px; letter-spacing:0.2px; }
+    .ind-desc { font-size:12px; color:rgba(255,255,255,0.32); line-height:1.7; margin-top:auto; }
+    .ind-item::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:#2ecc71; transform:scaleX(0); transform-origin:left; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .ind-item:hover::after { transform:scaleX(1); }
+
+    /* ─── PROCESS ─── */
+    .process-section { padding:100px 0; background:transparent; position:relative; z-index:1; }
+    .proc-header { margin-bottom:60px; }
+    .proc-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+    .proc-eyebrow::after { content:''; width:40px; height:1px; background:#2ecc71; opacity:0.5; }
+    .proc-headline { font-size:clamp(26px,3.2vw,48px); font-weight:900; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:-0.5px; }
+    .proc-track { display:grid; grid-template-columns:repeat(4,1fr); position:relative; }
+    .proc-step { padding:0 24px 0; position:relative; z-index:1; }
+    .proc-step-top { display:flex; align-items:center; gap:0; margin-bottom:36px; }
+    .proc-dot-wrap { position:relative; flex-shrink:0; }
+    .proc-dot { width:48px; height:48px; border:1px solid rgba(46,204,113,0.3); background:#080e14; display:flex; align-items:center; justify-content:center; transition:all 0.4s; }
+    .proc-step:hover .proc-dot { border-color:#2ecc71; background:rgba(46,204,113,0.1); }
+    .proc-dot i { font-size:20px; color:#2ecc71; }
+    .proc-body { padding:0; }
+    .proc-n { font-family:'Teko',sans-serif; font-size:11px; font-weight:600; letter-spacing:2.5px; color:rgba(255,255,255,0.18); text-transform:uppercase; margin-bottom:14px; }
+    .proc-title { font-family:'Teko',sans-serif; font-size:28px; font-weight:600; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:0.3px; margin-bottom:12px; }
+    .proc-desc { font-size:13px; color:rgba(255,255,255,0.4); line-height:1.75; }
+    .proc-tag { display:inline-block; margin-top:18px; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#2ecc71; border:1px solid rgba(46,204,113,0.3); padding:4px 10px; opacity:0; transform:translateY(4px); transition:opacity 0.25s,transform 0.25s; }
+    .proc-step:hover .proc-tag { opacity:1; transform:translateY(0); }
+
+    /* STATS */
+    .stats-section { padding:100px 0; background:transparent; position:relative; z-index:1; }
+    .stats-top { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:60px; }
+    .stats-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .stats-eyebrow::after { content:''; width:48px; height:1px; background:#2ecc71; opacity:0.5; }
+    .stats-headline { font-size:clamp(26px,3.2vw,48px); font-weight:900; text-transform:uppercase; color:#fff; line-height:1.05; letter-spacing:-0.5px; max-width:480px; }
+    .stats-grid-new { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:rgba(255,255,255,0.05); }
+    .stat-card { background:#080e14; padding:52px 44px; display:flex; align-items:flex-start; gap:32px; position:relative; overflow:hidden; transition:background 0.35s ease; cursor:default; }
+    .stat-card:hover { background:#0a1219; }
+    .stat-bar { position:absolute; left:0; top:0; bottom:0; width:3px; background:#2ecc71; transform:scaleY(0); transform-origin:bottom; transition:transform 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .stat-card:hover .stat-bar { transform:scaleY(1); }
+    .stat-num-col { min-width:110px; flex-shrink:0; }
+    .stat-num { font-family:'Teko',sans-serif; font-size:clamp(60px,6vw,88px); font-weight:300; color:#fff; line-height:0.88; letter-spacing:-3px; }
+    .stat-num em { color:#2ecc71; font-style:normal; font-weight:400; }
+    .stat-unit { font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.2); margin-top:12px; }
+    .stat-body { flex:1; padding-top:8px; }
+    .stat-title { font-size:15px; font-weight:700; color:#fff; margin-bottom:10px; letter-spacing:0.2px; }
+    .stat-rule { width:28px; height:1px; background:rgba(46,204,113,0.35); margin-bottom:12px; }
+    .stat-desc { font-size:13px; color:rgba(255,255,255,0.38); line-height:1.75; font-weight:400; }
+    .stat-tag { display:inline-flex; align-items:center; gap:6px; margin-top:18px; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#2ecc71; opacity:0; transform:translateY(4px); transition:opacity 0.25s,transform 0.25s; }
+    .stat-card:hover .stat-tag { opacity:1; transform:translateY(0); }
+    .stat-tag::before { content:''; width:5px; height:5px; border-radius:50%; background:#2ecc71; flex-shrink:0; }
+    .stat-ghost { position:absolute; bottom:-14px; right:20px; font-family:'Teko',sans-serif; font-size:120px; font-weight:700; color:rgba(255,255,255,0.022); line-height:1; pointer-events:none; letter-spacing:-5px; user-select:none; }
+
+    /* ─── CTA — REDESIGNED ─── */
+    .cta-section { background:transparent; padding:120px 0; position:relative; overflow:hidden; z-index:1; }
+    .cta-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(46,204,113,0.06) 0%, transparent 70%); pointer-events:none; }
+    .cta-section::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, rgba(46,204,113,0.3), transparent); }
+    .cta-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 420px; gap:80px; align-items:center; }
+    .cta-left {}
+    .cta-eyebrow { font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#2ecc71; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+    .cta-eyebrow::after { content:''; width:40px; height:1px; background:#2ecc71; opacity:0.5; }
+    .cta-headline { font-size:clamp(30px,3.8vw,58px); font-weight:900; text-transform:uppercase; line-height:1.0; letter-spacing:-0.5px; color:#fff; margin-bottom:24px; }
+    .cta-headline em { color:#2ecc71; font-style:normal; display:block; }
+    .cta-body { font-size:15px; color:rgba(255,255,255,0.5); line-height:1.8; max-width:520px; }
+    .cta-right { display:flex; flex-direction:column; gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.07); }
+    .cta-feature { background:#080e14; padding:22px 28px; display:flex; align-items:center; gap:16px; transition:background 0.3s; cursor:default; position:relative; overflow:hidden; }
+    .cta-feature:hover { background:#0a1219; }
+    .cta-feature::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:#2ecc71; transform:scaleY(0); transform-origin:bottom; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .cta-feature:hover::before { transform:scaleY(1); }
+    .cta-feature-icon { width:36px; height:36px; background:rgba(46,204,113,0.1); display:flex; align-items:center; justify-content:center; font-size:16px; color:#2ecc71; flex-shrink:0; }
+    .cta-feature-text { flex:1; }
+    .cta-feature-title { font-size:13px; font-weight:700; color:#fff; }
+    .cta-feature-sub { font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px; }
+    .cta-actions { display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
+    .cta-btn-primary { display:inline-flex; align-items:center; gap:10px; background:#2ecc71; color:#080e14; text-decoration:none; padding:16px 36px; font-weight:700; font-size:14px; letter-spacing:0.5px; transition:0.3s ease; }
+    .cta-btn-primary:hover { background:#27ae60; }
+    .cta-btn-secondary { display:inline-flex; align-items:center; gap:10px; background:transparent; color:rgba(255,255,255,0.7); text-decoration:none; padding:16px 28px; font-weight:600; font-size:13px; letter-spacing:0.5px; border:1px solid rgba(255,255,255,0.15); transition:0.3s ease; }
+    .cta-btn-secondary:hover { border-color:rgba(255,255,255,0.4); color:#fff; }
+    .cta-bottom-bar { margin-top:80px; padding-top:40px; border-top:1px solid rgba(255,255,255,0.05); display:flex; gap:50px; flex-wrap:wrap; }
+    .cta-trust-item { display:flex; align-items:center; gap:12px; }
+    .cta-trust-icon { width:32px; height:32px; border:1px solid rgba(46,204,113,0.2); display:flex; align-items:center; justify-content:center; font-size:14px; color:#2ecc71; flex-shrink:0; }
+    .cta-trust-text { font-size:12px; font-weight:600; color:rgba(255,255,255,0.4); letter-spacing:0.3px; }
+
+    /* FOOTER — NO GRID */
+    .footer-v2 { background:#080e14; border-top:1px solid rgba(255,255,255,0.06); position:relative; z-index:1; }
+    .fv2__top { padding:70px 0 50px; max-width:1400px; margin:0 auto; width:90%; display:grid; grid-template-columns:280px 1fr; gap:70px; border-bottom:1px solid rgba(255,255,255,0.05); align-items:start; }
+    .fv2__brand h3 { color:#2ecc71; font-size:20px; margin-bottom:16px; }
+    .fv2__tagline { font-size:13px; font-weight:300; color:rgba(255,255,255,0.4); line-height:1.8; margin-bottom:24px; }
+    .fv2__socials { display:flex; gap:10px; }
+    .fv2__social { width:34px; height:34px; border:1px solid rgba(255,255,255,0.12); border-radius:2px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.45); transition:all 0.2s; text-decoration:none; font-size:15px; }
+    .fv2__social:hover { border-color:#2ecc71; color:#2ecc71; background:rgba(46,204,113,0.05); }
+    .fv2__cols { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+    .fv2__col { display:flex; flex-direction:column; gap:10px; }
+    .fv2__col-head { font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-bottom:8px; }
+    .fv2__lnk { font-size:13px; font-weight:400; color:rgba(255,255,255,0.5); transition:color 0.2s; text-decoration:none; }
+    .fv2__lnk:hover { color:#fff; }
+    .fv2__addr { font-size:13px; font-weight:300; color:rgba(255,255,255,0.35); line-height:1.7; }
+    .fv2__cta { display:inline-flex; align-items:center; gap:8px; margin-top:8px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#2ecc71; text-decoration:none; }
+    .fv2__bottom { max-width:1400px; margin:0 auto; width:90%; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .fv2__copy { font-size:11px; color:rgba(255,255,255,0.2); }
+    .fv2__legal { display:flex; gap:24px; }
+    .fv2__legal-lnk { font-size:11px; color:rgba(255,255,255,0.2); text-decoration:none; transition:color 0.2s; }
+    .fv2__legal-lnk:hover { color:rgba(255,255,255,0.55); }
+    .fv2__region { font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.15); }
+
+    /* Hide squares on mobile */
+    @media (max-width:900px) {
+      .square { display: none; }
+      .hero-title { font-size:11vw; }
+      .hero-sub { font-size:4vw; }
+      .floating-cards { display:none; }
+      .grid-2,.services-grid,.fv2__top,.fv2__cols { grid-template-columns:1fr; }
+      .section-title { font-size:11vw; }
+      .why-row { grid-template-columns:1fr; }
+      .why-index { display:none; }
+      .ind-track { grid-template-columns:repeat(2,1fr); }
+      .proc-track { grid-template-columns:1fr 1fr; gap:40px; }
+      .proc-step { padding:0; }
+      .stats-grid-new { grid-template-columns:1fr; }
+      .stats-top { flex-direction:column; align-items:flex-start; }
+      .fv2__bottom { flex-direction:column; text-align:center; gap:12px; }
+      .cta-inner { grid-template-columns:1fr; gap:50px; }
+      .about-grid { grid-template-columns:1fr; gap:50px; }
+      .about-img-badge { left:0; bottom:16px; }
+    }
+    @media (max-width:600px) {
+      .ind-track { grid-template-columns:1fr; }
+      .proc-track { grid-template-columns:1fr; }
+      .why-row { grid-template-columns:1fr; }
+      .cta-bottom-bar { gap:24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── GRID OVERLAY ─── -->
+  <div class="grid-overlay"></div>
+
+  <!-- ─── FLOATING SQUARES ─── -->
+  <div class="square s1"></div>
+  <div class="square s2"></div>
+  <div class="square s3"></div>
+  <div class="square s4"></div>
+  <div class="square s5"></div>
+  <div class="square s6"></div>
+  <div class="square s7"></div>
+  <div class="square s8"></div>
+
+  <!-- ─── CUSTOM CURSOR ELEMENTS ─── -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <header>
+    <div class="container nav">
+
+        <style>
+
+        </style>
+     <div class="logo">
+  <img src="img.png" alt="Vision Vibe Management" style="height:70px; width:100px; display:block;">
+</div>
+      <div class="right-nav">
+        <button class="talk-btn">Get Free Consultation</button>
+        <div class="menu-btn"><i class="fas fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Dubai skyline">
+    </div>
+    <div class="floating-cards-left">
+    <div class="float-card"><i class="fas fa-briefcase"></i> Financial Advisory</div>
+  <div class="float-card"><i class="fas fa-chart-line"></i> Business Consulting</div>
+</div>
+
+<div class="floating-cards-right">
+  <div class="float-card"><i class="fas fa-balance-scale"></i> Tax & Compliance</div>
+  <div class="float-card"><i class="fas fa-calculator"></i> Accounting & Bookkeeping</div>
+
+</div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">Driving Business Growth<br>Through Expert Financial & Strategic Solutions</h1>
+      <p class="hero-sub">Vision Vibe Management Consulting FZC empowers businesses across the UAE with accounting, taxation, auditing, business advisory, and corporate support services designed to simplify operations and accelerate growth.</p>
+      <div class="hero-buttons">
+        <a href="#" class="hero-btn">Get Free Consultation</a>
+        <a href="#" class="hero-btn outline">Explore Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-banner">
+    <span><i class="fas fa-check"></i> Accounting & Bookkeeping</span>
+    <span><i class="fas fa-check"></i> Tax Consultancy</span>
+    <span><i class="fas fa-check"></i> Business Advisory</span>
+    <span><i class="fas fa-check"></i> Company Formation</span>
+    <span><i class="fas fa-check"></i> Audit Support</span>
+    <span><i class="fas fa-check"></i> PRO Services</span>
+  </div>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" alt="Business professionals">
+            <div class="about-img-accent"></div>
+            <div class="about-img-accent2"></div>
+            <div class="about-img-badge">
+              <div class="badge-num">10<span style="font-size:28px;color:rgba(255,255,255,0.4)">+</span></div>
+              <div class="badge-label">Years of Excellence</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="about-eyebrow">Who We Are</div>
+          <h2 class="about-headline">Building Strong Businesses Through <em>Expertise & Integrity</em></h2>
+          <p class="about-body">At Vision Vibe Management Consulting FZC, we help entrepreneurs, startups, SMEs, and established organizations navigate the complexities of financial management, regulatory compliance, and business operations across the UAE and GCC.</p>
+          <div class="about-pillars">
+            <div class="about-pillar">
+              <div class="about-pillar-icon"><i class="fas fa-award"></i></div>
+              <div class="about-pillar-text">
+                <div class="about-pillar-title">UAE-Licensed & Compliant</div>
+                <div class="about-pillar-sub">Registered in Ajman Free Zone — fully authorized to operate across the UAE</div>
+              </div>
+            </div>
+            <div class="about-pillar">
+              <div class="about-pillar-icon"><i class="fas fa-users"></i></div>
+              <div class="about-pillar-text">
+                <div class="about-pillar-title">Client-First Philosophy</div>
+                <div class="about-pillar-sub">Every solution is customized — no templates, no shortcuts</div>
+              </div>
+            </div>
+            <div class="about-pillar">
+              <div class="about-pillar-icon"><i class="fas fa-chart-bar"></i></div>
+              <div class="about-pillar-text">
+                <div class="about-pillar-title">Results-Driven Approach</div>
+                <div class="about-pillar-sub">We measure success by the growth and compliance of every client we serve</div>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="about-cta">Discover Our Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES ─── -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Comprehensive Solutions<br>for Modern Businesses</h2>
+      <div class="services-grid">
+        <div class="service-card" data-n="01">
+          <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+          <h3>Accounting & Bookkeeping</h3>
+          <p>Accurate financial records and meaningful insights for informed decision-making.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card" data-n="02">
+          <div class="service-icon"><i class="fas fa-landmark"></i></div>
+          <h3>Tax Consultancy</h3>
+          <p>VAT, Corporate Tax, registrations, filings, and compliance management.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card" data-n="03">
+          <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
+          <h3>Audit Support</h3>
+          <p>Professional audit preparation and financial reporting assistance.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card" data-n="04">
+          <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
+          <h3>Business Consultancy</h3>
+          <p>Strategic planning and business solutions that drive growth.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card" data-n="05">
+          <div class="service-icon"><i class="fas fa-building"></i></div>
+          <h3>Company Formation</h3>
+          <p>Seamless business setup solutions across the UAE.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card" data-n="06">
+          <div class="service-icon"><i class="fas fa-passport"></i></div>
+          <h3>PRO Services</h3>
+          <p>Government approvals, licensing, visa processing, and documentation support.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY CHOOSE US ─── -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-header">
+        <div>
+          <div class="why-eyebrow">Why Vision Vibe</div>
+          <h2 class="why-headline">Why Businesses Choose Vision Vibe</h2>
+        </div>
+      </div>
+      <div class="why-list">
+        <div class="why-row">
+          <div class="why-index"><span>Row A</span></div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-star"></i></div>
+            <h4>Expert Financial Guidance</h4>
+            <p>Decades of combined experience delivering precise financial strategies tailored to your business stage and goals.</p>
+          </div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-bullseye"></i></div>
+            <h4>Tailored Business Solutions</h4>
+            <p>Customized approaches that fit your unique business model — no cookie-cutter methods, just precision strategy.</p>
+          </div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Regulatory Compliance Support</h4>
+            <p>Stay ahead of UAE regulations with proactive compliance management and real-time advisory.</p>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-index"><span>Row B</span></div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Reliable Professional Service</h4>
+            <p>Trusted by businesses across the UAE for consistency, integrity, and measurable results delivered on time.</p>
+          </div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-link"></i></div>
+            <h4>End-to-End Business Assistance</h4>
+            <p>From company setup to expansion planning, we cover every stage of your business journey seamlessly.</p>
+          </div>
+          <div class="why-cell">
+            <div class="why-cell-icon"><i class="fas fa-rocket"></i></div>
+            <h4>Long-Term Strategic Partnership</h4>
+            <p>We grow alongside you — offering sustained support, strategic reviews, and evolving advice as your needs change.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INDUSTRIES ─── -->
+  <section class="industries-section">
+    <div class="container">
+      <div class="ind-header">
+        <div class="ind-eyebrow">Sectors We Serve</div>
+        <h2 class="ind-headline">Industries We Serve</h2>
+      </div>
+      <div class="ind-track">
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">01</div>
+            <div class="ind-icon-wrap"><i class="fas fa-boxes"></i></div>
+            <div class="ind-name">Trading & Distribution</div>
+            <div class="ind-desc">Supply chain finance, VAT structuring, and multi-entity accounting across free zones and mainland.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">02</div>
+            <div class="ind-icon-wrap"><i class="fas fa-shopping-cart"></i></div>
+            <div class="ind-name">Retail & E-Commerce</div>
+            <div class="ind-desc">Revenue recognition, platform tax compliance, and inventory-level financial control.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">03</div>
+            <div class="ind-icon-wrap"><i class="fas fa-home"></i></div>
+            <div class="ind-name">Real Estate</div>
+            <div class="ind-desc">Project-level costing, RERA compliance support, and developer financial advisory.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">04</div>
+            <div class="ind-icon-wrap"><i class="fas fa-utensils"></i></div>
+            <div class="ind-name">Hospitality</div>
+            <div class="ind-desc">Cost control, franchise structuring, and tourism sector VAT advisory for F&B and hotels.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">05</div>
+            <div class="ind-icon-wrap"><i class="fas fa-industry"></i></div>
+            <div class="ind-name">Manufacturing</div>
+            <div class="ind-desc">Cost accounting, CAPEX planning, and regulatory compliance for production operations.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">06</div>
+            <div class="ind-icon-wrap"><i class="fas fa-microchip"></i></div>
+            <div class="ind-name">Technology</div>
+            <div class="ind-desc">SaaS revenue models, IP structuring, and cross-border tax advisory for tech firms.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">07</div>
+            <div class="ind-icon-wrap"><i class="fas fa-user-tie"></i></div>
+            <div class="ind-name">Professional Services</div>
+            <div class="ind-desc">Billing optimization, partner structuring, and compliance for legal, medical, and consultancy firms.</div>
+          </div>
+        </div>
+        <div class="ind-item">
+          <div class="ind-inner">
+            <div class="ind-num">08</div>
+            <div class="ind-icon-wrap"><i class="fas fa-seedling"></i></div>
+            <div class="ind-name">Startups & SMEs</div>
+            <div class="ind-desc">Lean financial setup, investor-ready reporting, and scalable compliance frameworks from day one.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROCESS ─── -->
+  <section class="process-section">
+    <div class="container">
+      <div class="proc-header">
+        <div class="proc-eyebrow">How We Work</div>
+        <h2 class="proc-headline">Our Approach</h2>
+      </div>
+      <div class="proc-track">
+        <div class="proc-step">
+          <div class="proc-step-top">
+            <div class="proc-dot-wrap">
+              <div class="proc-dot"><i class="fas fa-compass"></i></div>
+            </div>
+          </div>
+          <div class="proc-body">
+            <div class="proc-n">Step 01</div>
+            <div class="proc-title">Understand</div>
+            <div class="proc-desc">We begin by deeply understanding your business goals, pain points, industry context, and current financial position.</div>
+            <div class="proc-tag">Discovery & Audit</div>
+          </div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-step-top">
+            <div class="proc-dot-wrap">
+              <div class="proc-dot"><i class="fas fa-drafting-compass"></i></div>
+            </div>
+          </div>
+          <div class="proc-body">
+            <div class="proc-n">Step 02</div>
+            <div class="proc-title">Strategize</div>
+            <div class="proc-desc">We craft a tailored roadmap — financial, regulatory, and operational — built specifically around your objectives.</div>
+            <div class="proc-tag">Planning & Design</div>
+          </div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-step-top">
+            <div class="proc-dot-wrap">
+              <div class="proc-dot"><i class="fas fa-cogs"></i></div>
+            </div>
+          </div>
+          <div class="proc-body">
+            <div class="proc-n">Step 03</div>
+            <div class="proc-title">Implement</div>
+            <div class="proc-desc">Our experts execute with precision — accounting setups, filings, formations, and approvals handled end to end.</div>
+            <div class="proc-tag">Execution & Delivery</div>
+          </div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-step-top">
+            <div class="proc-dot-wrap">
+              <div class="proc-dot"><i class="fas fa-hands-helping"></i></div>
+            </div>
+          </div>
+          <div class="proc-body">
+            <div class="proc-n">Step 04</div>
+            <div class="proc-title">Support</div>
+            <div class="proc-desc">We remain your long-term partner — monitoring performance, adapting strategies, and supporting your next phase of growth.</div>
+            <div class="proc-tag">Ongoing Partnership</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-top">
+        <div>
+          <div class="stats-eyebrow">Our Impact</div>
+          <h2 class="stats-headline">Delivering Value Through Professional Excellence</h2>
+        </div>
+      </div>
+      <div class="stats-grid-new">
+        <div class="stat-card">
+          <div class="stat-bar"></div>
+          <div class="stat-num-col">
+            <div class="stat-num">100<em>+</em></div>
+            <div class="stat-unit">Clients</div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-title">Businesses Supported</div>
+            <div class="stat-rule"></div>
+            <div class="stat-desc">Entrepreneurs, SMEs, and established corporations across the UAE and GCC.</div>
+            <div class="stat-tag">Proven Track Record</div>
+          </div>
+          <div class="stat-ghost">01</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-bar"></div>
+          <div class="stat-num-col">
+            <div class="stat-num">10<em>+</em></div>
+            <div class="stat-unit">Years</div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-title">Combined Expertise</div>
+            <div class="stat-rule"></div>
+            <div class="stat-desc">Deep financial and regulatory knowledge built over years of hands-on practice.</div>
+            <div class="stat-tag">Senior Team</div>
+          </div>
+          <div class="stat-ghost">02</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-bar"></div>
+          <div class="stat-num-col">
+            <div class="stat-num">100<em>%</em></div>
+            <div class="stat-unit">Rate</div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-title">Commitment to Compliance</div>
+            <div class="stat-rule"></div>
+            <div class="stat-desc">Zero-compromise adherence to UAE regulatory standards and international frameworks.</div>
+            <div class="stat-tag">UAE Compliant</div>
+          </div>
+          <div class="stat-ghost">03</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-bar"></div>
+          <div class="stat-num-col">
+            <div class="stat-num">24<em>/7</em></div>
+            <div class="stat-unit">Always On</div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-title">Professional Support</div>
+            <div class="stat-rule"></div>
+            <div class="stat-desc">Round-the-clock availability for urgent financial and advisory needs.</div>
+            <div class="stat-tag">Always Available</div>
+          </div>
+          <div class="stat-ghost">04</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <div class="cta-eyebrow">Start Today</div>
+          <h2 class="cta-headline">Ready to Take Your Business<em>To The Next Level?</em></h2>
+          <p class="cta-body">Partner with Vision Vibe Management Consulting FZC for trusted financial, tax, and business advisory solutions tailored to your goals. Your first consultation is completely free.</p>
+          <div class="cta-actions">
+            <a href="#" class="cta-btn-primary">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+            <a href="#" class="cta-btn-secondary">Explore Services</a>
+          </div>
+        </div>
+        <div class="cta-right">
+          <div class="cta-feature">
+            <div class="cta-feature-icon"><i class="fas fa-clock"></i></div>
+            <div class="cta-feature-text">
+              <div class="cta-feature-title">Free Initial Consultation</div>
+              <div class="cta-feature-sub">No commitment — just expert guidance from day one</div>
+            </div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="cta-feature-text">
+              <div class="cta-feature-title">100% UAE Compliant</div>
+              <div class="cta-feature-sub">Full adherence to FTA, MOL, and all regulatory bodies</div>
+            </div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-icon"><i class="fas fa-user-check"></i></div>
+            <div class="cta-feature-text">
+              <div class="cta-feature-title">Dedicated Account Manager</div>
+              <div class="cta-feature-sub">A single point of contact who knows your business inside out</div>
+            </div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="cta-feature-text">
+              <div class="cta-feature-title">Proven Growth Results</div>
+              <div class="cta-feature-sub">100+ businesses scaled with our financial expertise</div>
+            </div>
+          </div>
+          <div class="cta-feature">
+            <div class="cta-feature-icon"><i class="fas fa-headset"></i></div>
+            <div class="cta-feature-text">
+              <div class="cta-feature-title">24/7 Support Available</div>
+              <div class="cta-feature-sub">Always reachable when it matters most for your business</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cta-bottom-bar">
+        <div class="cta-trust-item">
+          <div class="cta-trust-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="cta-trust-text">Ajman Free Zone, UAE</div>
+        </div>
+        <div class="cta-trust-item">
+          <div class="cta-trust-icon"><i class="fas fa-certificate"></i></div>
+          <div class="cta-trust-text">Licensed & Registered</div>
+        </div>
+        <div class="cta-trust-item">
+          <div class="cta-trust-icon"><i class="fas fa-globe"></i></div>
+          <div class="cta-trust-text">UAE · GCC · MENA</div>
+        </div>
+        <div class="cta-trust-item">
+          <div class="cta-trust-icon"><i class="fas fa-phone"></i></div>
+          <div class="cta-trust-text">+971 52 514 7440</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer-v2">
+    <div class="fv2__top">
+      <div class="fv2__brand">
+        <h3>VISION VIBE MANAGEMENT CONSULTING FZC</h3>
+        <p class="fv2__tagline">Empowering businesses across the UAE with expert financial, tax, and advisory solutions.</p>
+        <div class="fv2__socials">
+          <a href="#" class="fv2__social"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="fv2__cols">
+        <div class="fv2__col">
+          <div class="fv2__col-head">Services</div>
+          <a href="#" class="fv2__lnk">Accounting & Bookkeeping</a>
+          <a href="#" class="fv2__lnk">Tax Consultancy</a>
+          <a href="#" class="fv2__lnk">Audit Support</a>
+          <a href="#" class="fv2__lnk">Business Consultancy</a>
+          <a href="#" class="fv2__lnk">Company Formation</a>
+          <a href="#" class="fv2__lnk">PRO Services</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Company</div>
+          <a href="#" class="fv2__lnk">About Us</a>
+          <a href="#" class="fv2__lnk">Our Approach</a>
+          <a href="#" class="fv2__lnk">Industries</a>
+          <a href="#" class="fv2__lnk">Contact</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Get In Touch</div>
+          <p class="fv2__addr">B.C. 1306233, Ajman Free Zone C1 Building, Ajman Free Zone, Ajman, UAE</p>
+          <a href="mailto:info@visionvibeconsulting.com" class="fv2__lnk">info@visionvibeconsulting.com</a>
+          <a href="tel:+971525147440" class="fv2__lnk">+971 52 514 7440</a>
+          <a href="#" class="fv2__cta">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="fv2__bottom">
+      <span class="fv2__copy">© 2025 Vision Vibe Management Consulting FZC. All rights reserved.</span>
+      <div class="fv2__legal">
+        <a href="#" class="fv2__legal-lnk">Privacy Policy</a>
+        <a href="#" class="fv2__legal-lnk">Terms of Use</a>
+        <a href="#" class="fv2__legal-lnk">Cookie Policy</a>
+      </div>
+      <span class="fv2__region">UAE · GCC · MENA</span>
+    </div>
+  </footer>
+
+  <!-- ─── CURSOR SCRIPT ─── -->
+  <script>
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    });
+    
+    document.body.style.cursor = 'none';
+    
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      el.style.cursor = 'none';
+    });
+  </script>
+
+</body>
+</html>

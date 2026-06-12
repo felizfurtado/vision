@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Contact Us • Vision Vibe Management Consulting FZC</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+    body { background:#080e14; color:#fff; line-height:1.5; -webkit-font-smoothing:antialiased; cursor: none; }
+    img { width:100%; display:block; object-fit:cover; }
+    .container { width:90%; max-width:1400px; margin:auto; position:relative; z-index:2; }
+    
+    /* Grid Background */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Squares */
+    .square {
+      position: fixed;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.01);
+      backdrop-filter: blur(20px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .s1 { width: 100px; height: 100px; top: 12%; left: 4%; }
+    .s2 { width: 160px; height: 160px; top: 18%; right: 5%; }
+    .s3 { width: 80px; height: 80px; top: 45%; left: 8%; }
+    .s4 { width: 140px; height: 140px; top: 55%; right: 12%; }
+    .s5 { width: 60px; height: 60px; top: 72%; left: 3%; }
+    .s6 { width: 110px; height: 110px; top: 78%; right: 6%; }
+    .s7 { width: 90px; height: 90px; top: 88%; left: 15%; }
+    .s8 { width: 130px; height: 130px; top: 92%; right: 20%; }
+
+    /* Custom Cursor */
+    #cursor { width: 12px; height: 12px; border-radius: 50%; background: #2ecc71; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.08s, width 0.25s, height 0.25s; }
+    #cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(46,204,113,0.5); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s; }
+    
+    a:hover ~ #cursor, button:hover ~ #cursor { width: 24px; height: 24px; background: #27ae60; }
+    a:hover ~ #cursor-ring, button:hover ~ #cursor-ring { width: 48px; height: 48px; border-color: rgba(46,204,113,0.8); }
+    
+    /* Header */
+    header { position:absolute; width:100%; z-index:10; padding:30px 0; }
+    .nav { display:flex; justify-content:space-between; align-items:center; }
+    .right-nav { display:flex; gap:15px; align-items:center; }
+    .talk-btn { background:#2ecc71; color:#080e14; border:none; padding:14px 30px; border-radius:50px; cursor:pointer; font-weight:600; font-size:14px; transition:0.3s ease; }
+    .talk-btn:hover { background:#27ae60; }
+    .menu-btn { width:50px; height:50px; border-radius:50%; background:#2ecc71; color:#080e14; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; transition:0.3s ease; }
+    .menu-btn:hover { background:#27ae60; }
+
+    /* Page Hero */
+    .page-hero { min-height: 45vh; position: relative; overflow: hidden; background: #080e14; display: flex; align-items: flex-end; padding-bottom: 60px; }
+    .page-hero-image { position: absolute; inset: 0; opacity: 0.2; }
+    .page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-title { font-size: 4.5vw; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; letter-spacing: -0.5px; }
+    .page-hero-breadcrumb { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    .page-hero-breadcrumb a { color: #2ecc71; text-decoration: none; }
+
+    /* Contact Section */
+    .contact-page { padding: 100px 0; position: relative; z-index: 1; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    /* Contact Info Cards */
+    .contact-info h2 {
+      font-size: 32px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .contact-info h2 em {
+      color: #2ecc71;
+      font-style: normal;
+    }
+    .contact-info > p {
+      color: rgba(255,255,255,0.5);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 40px;
+    }
+    .info-card {
+      background: #080e14;
+      padding: 28px 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: background 0.3s;
+    }
+    .info-card:hover {
+      background: #0a1219;
+    }
+    .info-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(46,204,113,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #2ecc71;
+      flex-shrink: 0;
+    }
+    .info-content h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .info-content p, .info-content a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .info-content a:hover {
+      color: #2ecc71;
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .social-link:hover {
+      border-color: #2ecc71;
+      color: #2ecc71;
+      background: rgba(46,204,113,0.05);
+    }
+
+    /* Contact Form */
+    .contact-form-wrapper {
+      background: #080e14;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 48px 40px;
+    }
+    .contact-form-wrapper h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .form-sub {
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 18px;
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #2ecc71;
+      background: rgba(46,204,113,0.05);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .submit-btn {
+      background: #2ecc71;
+      color: #080e14;
+      border: none;
+      padding: 16px 32px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .submit-btn:hover {
+      background: #27ae60;
+    }
+
+    /* Map Section */
+    .map-section { padding: 0 0 100px; position: relative; z-index: 1; }
+    .map-container {
+      width: 100%;
+      height: 450px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      filter: grayscale(0.5) invert(0.9) brightness(0.8);
+    }
+
+    /* FAQ Section */
+    .faq-section { padding: 80px 0; position: relative; z-index: 1; background: rgba(46,204,113,0.02); }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2ecc71; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; }
+    .section-eyebrow::before, .section-eyebrow::after { content: ''; width: 40px; height: 1px; background: #2ecc71; opacity: 0.5; }
+    .section-headline { font-size: 2.5vw; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.1; letter-spacing: -0.5px; }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .faq-item {
+      background: #080e14;
+      padding: 32px 30px;
+    }
+    .faq-question {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-question i {
+      color: #2ecc71;
+      font-size: 14px;
+    }
+    .faq-answer {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      padding-left: 26px;
+    }
+
+    /* CTA */
+    .cta-section { padding: 80px 0; position: relative; z-index: 1; text-align: center; }
+    .cta-inner { max-width: 700px; margin: 0 auto; }
+    .cta-headline { font-size: clamp(28px, 3.5vw, 40px); font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 20px; }
+    .cta-headline em { color: #2ecc71; font-style: normal; }
+
+    /* Footer */
+    .footer-v2 { background: #080e14; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+    .fv2__top { padding: 70px 0 50px; max-width: 1400px; margin: 0 auto; width: 90%; display: grid; grid-template-columns: 280px 1fr; gap: 70px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .fv2__brand h3 { color: #2ecc71; font-size: 20px; margin-bottom: 16px; }
+    .fv2__tagline { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.8; margin-bottom: 24px; }
+    .fv2__socials { display: flex; gap: 10px; }
+    .fv2__social { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); transition: all 0.2s; text-decoration: none; font-size: 15px; }
+    .fv2__social:hover { border-color: #2ecc71; color: #2ecc71; }
+    .fv2__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .fv2__col { display: flex; flex-direction: column; gap: 10px; }
+    .fv2__col-head { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 8px; }
+    .fv2__lnk { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); transition: color 0.2s; text-decoration: none; }
+    .fv2__lnk:hover { color: #fff; }
+    .fv2__addr { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    .fv2__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #2ecc71; text-decoration: none; }
+    .fv2__bottom { max-width: 1400px; margin: 0 auto; width: 90%; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .fv2__copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+    .fv2__legal { display: flex; gap: 24px; }
+    .fv2__legal-lnk { font-size: 11px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .fv2__legal-lnk:hover { color: rgba(255,255,255,0.55); }
+    .fv2__region { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .square, #cursor, #cursor-ring { display: none; }
+      body, * { cursor: auto !important; }
+      .page-hero-title { font-size: 10vw; }
+      .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .contact-form-wrapper { padding: 32px 24px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .section-headline { font-size: 8vw; }
+      .fv2__top { grid-template-columns: 1fr; gap: 40px; }
+      .fv2__cols { grid-template-columns: 1fr; gap: 32px; }
+      .fv2__bottom { flex-direction: column; text-align: center; gap: 12px; }
+      .info-card { padding: 20px 24px; }
+      .map-container { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-overlay"></div>
+  <div class="square s1"></div><div class="square s2"></div><div class="square s3"></div>
+  <div class="square s4"></div><div class="square s5"></div><div class="square s6"></div>
+  <div class="square s7"></div><div class="square s8"></div>
+
+  <div id="cursor"></div><div id="cursor-ring"></div>
+
+  <header>
+    <div class="container nav">
+      <div class="logo"><img src="img.png" alt="Vision Vibe Management" style="height:70px; width:100px; display:block;"></div>
+      <div class="right-nav">
+        <button class="talk-btn">Get Free Consultation</button>
+        <div class="menu-btn"><i class="fas fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-image">
+      <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?q=80&w=2074&auto=format&fit=crop" alt="Contact Us">
+    </div>
+    <div class="container page-hero-content">
+      <h1 class="page-hero-title">Contact Us</h1>
+      <div class="page-hero-breadcrumb"><a href="#">Home</a> / <span>Contact</span></div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-page">
+    <div class="container">
+      <div class="contact-grid">
+        
+        <!-- Left Side - Contact Info -->
+        <div class="contact-info">
+          <h2>Let's Talk <em>Business</em></h2>
+          <p>Have questions? Ready to get started? Our team is here to help. Reach out to us through any of the channels below.</p>
+          
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="info-content">
+                <h4>Visit Us</h4>
+                <p>B.C. 1306233, Ajman Free Zone C1 Building<br>Ajman Free Zone, Ajman, UAE</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+              <div class="info-content">
+                <h4>Call Us</h4>
+                <p><a href="tel:+971525147440">+971 52 514 7440</a></p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon"><i class="fas fa-envelope"></i></div>
+              <div class="info-content">
+                <h4>Email Us</h4>
+                <p><a href="mailto:info@visionvibeconsulting.com">info@visionvibeconsulting.com</a></p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon"><i class="fas fa-clock"></i></div>
+              <div class="info-content">
+                <h4>Working Hours</h4>
+                <p>Sunday - Thursday: 9:00 AM - 6:00 PM<br>Friday - Saturday: By Appointment</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Right Side - Contact Form -->
+        <div class="contact-form-wrapper">
+          <h3>Send Us a Message</h3>
+          <p class="form-sub">We'll get back to you within 24 hours</p>
+          
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" placeholder="Full Name *">
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Email Address *">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <input type="tel" placeholder="Phone Number">
+              </div>
+              <div class="form-group">
+                <select>
+                  <option value="">Select Service</option>
+                  <option>Accounting & Bookkeeping</option>
+                  <option>Tax Consultancy</option>
+                  <option>Audit Support</option>
+                  <option>Business Consultancy</option>
+                  <option>Company Formation</option>
+                  <option>PRO Services</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea rows="5" placeholder="Your Message *"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14429.823457486456!2d55.473768!3d25.411889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f68b3b4c4b4f%3A0x8c2c5f8c4c4f4c4!2sAjman%20Free%20Zone!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">FAQs</div>
+        <h2 class="section-headline">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> What services do you offer?</div>
+          <div class="faq-answer">We offer Accounting & Bookkeeping, Tax Consultancy (VAT & Corporate Tax), Audit Support, Business Consultancy, Company Formation, and PRO Services across the UAE.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> Are you licensed in the UAE?</div>
+          <div class="faq-answer">Yes, we are fully licensed and registered with Ajman Free Zone, authorized to operate across all emirates of the UAE.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> How quickly can you respond to inquiries?</div>
+          <div class="faq-answer">We typically respond within 24 hours. For urgent matters, please call us directly at +971 52 514 7440.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> Do you offer free consultation?</div>
+          <div class="faq-answer">Yes, we offer a free initial consultation to understand your business needs and recommend the right solutions.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> Which industries do you serve?</div>
+          <div class="faq-answer">We serve trading, retail, real estate, hospitality, manufacturing, technology, professional services, and startups/SMEs.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-chevron-right"></i> Do you serve clients outside the UAE?</div>
+          <div class="faq-answer">Yes, we serve clients across the GCC, MENA region, and globally with remote advisory services.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-headline">Ready to <em>Grow Your Business?</em></h2>
+        <a href="#" class="submit-btn" style="width: auto; margin: 0 auto; display: inline-flex;">Schedule Free Consultation <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-v2">
+    <div class="fv2__top">
+      <div class="fv2__brand">
+        <h3>VISION VIBE MANAGEMENT CONSULTING FZC</h3>
+        <p class="fv2__tagline">Empowering businesses across the UAE with expert financial, tax, and advisory solutions.</p>
+        <div class="fv2__socials">
+          <a href="#" class="fv2__social"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="fv2__cols">
+        <div class="fv2__col">
+          <div class="fv2__col-head">Services</div>
+          <a href="#" class="fv2__lnk">Accounting & Bookkeeping</a>
+          <a href="#" class="fv2__lnk">Tax Consultancy</a>
+          <a href="#" class="fv2__lnk">Audit Support</a>
+          <a href="#" class="fv2__lnk">Business Consultancy</a>
+          <a href="#" class="fv2__lnk">Company Formation</a>
+          <a href="#" class="fv2__lnk">PRO Services</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Company</div>
+          <a href="#" class="fv2__lnk">About Us</a>
+          <a href="#" class="fv2__lnk">Our Approach</a>
+          <a href="#" class="fv2__lnk">Industries</a>
+          <a href="#" class="fv2__lnk">Contact</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Get In Touch</div>
+          <p class="fv2__addr">B.C. 1306233, Ajman Free Zone C1 Building, Ajman Free Zone, Ajman, UAE</p>
+          <a href="mailto:info@visionvibeconsulting.com" class="fv2__lnk">info@visionvibeconsulting.com</a>
+          <a href="tel:+971525147440" class="fv2__lnk">+971 52 514 7440</a>
+          <a href="#" class="fv2__cta">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="fv2__bottom">
+      <span class="fv2__copy">© 2025 Vision Vibe Management Consulting FZC. All rights reserved.</span>
+      <div class="fv2__legal">
+        <a href="#" class="fv2__legal-lnk">Privacy Policy</a>
+        <a href="#" class="fv2__legal-lnk">Terms of Use</a>
+        <a href="#" class="fv2__legal-lnk">Cookie Policy</a>
+      </div>
+      <span class="fv2__region">UAE · GCC · MENA</span>
+    </div>
+  </footer>
+
+</body>
+</html>

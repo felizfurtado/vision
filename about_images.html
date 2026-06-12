@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>About Us • Vision Vibe Management Consulting FZC</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+    body { background:#080e14; color:#fff; line-height:1.5; -webkit-font-smoothing:antialiased; cursor: none; }
+    img { width:100%; display:block; object-fit:cover; }
+    .container { width:90%; max-width:1400px; margin:auto; position:relative; z-index:2; }
+    
+    /* Grid Background */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Squares */
+    .square {
+      position: fixed;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.01);
+      backdrop-filter: blur(20px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .s1 { width: 100px; height: 100px; top: 12%; left: 4%; }
+    .s2 { width: 160px; height: 160px; top: 18%; right: 5%; }
+    .s3 { width: 80px; height: 80px; top: 45%; left: 8%; }
+    .s4 { width: 140px; height: 140px; top: 55%; right: 12%; }
+    .s5 { width: 60px; height: 60px; top: 72%; left: 3%; }
+    .s6 { width: 110px; height: 110px; top: 78%; right: 6%; }
+    .s7 { width: 90px; height: 90px; top: 88%; left: 15%; }
+    .s8 { width: 130px; height: 130px; top: 92%; right: 20%; }
+
+    /* Custom Cursor */
+    #cursor { width: 12px; height: 12px; border-radius: 50%; background: #2ecc71; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.08s, width 0.25s, height 0.25s; }
+    #cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(46,204,113,0.5); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s; }
+    
+    a:hover ~ #cursor, button:hover ~ #cursor { width: 24px; height: 24px; background: #27ae60; }
+    a:hover ~ #cursor-ring, button:hover ~ #cursor-ring { width: 48px; height: 48px; border-color: rgba(46,204,113,0.8); }
+    
+    /* Header */
+    header { position:absolute; width:100%; z-index:10; padding:30px 0; }
+    .nav { display:flex; justify-content:space-between; align-items:center; }
+    .right-nav { display:flex; gap:15px; align-items:center; }
+    .talk-btn { background:#2ecc71; color:#080e14; border:none; padding:14px 30px; border-radius:50px; cursor:pointer; font-weight:600; font-size:14px; transition:0.3s ease; }
+    .talk-btn:hover { background:#27ae60; }
+    .menu-btn { width:50px; height:50px; border-radius:50%; background:#2ecc71; color:#080e14; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; transition:0.3s ease; }
+    .menu-btn:hover { background:#27ae60; }
+
+    /* Page Hero */
+    .page-hero { min-height: 50vh; position: relative; overflow: hidden; background: #080e14; display: flex; align-items: flex-end; padding-bottom: 80px; }
+    .page-hero-image { position: absolute; inset: 0; opacity: 0.25; }
+    .page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-title { font-size: 4.5vw; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; letter-spacing: -0.5px; text-shadow: 0 5px 25px rgba(0,0,0,0.5); }
+    .page-hero-breadcrumb { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    .page-hero-breadcrumb a { color: #2ecc71; text-decoration: none; }
+
+    /* About Story Section */
+    .about-story { padding: 100px 0; position: relative; z-index: 1; }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .story-left { position: relative; }
+    .story-image-wrap { position: relative; border-radius: 4px; overflow: hidden; }
+    .story-image-wrap img { width: 100%; height: 520px; object-fit: cover; transition: transform 0.5s ease; }
+    .story-image-wrap:hover img { transform: scale(1.02); }
+    .story-badge { position: absolute; bottom: -20px; right: -20px; background: #080e14; border: 1px solid rgba(46,204,113,0.3); padding: 28px 32px; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+    .story-badge .badge-years { font-family: 'Teko', sans-serif; font-size: 64px; font-weight: 600; color: #2ecc71; line-height: 1; letter-spacing: -2px; }
+    .story-badge .badge-text { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 6px; }
+    .story-right { padding-left: 20px; }
+    .story-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2ecc71; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .story-eyebrow::after { content: ''; width: 40px; height: 1px; background: #2ecc71; opacity: 0.5; }
+    .story-headline { font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 28px; color: #fff; }
+    .story-headline em { color: #2ecc71; font-style: normal; }
+    .story-description { color: rgba(255,255,255,0.6); line-height: 1.85; font-size: 15px; margin-bottom: 32px; }
+    .service-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+    .service-tag { background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.2); padding: 8px 18px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.8); border-radius: 30px; transition: all 0.3s; }
+    .service-tag:hover { background: rgba(46,204,113,0.15); border-color: rgba(46,204,113,0.4); }
+    .about-cta { display: inline-flex; align-items: center; gap: 10px; background: #2ecc71; color: #080e14; text-decoration: none; padding: 14px 32px; font-weight: 700; font-size: 13px; letter-spacing: 0.5px; transition: 0.3s ease; border-radius: 4px; }
+    .about-cta:hover { background: #27ae60; gap: 15px; }
+
+    /* Mission Vision Section - Enhanced */
+    .mv-section { padding: 80px 0; position: relative; z-index: 1; background: rgba(46,204,113,0.02); }
+    .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .mv-card { background: #080e14; padding: 56px 48px; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; }
+    .mv-card:hover { transform: translateY(-8px); border-color: rgba(46,204,113,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .mv-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 60px; background: #2ecc71; }
+    .mv-icon { width: 70px; height: 70px; background: rgba(46,204,113,0.1); display: flex; align-items: center; justify-content: center; font-size: 32px; color: #2ecc71; margin-bottom: 28px; border-radius: 4px; }
+    .mv-card h3 { font-family: 'Teko', sans-serif; font-size: 32px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 20px; color: #fff; }
+    .mv-card p { color: rgba(255,255,255,0.5); font-size: 15px; line-height: 1.8; }
+
+    /* Team Section - Enhanced with Images */
+    .team-section { padding: 100px 0; position: relative; z-index: 1; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2ecc71; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; }
+    .section-eyebrow::before, .section-eyebrow::after { content: ''; width: 40px; height: 1px; background: #2ecc71; opacity: 0.5; }
+    .section-headline { font-size: 3.2vw; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.1; letter-spacing: -0.5px; }
+    .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto; }
+    .team-card { background: #080e14; padding: 40px; text-align: center; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
+    .team-card:hover { transform: translateY(-8px); border-color: rgba(46,204,113,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .team-avatar { width: 140px; height: 140px; margin: 0 auto 28px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(46,204,113,0.3); transition: all 0.3s; }
+    .team-card:hover .team-avatar { border-color: #2ecc71; transform: scale(1.02); }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .team-name { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .team-title { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #2ecc71; margin-bottom: 20px; }
+    .team-divider { width: 50px; height: 2px; background: #2ecc71; margin: 20px auto; opacity: 0.4; }
+    .team-qual { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* Stats Bar - Enhanced */
+    .stats-bar { padding: 70px 0; border-top: 1px solid rgba(46,204,113,0.1); border-bottom: 1px solid rgba(46,204,113,0.1); background: rgba(46,204,113,0.02); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; text-align: center; }
+    .stat-item { transition: transform 0.3s; }
+    .stat-item:hover { transform: translateY(-5px); }
+    .stat-item .stat-number { font-family: 'Teko', sans-serif; font-size: 56px; font-weight: 600; color: #2ecc71; line-height: 1; }
+    .stat-item .stat-label { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 8px; }
+
+    /* Values Section - Enhanced */
+    .values-section { padding: 100px 0; position: relative; z-index: 1; }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); }
+    .value-item { background: #080e14; padding: 48px 32px; text-align: center; transition: all 0.3s; }
+    .value-item:hover { background: #0a1219; transform: scale(1.01); }
+    .value-icon { width: 60px; height: 60px; background: rgba(46,204,113,0.08); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 26px; color: #2ecc71; border-radius: 4px; transition: all 0.3s; }
+    .value-item:hover .value-icon { background: rgba(46,204,113,0.15); transform: scale(1.05); }
+    .value-item h4 { font-size: 16px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 12px; color: #fff; }
+    .value-item p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+    /* Office Image Section - NEW */
+    .office-section { padding: 0 0 100px; position: relative; z-index: 1; }
+    .office-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); }
+    .office-img { height: 280px; overflow: hidden; position: relative; }
+    .office-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .office-img:hover img { transform: scale(1.05); }
+    .office-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); opacity: 0; transition: opacity 0.3s; }
+    .office-img:hover::after { opacity: 1; }
+
+    /* CTA - Enhanced */
+    .cta-section { padding: 100px 0; position: relative; z-index: 1; text-align: center; background: rgba(46,204,113,0.02); }
+    .cta-inner { max-width: 700px; margin: 0 auto; }
+    .cta-headline { font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 24px; }
+    .cta-headline em { color: #2ecc71; font-style: normal; }
+    .cta-body { color: rgba(255,255,255,0.5); margin-bottom: 32px; font-size: 15px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: #2ecc71; color: #080e14; text-decoration: none; padding: 16px 36px; font-weight: 700; font-size: 14px; transition: 0.3s; border-radius: 4px; }
+    .cta-btn:hover { background: #27ae60; gap: 15px; }
+
+    /* Footer */
+    .footer-v2 { background: #080e14; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+    .fv2__top { padding: 70px 0 50px; max-width: 1400px; margin: 0 auto; width: 90%; display: grid; grid-template-columns: 280px 1fr; gap: 70px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .fv2__brand h3 { color: #2ecc71; font-size: 20px; margin-bottom: 16px; }
+    .fv2__tagline { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.8; margin-bottom: 24px; }
+    .fv2__socials { display: flex; gap: 10px; }
+    .fv2__social { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); transition: all 0.2s; text-decoration: none; font-size: 16px; }
+    .fv2__social:hover { border-color: #2ecc71; color: #2ecc71; background: rgba(46,204,113,0.05); transform: translateY(-3px); }
+    .fv2__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .fv2__col { display: flex; flex-direction: column; gap: 12px; }
+    .fv2__col-head { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 8px; }
+    .fv2__lnk { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); transition: color 0.2s; text-decoration: none; }
+    .fv2__lnk:hover { color: #fff; padding-left: 3px; }
+    .fv2__addr { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    .fv2__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #2ecc71; text-decoration: none; }
+    .fv2__cta:hover { gap: 12px; }
+    .fv2__bottom { max-width: 1400px; margin: 0 auto; width: 90%; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .fv2__copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+    .fv2__legal { display: flex; gap: 24px; }
+    .fv2__legal-lnk { font-size: 11px; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .fv2__legal-lnk:hover { color: rgba(255,255,255,0.55); }
+    .fv2__region { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .square, #cursor, #cursor-ring { display: none; }
+      body, * { cursor: auto !important; }
+      .page-hero-title { font-size: 10vw; }
+      .story-grid { grid-template-columns: 1fr; gap: 50px; }
+      .mv-grid { grid-template-columns: 1fr; gap: 20px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: 1fr; gap: 30px; }
+      .office-grid { grid-template-columns: 1fr; }
+      .fv2__top { grid-template-columns: 1fr; gap: 40px; }
+      .fv2__cols { grid-template-columns: 1fr; gap: 32px; }
+      .fv2__bottom { flex-direction: column; text-align: center; gap: 12px; }
+      .section-headline { font-size: 9vw; }
+      .story-badge { right: 0; bottom: 0; padding: 18px 24px; }
+      .mv-card, .team-card, .value-item { padding: 32px 24px; }
+      .story-image-wrap img { height: 350px; }
+      .team-avatar { width: 110px; height: 110px; }
+    }
+    @media (max-width: 600px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .service-list { justify-content: center; }
+      .story-right { text-align: center; padding-left: 0; }
+      .story-eyebrow { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-overlay"></div>
+  <div class="square s1"></div><div class="square s2"></div><div class="square s3"></div>
+  <div class="square s4"></div><div class="square s5"></div><div class="square s6"></div>
+  <div class="square s7"></div><div class="square s8"></div>
+
+  <div id="cursor"></div><div id="cursor-ring"></div>
+
+  <header>
+    <div class="container nav">
+      <div class="logo"><img src="img.png" alt="Vision Vibe Management" style="height:70px; width:100px; display:block;"></div>
+      <div class="right-nav">
+        <button class="talk-btn">Get Free Consultation</button>
+        <div class="menu-btn"><i class="fas fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero-image">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="About Us">
+    </div>
+    <div class="container page-hero-content">
+      <h1 class="page-hero-title">About Vision Vibe</h1>
+      <div class="page-hero-breadcrumb"><a href="#">Home</a> / <span>About Us</span></div>
+    </div>
+  </section>
+
+  <!-- Company Story -->
+  <section class="about-story">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-left">
+          <div class="story-image-wrap">
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" alt="Team meeting">
+            <div class="story-badge">
+              <div class="badge-years">20+</div>
+              <div class="badge-text">Years of Excellence</div>
+            </div>
+          </div>
+        </div>
+        <div class="story-right">
+          <div class="story-eyebrow">Who We Are</div>
+          <h2 class="story-headline">One Stop Solution for <em>Businesses Across the Globe</em></h2>
+          <p class="story-description">Vision Vibe Management Consulting Services FZC is a premier consulting firm headquartered in Ajman Free Zone, UAE. We serve clients across the Middle East, particularly the UAE, and around the world — offering end-to-end business solutions that simplify complexity and drive measurable growth.</p>
+          <div class="service-list">
+            <span class="service-tag">Business Set-up</span>
+            <span class="service-tag">Accounting & Bookkeeping</span>
+            <span class="service-tag">Auditing</span>
+            <span class="service-tag">VAT & Corporate Tax</span>
+            <span class="service-tag">Management Consulting</span>
+            <span class="service-tag">PRO Services</span>
+          </div>
+          <a href="#" class="about-cta">Work With Us <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="mv-section">
+    <div class="container">
+      <div class="mv-grid">
+        <div class="mv-card">
+          <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+          <h3>Our Mission</h3>
+          <p>To empower businesses in the UAE and globally with innovative, transparent, and results-driven consulting solutions that drive sustainable growth, operational excellence, and complete regulatory peace of mind.</p>
+        </div>
+        <div class="mv-card">
+          <div class="mv-icon"><i class="fas fa-eye"></i></div>
+          <h3>Our Vision</h3>
+          <p>To become the most trusted business consulting partner in the Middle East — recognized for integrity, deep expertise, and an unwavering commitment to client success at every stage of the business journey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Businesses Supported</div></div>
+        <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Years Combined Experience</div></div>
+        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Client Satisfaction</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leadership Team with Real Images -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Leadership</div>
+        <h2 class="section-headline">Meet Our Experts</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Haresh Kumar Balar">
+          </div>
+          <h3 class="team-name">Haresh Kumar Balar</h3>
+          <div class="team-title">CA, M.Com</div>
+          <div class="team-divider"></div>
+          <p class="team-qual">Chartered Accountant with extensive experience in auditing, taxation, and financial strategy across the UAE and international markets. Leads our audit & tax advisory practice with precision and deep regulatory insight.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sejal Balar">
+          </div>
+          <h3 class="team-name">Sejal Balar</h3>
+          <div class="team-title">M.Com</div>
+          <div class="team-divider"></div>
+          <p class="team-qual">Expert in business consulting, corporate compliance, and financial management. Drives client relationships with a hands-on approach, ensuring every business receives tailored, actionable solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office Images Gallery - NEW -->
+  <section class="office-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Workspace</div>
+        <h2 class="section-headline">Where Excellence Happens</h2>
+      </div>
+      <div class="office-grid">
+        <div class="office-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop" alt="Office">
+        </div>
+        <div class="office-img">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2070&auto=format&fit=crop" alt="Meeting Room">
+        </div>
+        <div class="office-img">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2070&auto=format&fit=crop" alt="Team Area">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">What Drives Us</div>
+        <h2 class="section-headline">Our Core Values</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-item"><div class="value-icon"><i class="fas fa-handshake"></i></div><h4>Integrity</h4><p>Uncompromising honesty and transparency in every client interaction.</p></div>
+        <div class="value-item"><div class="value-icon"><i class="fas fa-chart-line"></i></div><h4>Excellence</h4><p>Delivering superior quality and measurable results consistently.</p></div>
+        <div class="value-item"><div class="value-icon"><i class="fas fa-users"></i></div><h4>Client Partnership</h4><p>We grow alongside our clients, celebrating their success as our own.</p></div>
+        <div class="value-item"><div class="value-icon"><i class="fas fa-lightbulb"></i></div><h4>Innovation</h4><p>Forward-thinking solutions that adapt to changing business landscapes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-headline">Ready to Work With <em>Industry Experts?</em></h2>
+        <p class="cta-body">Let's discuss how Vision Vibe can help your business scale with confidence. Schedule your free consultation today.</p>
+        <a href="#" class="cta-btn">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-v2">
+    <div class="fv2__top">
+      <div class="fv2__brand">
+        <h3>VISION VIBE MANAGEMENT CONSULTING FZC</h3>
+        <p class="fv2__tagline">Empowering businesses across the UAE with expert financial, tax, and advisory solutions.</p>
+        <div class="fv2__socials">
+          <a href="#" class="fv2__social"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="fv2__social"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="fv2__cols">
+        <div class="fv2__col">
+          <div class="fv2__col-head">Services</div>
+          <a href="#" class="fv2__lnk">Accounting & Bookkeeping</a>
+          <a href="#" class="fv2__lnk">Tax Consultancy</a>
+          <a href="#" class="fv2__lnk">Audit Support</a>
+          <a href="#" class="fv2__lnk">Business Consultancy</a>
+          <a href="#" class="fv2__lnk">Company Formation</a>
+          <a href="#" class="fv2__lnk">PRO Services</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Company</div>
+          <a href="#" class="fv2__lnk">About Us</a>
+          <a href="#" class="fv2__lnk">Our Approach</a>
+          <a href="#" class="fv2__lnk">Industries</a>
+          <a href="#" class="fv2__lnk">Contact</a>
+        </div>
+        <div class="fv2__col">
+          <div class="fv2__col-head">Get In Touch</div>
+          <p class="fv2__addr">B.C. 1306233, Ajman Free Zone C1 Building, Ajman Free Zone, Ajman, UAE</p>
+          <a href="mailto:info@visionvibeconsulting.com" class="fv2__lnk">info@visionvibeconsulting.com</a>
+          <a href="tel:+971525147440" class="fv2__lnk">+971 52 514 7440</a>
+          <a href="#" class="fv2__cta">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="fv2__bottom">
+      <span class="fv2__copy">© 2025 Vision Vibe Management Consulting FZC. All rights reserved.</span>
+      <div class="fv2__legal">
+        <a href="#" class="fv2__legal-lnk">Privacy Policy</a>
+        <a href="#" class="fv2__legal-lnk">Terms of Use</a>
+        <a href="#" class="fv2__legal-lnk">Cookie Policy</a>
+      </div>
+      <span class="fv2__region">UAE · GCC · MENA</span>
+    </div>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    });
+    
+    document.body.style.cursor = 'none';
+    
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      el.style.cursor = 'none';
+    });
+  </script>
+
+</body>
+</html>
