@@ -490,6 +490,52 @@
       }
     }
   </style>
+
+  <style>
+  /* Force consistent dark background on mobile - NO transparency */
+  @media (max-width: 768px) {
+    body, 
+    .hero, 
+    .footer-v2,
+    .about-section,
+    .section,
+    .why-section,
+    .industries-section,
+    .process-section,
+    .stats-section,
+    .cta-section {
+      background: #0a1622 !important;
+    }
+    
+    /* Hide grid overlay on mobile - it causes visual inconsistency */
+    .grid-overlay {
+      display: none !important;
+    }
+    
+    /* Force all cards to solid background */
+    .service-card,
+    .why-cell,
+    .ind-item,
+    .proc-step,
+    .stat-card,
+    .cta-feature,
+    .about-pillar,
+    .float-card {
+      background: #0a1622 !important;
+    }
+    
+    /* Remove any backdrop-filter blur that might show differently */
+    .float-card {
+      backdrop-filter: none !important;
+      background: #0a1622 !important;
+    }
+    
+    /* Ensure hero image overlay is consistent */
+    .hero-image::after {
+      background: linear-gradient(180deg, rgba(5,11,15,0.4) 0%, #0a1622 100%) !important;
+    }
+  }
+</style>
 </head>
 <body>
 
