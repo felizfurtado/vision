@@ -6,9 +6,10 @@
   <title>Vision Vibe | Strategic Business Consulting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* ----- RESET & BASE ----- */
     * {
       margin: 0;
       padding: 0;
@@ -18,8 +19,6 @@
     :root {
       --navy: #0A1A2F;
       --midnight: #102C57;
-      --royal: #0A1A2F;     
-      --sapphire: #102C57;   
       --gold: #D4AF37;
       --gold-soft: #E6C56A;
       --white: #FFFFFF;
@@ -35,36 +34,53 @@
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--white);
-      color: var(--gray-800);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+
+
+  body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--white);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100"><path d="M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z" fill="none" stroke="%23CBD5E1" stroke-width="1"/><path d="M28 66 L56 82 L56 116 L28 132 L0 116 L0 82 Z" fill="none" stroke="%23CBD5E1" stroke-width="1"/></svg>');
+background-size: 56px 100px;
+  color: var(--gray-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 56px;
+      width: 100%;
     }
 
-    /* ---------- CLEAN WHITE BACKGROUND: Removed chess pattern, keeping pure white ---------- */
-    /* All sections have clean white background with subtle soft shadows & borders */
+    /* ----- REVEAL ----- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.05s; }
+    .reveal-d2 { transition-delay: 0.1s; }
+    .reveal-d3 { transition-delay: 0.15s; }
 
-    /* Navigation */
+    /* ----- NAV ----- */
     .nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 90px;
+      height: 80px;
       z-index: 1000;
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--gray-200);
-      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+      transition: background 0.3s, box-shadow 0.3s;
     }
     .nav.scrolled {
       background: var(--white);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 0 var(--gray-200);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
     }
     .nav-inner {
       display: flex;
@@ -77,22 +93,15 @@
       font-weight: 800;
       font-size: 26px;
       color: var(--navy);
-      letter-spacing: -0.5px;
       display: flex;
       align-items: center;
       gap: 8px;
       text-decoration: none;
     }
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      display: inline-block;
-    }
+    .logo img { height: 52px; width: auto; }
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 36px;
       align-items: center;
       list-style: none;
     }
@@ -102,15 +111,26 @@
       font-size: 15px;
       font-weight: 500;
       transition: color 0.2s;
+      position: relative;
     }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--navy);
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
     }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover { color: var(--navy); }
     .nav-cta {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 11px 26px;
+      padding: 10px 26px;
       border-radius: 100px;
       background: var(--navy);
       color: var(--white);
@@ -118,40 +138,35 @@
       font-weight: 600;
       text-decoration: none;
       transition: background 0.25s, transform 0.25s;
-      white-space: nowrap;
     }
-    .nav-cta:hover {
-      background: var(--midnight);
-      transform: translateY(-1px);
-    }
+    .nav-cta:hover { background: var(--midnight); transform: translateY(-2px); }
     .hamburger {
       display: none;
       flex-direction: column;
       justify-content: space-between;
       width: 28px;
       height: 20px;
-      cursor: pointer;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
     .hamburger span {
       width: 100%;
       height: 2px;
-      background-color: var(--navy);
+      background: var(--navy);
       border-radius: 2px;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
     .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
     .mobile-menu {
       position: fixed;
-      top: 90px;
+      top: 80px;
       left: 0;
       width: 100%;
-      height: calc(100vh - 90px);
+      height: calc(100vh - 80px);
       background: var(--white);
-      backdrop-filter: blur(20px);
       z-index: 999;
       transform: translateX(100%);
       transition: transform 0.4s var(--ease);
@@ -162,7 +177,7 @@
       padding: 48px 32px;
       gap: 32px;
       visibility: hidden;
-      box-shadow: -4px 0 30px rgba(0, 0, 0, 0.05);
+      box-shadow: -4px 0 30px rgba(0,0,0,0.05);
     }
     .mobile-menu.active {
       transform: translateX(0);
@@ -174,14 +189,13 @@
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
     }
     .mobile-menu ul li a {
       text-decoration: none;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       color: var(--navy);
-      transition: color 0.2s;
     }
     .mobile-menu ul li a:hover { color: var(--gold); }
     .mobile-cta {
@@ -197,52 +211,60 @@
       text-decoration: none;
     }
 
-    /* Container */
-    .container {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 0 56px;
-      width: 100%;
-    }
-
-    /* Hero Section - Pure white background with subtle gradient accent */
+    /* ----- HERO (clean white with chess texture) ----- */
     .hero {
       min-height: 100vh;
       height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 60px;
-      background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFE 100%);
+      padding-top: 80px;
+      /* background: linear-gradient(160deg, #FFFFFF 0%, #F8FAFC 100%); */
       position: relative;
-      z-index: 1;
     }
+
+    /* Chess texture overlay */
     .hero::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 90% 20%, rgba(10,26,47,0.02) 0%, transparent 60%);
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="%23ffffff"/><rect width="30" height="30" fill="%23f1f5f9" fill-opacity="0.4"/><rect x="30" y="30" width="30" height="30" fill="%23f1f5f9" fill-opacity="0.4"/></svg>');
+      background-size: 60px 60px;
+      opacity: 0.6;
+      z-index: 0;
       pointer-events: none;
     }
+
+    /* Subtle chess piece silhouettes */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="20" y="80" font-size="70" opacity="0.04" fill="%230A1A2F">♔</text><text x="120" y="140" font-size="90" opacity="0.05" fill="%23102C57">♛</text><text x="70" y="170" font-size="60" opacity="0.03" fill="%23D4AF37">♜</text></svg>');
+      background-size: 350px 350px;
+      background-position: 10% 20%, 80% 60%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 0.72fr;
+      grid-template-columns: 1fr 0.8fr;
       gap: 64px;
       align-items: center;
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
     .hero-left {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
     }
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 2.5px;
@@ -250,21 +272,28 @@
       color: var(--navy);
     }
     .eyebrow-line {
-      width: 24px;
-      height: 1.5px;
+      width: 28px;
+      height: 2px;
       background: var(--gold);
     }
     .hero-heading {
       font-family: 'Manrope', sans-serif;
       font-weight: 800;
-      font-size: 74px;
+      font-size: 68px;
       line-height: 1.04;
       letter-spacing: -0.04em;
       color: var(--navy);
     }
-    .hero-heading em { font-style: normal; color: var(--midnight); background: linear-gradient(120deg, var(--midnight), var(--navy)); background-clip: text; -webkit-background-clip: text; color: var(--midnight); }
+    .hero-heading em {
+      font-style: normal;
+      color: var(--midnight);
+      background: linear-gradient(120deg, var(--midnight), var(--navy));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: var(--midnight);
+    }
     .hero-body {
-      font-size: 19px;
+      font-size: 18px;
       line-height: 1.7;
       color: var(--gray-600);
       max-width: 520px;
@@ -289,30 +318,27 @@
     .btn-primary {
       background: var(--navy);
       color: var(--white);
-      box-shadow: 0 8px 22px -8px rgba(10, 26, 47, 0.3);
+      box-shadow: 0 8px 22px -8px rgba(10,26,47,0.3);
     }
     .btn-primary:hover {
       background: var(--midnight);
       transform: translateY(-2px);
-      box-shadow: 0 14px 26px -8px rgba(10, 26, 47, 0.4);
+      box-shadow: 0 14px 26px -8px rgba(10,26,47,0.4);
     }
     .btn-ghost {
       background: var(--white);
       color: var(--navy);
       border: 1.5px solid var(--gray-200);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
     .btn-ghost:hover {
       border-color: var(--gold);
-      background: var(--white);
       transform: translateY(-2px);
-      border-color: var(--gold);
     }
     .play-icon {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(10, 26, 47, 0.06);
+      background: rgba(10,26,47,0.06);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -326,7 +352,7 @@
       border-radius: 28px;
       overflow: hidden;
       background: var(--gray-100);
-      box-shadow: 0 25px 45px -12px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 45px -12px rgba(0,0,0,0.18);
     }
     .hero-img-inner {
       width: 100%;
@@ -338,27 +364,31 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(10, 26, 47, 0.2), rgba(16, 44, 87, 0.05));
+      background: linear-gradient(135deg, rgba(10,26,47,0.15), rgba(16,44,87,0.05));
       border-radius: 28px;
     }
     .hero-img-label {
       position: absolute;
-      bottom: 32px;
+      bottom: 28px;
       left: 0;
       right: 0;
       text-align: center;
       z-index: 3;
     }
-    .hero-img-label span:first-child {
+    .hero-img-label span {
       font-family: 'Manrope', sans-serif;
       font-weight: 800;
-      font-size: 22px;
+      font-size: 20px;
       color: rgba(255,255,255,0.95);
       text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      background: rgba(10,26,47,0.3);
+      padding: 6px 20px;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
     }
     .f-card {
       position: absolute;
-      background: rgba(255, 255, 255, 0.98);
+      background: rgba(255,255,255,0.98);
       backdrop-filter: blur(8px);
       border-radius: 18px;
       padding: 12px 18px;
@@ -368,7 +398,7 @@
       font-weight: 600;
       font-size: 14px;
       color: var(--navy);
-      border: 1px solid rgba(212,175,55,0.25);
+      border: 1px solid rgba(212,175,55,0.2);
       box-shadow: 0 18px 32px -12px rgba(10,26,47,0.12);
       white-space: nowrap;
     }
@@ -383,18 +413,59 @@
     .f-card-icon.gold { background: rgba(212,175,55,0.12); color: var(--gold); }
     .f-card-icon.navy { background: rgba(10,26,47,0.08); color: var(--navy); }
     .f-card-icon.midnight { background: rgba(16,44,87,0.08); color: var(--midnight); }
-    .fc-years { top: -16px; left: -36px; }
-    .fc-clients { bottom: 80px; right: -32px; }
-    .fc-satisfaction { bottom: -16px; left: 12px; }
+    .fc-years { top: -12px; left: -28px; }
+    .fc-clients { bottom: 80px; right: -28px; }
+    .fc-satisfaction { bottom: -12px; left: 12px; }
+    .f-card-sub { font-weight: 400; font-size: 12px; color: var(--gray-500); }
 
-    /* About Section - clean white background, subtle border radius */
+    /* ----- SECTION HEADER (shared) ----- */
+    .section-header {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto 56px auto;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(10,26,47,0.06);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .section-badge i { color: var(--gold); }
+    .section-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 44px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .section-title span {
+      color: var(--midnight);
+      border-bottom: 3px solid var(--gold);
+      display: inline-block;
+    }
+    .section-subtitle {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--gray-500);
+      max-width: 650px;
+      margin: 12px auto 0;
+    }
+
+    /* ----- ABOUT (dark navy) ----- */
     .about-section {
       padding: 80px 0;
-      background: var(--white);
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--gray-100);
-      border-bottom: 1px solid var(--gray-100);
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .about-grid {
       display: grid;
@@ -402,2404 +473,1263 @@
       gap: 64px;
       align-items: center;
     }
-    .about-left {
-      position: relative;
-    }
     .about-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--gray-100);
+      background: rgba(255,255,255,0.08);
       padding: 6px 16px;
       border-radius: 100px;
       font-size: 12px;
       font-weight: 600;
-      color: var(--navy);
+      color: var(--gold);
       margin-bottom: 24px;
     }
     .about-heading {
       font-family: 'Manrope', sans-serif;
       font-weight: 800;
-      font-size: 48px;
+      font-size: 44px;
       line-height: 1.2;
       letter-spacing: -0.02em;
-      color: var(--navy);
-      margin-bottom: 24px;
+      color: var(--white);
+      margin-bottom: 20px;
     }
     .about-heading span {
-      color: var(--midnight);
+      color: var(--gold);
       border-bottom: 3px solid var(--gold);
       display: inline-block;
     }
     .about-description {
-      color: var(--gray-600);
+      color: rgba(255,255,255,0.7);
       font-size: 17px;
       line-height: 1.7;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .about-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 24px;
-      margin: 32px 0 40px;
+      margin: 28px 0 32px;
     }
-    .stat-item {
-      text-align: left;
-    }
+    .stat-item { text-align: left; }
     .stat-number {
       font-family: 'Manrope', sans-serif;
-      font-size: 42px;
+      font-size: 40px;
       font-weight: 800;
-      color: var(--navy);
+      color: var(--gold);
       line-height: 1;
       letter-spacing: -0.02em;
     }
     .stat-label {
       font-size: 14px;
-      color: var(--gray-500);
-      margin-top: 8px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
     }
     .about-list {
       list-style: none;
-      margin-top: 20px;
+      margin-top: 16px;
     }
     .about-list li {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
-      color: var(--gray-700);
-      font-size: 16px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.8);
+      font-size: 15px;
     }
-    .about-list li i {
-      color: var(--gold);
-      font-size: 18px;
-      width: 24px;
-    }
-    .about-right {
-      position: relative;
-    }
+    .about-list li i { color: var(--gold); font-size: 18px; width: 24px; }
     .about-image {
       width: 100%;
       border-radius: 32px;
       overflow: hidden;
-      box-shadow: 0 30px 40px -20px rgba(10, 26, 47, 0.2);
-      background: var(--gray-100);
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
     }
     .about-image img {
       width: 100%;
-      height: auto;
       display: block;
       transition: transform 0.5s ease;
     }
-    .about-image:hover img {
-      transform: scale(1.02);
-    }
+    .about-image:hover img { transform: scale(1.02); }
     .about-card {
       position: absolute;
-      bottom: -30px;
-      left: -30px;
-      background: var(--white);
+      bottom: -24px;
+      left: -24px;
+      background: rgba(10,26,47,0.95);
+      backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 20px 24px;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+      padding: 18px 24px;
       border-left: 4px solid var(--gold);
-      backdrop-filter: blur(8px);
-      background: rgba(255,255,255,0.98);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: 4px solid var(--gold);
+      max-width: 260px;
     }
     .about-card p {
       font-weight: 600;
-      color: var(--navy);
-      font-size: 16px;
-      max-width: 220px;
+      color: var(--white);
+      font-size: 15px;
     }
     .about-card span {
       font-size: 13px;
-      color: var(--gray-500);
+      color: rgba(255,255,255,0.5);
       display: block;
+      margin-top: 6px;
+    }
+    .about-right { position: relative; }
+
+    /* ----- SERVICES (clean white) ----- */
+    .services-section {
+      padding: 80px 0;
+      background: var(--white);
+   
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 34px 28px;
+      border: 1px solid var(--gray-100);
+      transition: all 0.35s var(--ease);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,175,55,0.3);
+      box-shadow: 0 24px 40px -18px rgba(10,26,47,0.12);
+    }
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(10,26,47,0.04);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+    .service-icon i { font-size: 26px; color: var(--navy); }
+    .service-card:hover .service-icon {
+      background: rgba(212,175,55,0.12);
+    }
+    .service-card:hover .service-icon i { color: var(--gold); }
+    .service-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .service-description {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: 0.25s;
+    }
+    .service-link i { font-size: 12px; transition: transform 0.25s; }
+    .service-link:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .service-link:hover i { transform: translateX(4px); }
+
+    /* ----- WHY US (dark navy) ----- */
+    .why-us-section {
+      padding: 80px 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .why-us-section .section-title { color: var(--white); }
+    .why-us-section .section-title span { color: var(--gold); border-bottom-color: var(--gold); }
+    .why-us-section .section-subtitle { color: rgba(255,255,255,0.6); }
+    .why-us-section .section-badge {
+      background: rgba(255,255,255,0.08);
+      color: var(--gold);
+    }
+    .why-us-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 28px;
+    }
+    .why-us-card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 30px 24px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.35s var(--ease);
+    }
+    .why-us-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(212,175,55,0.3);
+    }
+    .why-us-icon {
+      width: 68px;
+      height: 68px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      transition: 0.3s;
+    }
+    .why-us-card:hover .why-us-icon {
+      background: rgba(212,175,55,0.15);
+      transform: scale(1.05);
+    }
+    .why-us-icon i { font-size: 30px; color: var(--gold); }
+    .why-us-card-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .why-us-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ----- TIMELINE (clean) ----- */
+    .how-we-work {
+      padding: 80px 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .timeline {
+      max-width: 1000px;
+      margin: 40px auto 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: calc(100% - 30px);
+      background: linear-gradient(180deg, rgba(212,175,55,0.2), var(--gold), rgba(212,175,55,0.2));
+      top: 15px;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 56px;
+      position: relative;
+    }
+    .timeline-item:nth-child(odd) { flex-direction: row; }
+    .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+    .timeline-content {
+      width: 45%;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 26px 30px;
+      border: 1px solid var(--gray-100);
+      box-shadow: 0 8px 24px -12px rgba(0,0,0,0.06);
+      transition: 0.35s var(--ease);
+    }
+    .timeline-item:nth-child(odd) .timeline-content { margin-right: auto; }
+    .timeline-item:nth-child(even) .timeline-content { margin-left: auto; }
+    .timeline-content:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,175,55,0.25);
+      box-shadow: 0 20px 32px -14px rgba(10,26,47,0.08);
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--navy);
+      border-radius: 60px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: white;
+      margin-bottom: 16px;
+      transition: 0.3s;
+    }
+    .timeline-content:hover .step-number {
+      background: var(--gold);
+      color: var(--navy);
+      transform: scale(1.05);
+    }
+    .step-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--gray-600);
+      margin-bottom: 14px;
+    }
+    .step-detail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .step-detail i { font-size: 12px; }
+    .timeline-node {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 30px;
+      z-index: 2;
+      box-shadow: 0 0 0 4px rgba(212,175,55,0.15);
+      transition: 0.3s;
+    }
+    .timeline-item:hover .timeline-node {
+      transform: translateX(-50%) scale(1.25);
+      background: var(--navy);
+      box-shadow: 0 0 0 6px rgba(212,175,55,0.2);
+    }
+
+    /* ----- TESTIMONIALS (clean) ----- */
+    .testimonials-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .trusted-bar {
+      margin: 0 0 48px 0;
+      text-align: center;
+    }
+    .trusted-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+    }
+    .logo-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 44px;
+      row-gap: 24px;
+    }
+    .logo-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.6;
+      transition: 0.25s;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+    }
+    .logo-item i { font-size: 26px; color: var(--gray-400); }
+    .logo-item:hover { opacity: 1; }
+    .logo-item:hover i { color: var(--gold); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 28px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 30px 28px;
+      border: 1px solid var(--gray-100);
+      transition: 0.35s var(--ease);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,175,55,0.2);
+      box-shadow: 0 20px 32px -14px rgba(10,26,47,0.06);
+    }
+    .quote-icon { font-size: 28px; color: rgba(212,175,55,0.3); margin-bottom: 16px; }
+    .rating { display: flex; gap: 4px; margin-bottom: 16px; }
+    .rating i { font-size: 13px; color: var(--gold); }
+    .rating i.fa-regular { color: var(--gray-300); }
+    .testimonial-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gray-700);
+      margin-bottom: 20px;
+    }
+    .client-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 18px;
+    }
+    .client-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 60px;
+      background: rgba(10,26,47,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .client-avatar i { font-size: 22px; color: var(--navy); }
+    .client-details h4 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+    }
+    .client-details p { font-size: 12px; color: var(--gray-500); }
+
+    /* ----- CONTACT (dark navy) ----- */
+    .contact-section {
+      padding: 80px 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .contact-section .section-title { color: var(--white); }
+    .contact-section .section-title span { color: var(--gold); border-bottom-color: var(--gold); }
+    .contact-section .section-subtitle { color: rgba(255,255,255,0.6); }
+    .contact-section .section-badge {
+      background: rgba(255,255,255,0.08);
+      color: var(--gold);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 16px;
+    }
+    .contact-info {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.3s;
+    }
+    .contact-info:hover { border-color: rgba(212,175,55,0.2); }
+    .contact-headline {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .contact-headline span { color: var(--gold); }
+    .contact-message {
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 28px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s;
+    }
+    .contact-icon i { font-size: 18px; color: var(--gold); }
+    .contact-item:hover .contact-icon {
+      background: rgba(212,175,55,0.15);
+      transform: scale(1.05);
+    }
+    .contact-text h4 {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--white);
+    }
+    .contact-text p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+    }
+    .social-links {
+      display: flex;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .social-link {
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+    .social-link i { font-size: 16px; color: var(--gold); }
+    .social-link:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+    .social-link:hover i { color: var(--navy); }
+    .contact-form-wrapper {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.3s;
+    }
+    .contact-form-wrapper:hover { border-color: rgba(212,175,55,0.2); }
+    .form-group { margin-bottom: 20px; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      color: var(--white);
+      outline: none;
+      transition: 0.25s;
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group select { color: rgba(255,255,255,0.7); cursor: pointer; }
+    .form-group select option { background: var(--navy); color: var(--white); }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+      background: rgba(255,255,255,0.08);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px 28px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: 0.28s var(--ease);
       margin-top: 8px;
     }
-
-    /* reveal animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    .submit-btn:hover {
+      background: var(--gold-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.25);
+      gap: 14px;
     }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-d1 { transition-delay: 0.05s; }
-    .reveal-d2 { transition-delay: 0.1s; }
-    .reveal-d3 { transition-delay: 0.15s; }
-
-    /* Extra subtle accent */
-    .section-accent {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), transparent);
+    .form-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      margin-top: 16px;
+    }
+    .form-note i { color: var(--gold); margin-right: 4px; }
+    .form-message {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    .form-message.success {
+      background: rgba(212,175,55,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(212,175,55,0.3);
+      display: block;
+    }
+    .form-message.error {
+      background: rgba(220,53,69,0.12);
+      color: #ff6b6b;
+      border: 1px solid rgba(220,53,69,0.3);
+      display: block;
     }
 
+    /* ----- FOOTER (dark navy) ----- */
+    .footer {
+      background: #0A1A2F;
+      padding: 60px 0 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .footer-logo {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+    .footer-brand .footer-logo img { height: 60px; width: auto; }
+    .footer-description {
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+      margin-bottom: 20px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+    .footer-social a i { font-size: 15px; color: var(--gold); }
+    .footer-social a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+    .footer-social a:hover i { color: var(--navy); }
+    .footer-col h4 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--gold);
+      padding-left: 4px;
+    }
+    .contact-item-footer {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .contact-item-footer i { color: var(--gold); font-size: 15px; margin-top: 2px; }
+    .contact-item-footer p {
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .newsletter-form {
+      display: flex;
+      margin-top: 12px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 60px 0 0 60px;
+      font-size: 13px;
+      color: var(--white);
+      outline: none;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+    .newsletter-form button {
+      padding: 10px 18px;
+      background: var(--gold);
+      border: none;
+      border-radius: 0 60px 60px 0;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .newsletter-form button:hover { background: var(--gold-soft); }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .copyright { color: rgba(255,255,255,0.4); font-size: 13px; }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ----- RESPONSIVE ----- */
     @media (max-width: 1100px) {
       .container { padding: 0 32px; }
-      .hero-heading { font-size: 56px; }
-      .about-heading { font-size: 40px; }
+      .hero-heading { font-size: 54px; }
+      .about-heading { font-size: 38px; }
+      .section-title { font-size: 38px; }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .why-us-grid { grid-template-columns: repeat(2,1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2,1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; }
     }
     @media (max-width: 820px) {
       .container { padding: 0 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .hero {
-        height: auto;
-        min-height: 100vh;
-        padding: 110px 0 60px;
-      }
-      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-      .hero-heading { font-size: 44px; text-align: center; }
+      .hero { height: auto; min-height: 100vh; padding: 100px 0 60px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-heading { font-size: 42px; text-align: center; }
       .hero-left { text-align: center; align-items: center; }
       .hero-body { max-width: 100%; text-align: center; }
-      .hero-visual { display: none; }
-      .eyebrow { justify-content: center; }
       .hero-buttons { justify-content: center; }
-      
-      .about-section { padding: 80px 0; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .about-heading { font-size: 36px; text-align: center; }
-      .about-badge { margin: 0 auto 24px; display: inline-flex; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-heading { text-align: center; }
+      .about-badge { margin: 0 auto 20px; display: inline-flex; }
       .about-description { text-align: center; }
-      .about-stats { justify-content: center; text-align: center; gap: 32px; }
+      .about-stats { justify-content: center; text-align: center; }
       .stat-item { text-align: center; }
       .about-list { text-align: left; max-width: 300px; margin: 0 auto; }
-      .about-card { position: relative; bottom: 0; left: 0; margin-top: 24px; width: 100%; max-width: 280px; margin-left: auto; margin-right: auto; }
+      .about-card { position: relative; bottom: 0; left: 0; margin-top: 20px; margin-left: auto; margin-right: auto; }
       .about-right { display: flex; flex-direction: column; align-items: center; }
+      .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .why-us-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal { justify-content: center; }
+      .timeline::before { left: 24px; }
+      .timeline-item,
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) { flex-direction: column; margin-bottom: 40px; }
+      .timeline-content { width: calc(100% - 50px); margin-left: 50px !important; margin-right: 0 !important; }
+      .timeline-node { left: 24px; top: 28px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
     }
     @media (max-width: 480px) {
-      .hero-heading { font-size: 36px; }
+      .hero-heading { font-size: 34px; }
+      .section-title { font-size: 30px; }
       .about-heading { font-size: 30px; }
-      .about-stats { grid-template-columns: 1fr; gap: 24px; }
-      .stat-number { font-size: 36px; }
+      .stat-number { font-size: 32px; }
+      .contact-info, .contact-form-wrapper { padding: 28px 20px; }
+      .contact-headline { font-size: 26px; }
+      .service-card { padding: 24px 20px; }
+      .why-us-card { padding: 24px 18px; }
+      .testimonial-card { padding: 24px 20px; }
       .f-card { display: none; }
-      .hero-img-label span { font-size: 18px; }
+      .logo-cloud { gap: 24px; }
     }
   </style>
 </head>
 <body>
+  <!-- NAV -->
+  <nav class="nav" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo"><img src="img.png" alt="Vision Vibe"></a>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-<nav class="nav" id="navbar">
-  <div class="container nav-inner">
-    <a href="#" class="logo">Vision<span style="color:var(--gold)">Vibe</span><span class="logo-dot"></span></a>
-    <ul class="nav-links">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="#">Services</a></li>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#">Insights</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#" class="nav-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#contact" class="mobile-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
   </div>
-</nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#">Insights</a></li>
-    <li><a href="#">Contact</a></li>
-  </ul>
-  <a href="#" class="mobile-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
-</div>
-
-<!-- Hero Section - Pure white background with fresh styling -->
-<section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-left">
-      <div class="eyebrow reveal"><span class="eyebrow-line"></span>UAE-Based Business Consulting</div>
-      <h1 class="hero-heading reveal reveal-d1">Empowering businesses for <em>sustainable</em> growth</h1>
-      <p class="hero-body reveal reveal-d2">We partner with startups, SMEs, and established organizations across the UAE and GCC, providing strategic financial management, regulatory compliance, and operational excellence to navigate today's complex business environment.</p>
-      <div class="hero-buttons reveal reveal-d3">
-        <a href="#" class="btn btn-primary">Explore services</a>
-        <a href="#" class="btn btn-ghost"><span class="play-icon"><i class="fa-solid fa-play"></i></span> Our approach</a>
-      </div>
-    </div>
-    <div class="hero-visual reveal reveal-d2">
-      <div class="hero-img-wrap">
-        <div class="hero-img"><div class="hero-img-inner"></div><div class="hero-img-label"><span>Ajman Free Zone</span></div></div>
-        <div class="f-card fc-years"><div class="f-card-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div>Expert Team</div><div class="f-card-sub">Accounting & Advisory</div></div></div>
-        <div class="f-card fc-clients"><div class="f-card-icon navy"><i class="fa-solid fa-building"></i></div><div><div>Startups & SMEs</div><div class="f-card-sub">Across UAE & GCC</div></div></div>
-        <div class="f-card fc-satisfaction"><div class="f-card-icon midnight"><i class="fa-solid fa-star"></i></div><div><div>Long-Term Partnership</div><div class="f-card-sub">Client-focused approach</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== ABOUT SECTION - DARK BLUE THEME ========== -->
-<style>
-  .about-section {
-    padding: 80px 0;
-    background: var(--navy);
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-  }
-
-  .about-left {
-    position: relative;
-  }
-
-  .about-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.12);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 24px;
-  }
-
-  .about-badge i {
-    color: var(--gold);
-  }
-
-  .about-heading {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-
-  .about-heading span {
-    color: var(--gold);
-    border-bottom: 3px solid var(--gold);
-    display: inline-block;
-  }
-
-  .about-description {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 17px;
-    line-height: 1.7;
-    margin-bottom: 32px;
-  }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin: 32px 0 40px;
-  }
-
-  .stat-item {
-    text-align: left;
-  }
-
-  .stat-number {
-    font-family: 'Manrope', sans-serif;
-    font-size: 42px;
-    font-weight: 800;
-    color: var(--gold);
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-label {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 8px;
-  }
-
-  .about-list {
-    list-style: none;
-    margin-top: 20px;
-  }
-
-  .about-list li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 16px;
-  }
-
-  .about-list li i {
-    color: var(--gold);
-    font-size: 18px;
-    width: 24px;
-  }
-
-  .about-right {
-    position: relative;
-  }
-
-  .about-image {
-    width: 100%;
-    border-radius: 32px;
-    overflow: hidden;
-    box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.4);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .about-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease;
-  }
-
-  .about-image:hover img {
-    transform: scale(1.02);
-  }
-
-  .about-card {
-    position: absolute;
-    bottom: -30px;
-    left: -30px;
-    background: rgba(10, 26, 47, 0.95);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 20px 24px;
-    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
-    border-left: 4px solid var(--gold);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 4px solid var(--gold);
-  }
-
-  .about-card p {
-    font-weight: 600;
-    color: var(--white);
-    font-size: 16px;
-    max-width: 220px;
-  }
-
-  .about-card span {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.6);
-    display: block;
-    margin-top: 8px;
-  }
-
-  /* Responsive */
-  @media (max-width: 1100px) {
-    .about-heading {
-      font-size: 40px;
-    }
-  }
-
-  @media (max-width: 820px) {
-    .about-section {
-      padding: 60px 0;
-    }
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-    .about-heading {
-      font-size: 36px;
-      text-align: center;
-    }
-    .about-badge {
-      margin: 0 auto 24px;
-      display: inline-flex;
-    }
-    .about-description {
-      text-align: center;
-    }
-    .about-stats {
-      justify-content: center;
-      text-align: center;
-      gap: 32px;
-    }
-    .stat-item {
-      text-align: center;
-    }
-    .about-list {
-      text-align: left;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-    .about-card {
-      position: relative;
-      bottom: 0;
-      left: 0;
-      margin-top: 24px;
-      width: 100%;
-      max-width: 280px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .about-right {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .about-heading {
-      font-size: 30px;
-    }
-    .about-stats {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    .stat-number {
-      font-size: 36px;
-    }
-  }
-</style>
-
-<!-- About Section - Dark Blue Theme -->
-<section class="about-section" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-left reveal reveal-d1">
-        <div class="about-badge"><i class="fa-regular fa-compass"></i> Who We Are</div>
-        <h2 class="about-heading">We redefine <span>consulting</span> with integrity & innovation</h2>
-        <p class="about-description">Founded in 2015, Vision Vibe has grown into a trusted strategic partner for over 200+ businesses across the Middle East. Our team of 45+ experts combines deep industry knowledge with a forward-thinking mindset to drive measurable results.</p>
-        <div class="about-stats">
-          <div class="stat-item"><div class="stat-number">200+</div><div class="stat-label">Clients served</div></div>
-          <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client retention</div></div>
-          <div class="stat-item"><div class="stat-number">12+</div><div class="stat-label">Years of excellence</div></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <div class="eyebrow reveal"><span class="eyebrow-line"></span>UAE-Based Business Consulting</div>
+        <h1 class="hero-heading reveal reveal-d1">Empowering businesses for <em>sustainable</em> growth</h1>
+        <p class="hero-body reveal reveal-d2">We partner with startups, SMEs, and established organizations across the UAE and GCC, providing strategic financial management, regulatory compliance, and operational excellence.</p>
+        <div class="hero-buttons reveal reveal-d3">
+          <a href="#services" class="btn btn-primary">Explore services</a>
+          <a href="#about" class="btn btn-ghost"><span class="play-icon"><i class="fa-solid fa-play"></i></span> Our approach</a>
         </div>
-        <ul class="about-list">
-          <li><i class="fa-solid fa-check-circle"></i> Strategic financial & operational advisory</li>
-          <li><i class="fa-solid fa-check-circle"></i> Full regulatory & compliance support</li>
-          <li><i class="fa-solid fa-check-circle"></i> Data-driven insights & digital transformation</li>
-        </ul>
       </div>
-      <div class="about-right reveal reveal-d2">
-        <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Vision Vibe team collaboration">
-        </div>
-        <div class="about-card">
-          <p><i class="fa-solid fa-quote-left" style="color: var(--gold); margin-right: 6px;"></i> We don't just consult — we partner for the long run.</p>
-          <span>— Fatima Al Mansouri, Managing Partner</span>
+      <div class="hero-visual reveal reveal-d2">
+        <div class="hero-img-wrap">
+          <div class="hero-img"><div class="hero-img-inner"></div></div>
+          <div class="f-card fc-years"><div class="f-card-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div>Expert Team</div><div class="f-card-sub">Accounting & Advisory</div></div></div>
+          <div class="f-card fc-clients"><div class="f-card-icon navy"><i class="fa-solid fa-building"></i></div><div><div>Startups & SMEs</div><div class="f-card-sub">Across UAE & GCC</div></div></div>
+          <div class="f-card fc-satisfaction"><div class="f-card-icon midnight"><i class="fa-solid fa-star"></i></div><div><div>Long-Term Partnership</div><div class="f-card-sub">Client-focused approach</div></div></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-
-
-    <style>
-/* ========== WHAT WE DO / SERVICES SECTION ========== */
-.services-section {
-  padding: 60px 0;
-  background: transparent;
-  position: relative;
-  z-index: 2;
-}
-
-.services-header {
-  text-align: center;
-  max-width: 750px;
-  margin: 0 auto 64px auto;
-}
-
-.services-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(10, 26, 47, 0.08);
-  backdrop-filter: blur(2px);
-  padding: 6px 20px;
-  border-radius: 100px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--navy);
-  margin-bottom: 20px;
-}
-
-.services-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.services-heading {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  font-size: 48px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--navy);
-  margin-bottom: 20px;
-}
-
-.services-heading span {
-  color: var(--midnight);
-  border-bottom: 3px solid var(--gold);
-  display: inline-block;
-}
-
-.services-subheading {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--gray-500);
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-/* Services Grid */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-}
-
-/* Service Card */
-.service-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border-radius: 28px;
-  padding: 36px 28px;
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  transition: all 0.35s var(--ease);
-  box-shadow: 0 2px 10px rgba(10, 26, 47, 0.03);
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(212, 175, 55, 0.35);
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 25px 40px -18px rgba(10, 26, 47, 0.2);
-}
-
-.service-icon {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, rgba(10, 26, 47, 0.08), rgba(16, 44, 87, 0.05));
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  transition: all 0.3s ease;
-}
-
-.service-icon i {
-  font-size: 28px;
-  color: var(--navy);
-  transition: all 0.3s ease;
-}
-
-.service-card:hover .service-icon {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(10, 26, 47, 0.08));
-}
-
-.service-card:hover .service-icon i {
-  color: var(--gold);
-  transform: scale(1.05);
-}
-
-.service-title {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  font-size: 22px;
-  color: var(--navy);
-  margin-bottom: 14px;
-  letter-spacing: -0.3px;
-}
-
-.service-description {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--gray-500);
-  margin-bottom: 24px;
-}
-
-.service-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--navy);
-  text-decoration: none;
-  transition: all 0.25s ease;
-  border-bottom: 1.5px solid transparent;
-}
-
-.service-link i {
-  font-size: 12px;
-  transition: transform 0.25s ease;
-}
-
-.service-link:hover {
-  color: var(--gold);
-  border-bottom-color: var(--gold);
-}
-
-.service-link:hover i {
-  transform: translateX(4px);
-}
-
-/* Responsive for Services */
-@media (max-width: 1100px) {
-  .services-grid {
-    gap: 24px;
-  }
-  .services-heading {
-    font-size: 40px;
-  }
-  .service-card {
-    padding: 28px 22px;
-  }
-}
-
-@media (max-width: 820px) {
-  .services-section {
-    padding: 80px 0;
-  }
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .services-heading {
-    font-size: 36px;
-  }
-  .services-subheading {
-    font-size: 16px;
-  }
-  .service-card {
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .services-heading {
-    font-size: 30px;
-  }
-  .service-card {
-    padding: 24px 20px;
-  }
-  .service-icon {
-    width: 52px;
-    height: 52px;
-  }
-  .service-icon i {
-    font-size: 24px;
-  }
-  .service-title {
-    font-size: 20px;
-  }
-}
-</style>
-
-<section class="services-section" id="services">
-  <div class="container">
-    <div class="services-header reveal reveal-d1">
-      <div class="services-badge">What We Do</div>
-      <h2 class="services-heading">Comprehensive solutions <span>tailored</span> for your success</h2>
-      <p class="services-subheading">We deliver end-to-end business consulting services that drive growth, ensure compliance, and optimize performance across every stage of your journey.</p>
-    </div>
-    
-    <div class="services-grid">
-      <!-- Service Card 1 -->
-      <div class="service-card reveal reveal-d2">
-        <div class="service-icon">
-          <i class="fa-solid fa-chart-line"></i>
-        </div>
-        <h3 class="service-title">Strategic Advisory</h3>
-        <p class="service-description">Data-driven market entry strategies, business planning, and growth roadmaps tailored to UAE & GCC markets.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      
-      <!-- Service Card 2 -->
-      <div class="service-card reveal reveal-d2">
-        <div class="service-icon">
-          <i class="fa-solid fa-file-invoice-dollar"></i>
-        </div>
-        <h3 class="service-title">Financial Management</h3>
-        <p class="service-description">Full-spectrum accounting, CFO advisory, budgeting, and financial forecasting for sustainable growth.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      
-      <!-- Service Card 3 -->
-      <div class="service-card reveal reveal-d3">
-        <div class="service-icon">
-          <i class="fa-solid fa-gavel"></i>
-        </div>
-        <h3 class="service-title">Regulatory Compliance</h3>
-        <p class="service-description">Navigate complex regulations with confidence — from licensing to VAT, corporate tax, and AML compliance.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      
-      <!-- Service Card 4 -->
-      <div class="service-card reveal reveal-d1">
-        <div class="service-icon">
-          <i class="fa-solid fa-digital-tiling"></i>
-        </div>
-        <h3 class="service-title">Digital Transformation</h3>
-        <p class="service-description">Leverage cutting-edge technology to streamline operations, automate workflows, and scale efficiently.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      
-      <!-- Service Card 5 -->
-      <div class="service-card reveal reveal-d2">
-        <div class="service-icon">
-          <i class="fa-solid fa-bullhorn"></i>
-        </div>
-        <h3 class="service-title">Market Expansion</h3>
-        <p class="service-description">Enter new markets with confidence — feasibility studies, partner identification, and local expertise.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-      
-      <!-- Service Card 6 -->
-      <div class="service-card reveal reveal-d3">
-        <div class="service-icon">
-          <i class="fa-solid fa-handshake"></i>
-        </div>
-        <h3 class="service-title">HR & Talent Advisory</h3>
-        <p class="service-description">Build winning teams with strategic HR planning, talent acquisition, and performance optimization.</p>
-        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== WHY CHOOSE US SECTION - DARK NAVY THEME ========== -->
-<style>
-  /* Why Choose Us Section Styles - Dark Navy Theme */
-  .why-us-section {
-    padding: 80px 0;
-    position: relative;
-    z-index: 5;
-    background: var(--navy);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .why-us-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 64px auto;
-  }
-
-  .why-us-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(4px);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .why-us-badge i {
-    color: var(--gold);
-    font-size: 12px;
-  }
-
-  .why-us-title {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 20px;
-  }
-
-  .why-us-title span {
-    color: var(--gold);
-    border-bottom: 3px solid var(--gold);
-    display: inline-block;
-  }
-
-  .why-us-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 18px;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  /* Features Grid */
-  .why-us-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-
-  .why-us-card {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    border-radius: 28px;
-    padding: 32px 24px;
-    text-align: center;
-    transition: all 0.35s var(--ease);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.2);
-  }
-
-  .why-us-card:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.3);
-  }
-
-  .why-us-icon {
-    width: 70px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px auto;
-    transition: all 0.3s ease;
-  }
-
-  .why-us-card:hover .why-us-icon {
-    background: rgba(212, 175, 55, 0.2);
-    transform: scale(1.05);
-  }
-
-  .why-us-icon i {
-    font-size: 32px;
-    color: var(--gold);
-    transition: color 0.3s;
-  }
-
-  .why-us-card-title {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  .why-us-desc {
-    font-size: 15px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  /* Responsive */
-  @media (max-width: 1100px) {
-    .why-us-grid {
-      gap: 24px;
-    }
-    .why-us-title {
-      font-size: 40px;
-    }
-    .why-us-card-title {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 900px) {
-    .why-us-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-    }
-    .why-us-section {
-      padding: 60px 0;
-    }
-  }
-
-  @media (max-width: 550px) {
-    .why-us-grid {
-      grid-template-columns: 1fr;
-      max-width: 380px;
-      margin: 0 auto;
-    }
-    .why-us-title {
-      font-size: 32px;
-    }
-    .why-us-subtitle {
-      font-size: 16px;
-    }
-    .why-us-card {
-      padding: 28px 20px;
-    }
-  }
-</style>
-
-<!-- Why Choose Us Section - Dark Navy Theme -->
-<section class="why-us-section" id="why-us">
-  <div class="container">
-    <div class="why-us-header reveal">
-      <div class="why-us-badge">
-        <i class="fa-regular fa-star"></i> Why Vision Vibe
-      </div>
-      <h2 class="why-us-title">Why businesses <span>choose us</span></h2>
-      <p class="why-us-subtitle">We combine deep expertise, strategic thinking, and a client-first approach to deliver measurable results.</p>
-    </div>
-
-    <div class="why-us-grid">
-      <!-- Card 1 -->
-      <div class="why-us-card reveal reveal-d1">
-        <div class="why-us-icon">
-          <i class="fa-solid fa-briefcase"></i>
-        </div>
-        <h3 class="why-us-card-title">15+ Years Excellence</h3>
-        <p class="why-us-desc">Decades of combined experience serving businesses across UAE & GCC with proven success.</p>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="why-us-card reveal reveal-d1">
-        <div class="why-us-icon">
-          <i class="fa-solid fa-chart-line"></i>
-        </div>
-        <h3 class="why-us-card-title">Data-Driven Insights</h3>
-        <p class="why-us-desc">Strategic decisions backed by real analytics and industry intelligence.</p>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="why-us-card reveal reveal-d2">
-        <div class="why-us-icon">
-          <i class="fa-solid fa-handshake"></i>
-        </div>
-        <h3 class="why-us-card-title">Tailored Solutions</h3>
-        <p class="why-us-desc">Every business is unique — we craft personalized strategies for your specific goals.</p>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="why-us-card reveal reveal-d2">
-        <div class="why-us-icon">
-          <i class="fa-solid fa-headset"></i>
-        </div>
-        <h3 class="why-us-card-title">24/7 Dedicated Support</h3>
-        <p class="why-us-desc">Round-the-clock expert assistance and proactive advisory when you need it most.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== HOW WE WORK WITH YOU - 5 STEP TIMELINE SECTION ========== -->
-<style>
-  /* How We Work Section Styles */
-  .how-we-work {
-    padding: 60px 0;
-    position: relative;
-    z-index: 5;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,255,255,0.5);
-  }
-
-  .timeline {
-    max-width: 1000px;
-    margin: 60px auto 0 auto;
-    position: relative;
-  }
-
-  /* Vertical connecting line */
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: calc(100% - 40px);
-    background: linear-gradient(180deg, rgba(212,175,55,0.3) 0%, var(--gold) 50%, rgba(212,175,55,0.3) 100%);
-    top: 20px;
-  }
-
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 60px;
-    position: relative;
-  }
-
-  .timeline-item:nth-child(odd) {
-    flex-direction: row;
-  }
-
-  .timeline-item:nth-child(even) {
-    flex-direction: row-reverse;
-  }
-
-  .timeline-content {
-    width: 45%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    padding: 28px 32px;
-    transition: all 0.35s var(--ease);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.12);
-    position: relative;
-  }
-
-  .timeline-item:nth-child(odd) .timeline-content {
-    margin-right: auto;
-  }
-
-  .timeline-item:nth-child(even) .timeline-content {
-    margin-left: auto;
-  }
-
-  .timeline-content:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.98);
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 20px 35px -14px rgba(10, 26, 47, 0.2);
-  }
-
-  .step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: var(--navy);
-    border-radius: 60px;
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: white;
-    margin-bottom: 20px;
-    box-shadow: 0 6px 14px rgba(10, 26, 47, 0.2);
-    transition: all 0.3s;
-  }
-
-  .timeline-content:hover .step-number {
-    background: var(--gold);
-    color: var(--navy);
-    transform: scale(1.05);
-  }
-
-  .step-title {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    color: var(--navy);
-    margin-bottom: 12px;
-    letter-spacing: -0.3px;
-  }
-
-  .step-desc {
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--gray-600);
-    margin-bottom: 16px;
-  }
-
-  .step-detail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--gold);
-    font-weight: 600;
-    margin-top: 12px;
-  }
-
-  .step-detail i {
-    font-size: 12px;
-  }
-
-  /* Timeline node (circle on the line) */
-  .timeline-node {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    background: var(--gold);
-    border-radius: 50%;
-    top: 35px;
-    z-index: 2;
-    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
-    transition: all 0.3s;
-  }
-
-  .timeline-item:hover .timeline-node {
-    transform: translateX(-50%) scale(1.3);
-    background: var(--navy);
-    box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.3);
-  }
-
-  /* Responsive Timeline */
-  @media (max-width: 850px) {
-    .timeline::before {
-      left: 28px;
-    }
-    
-    .timeline-item,
-    .timeline-item:nth-child(odd),
-    .timeline-item:nth-child(even) {
-      flex-direction: column;
-      margin-bottom: 48px;
-    }
-    
-    .timeline-content {
-      width: calc(100% - 60px);
-      margin-left: 60px !important;
-      margin-right: 0 !important;
-    }
-    
-    .timeline-node {
-      left: 28px;
-      top: 30px;
-    }
-    
-    .step-number {
-      width: 42px;
-      height: 42px;
-      font-size: 18px;
-    }
-    
-    .step-title {
-      font-size: 22px;
-    }
-  }
-
-  @media (max-width: 550px) {
-    .how-we-work {
-      padding: 80px 0;
-    }
-    
-    .timeline-content {
-      padding: 22px 24px;
-      width: calc(100% - 50px);
-      margin-left: 50px !important;
-    }
-    
-    .timeline::before {
-      left: 22px;
-    }
-    
-    .timeline-node {
-      left: 22px;
-      width: 16px;
-      height: 16px;
-    }
-    
-    .step-title {
-      font-size: 20px;
-    }
-  }
-</style>
-
-<!-- How We Work Section - 5 Step Timeline -->
-<section class="how-we-work" id="how-we-work">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-badge">
-        <i class="fa-regular fa-clock"></i> Our Process
-      </div>
-      <h2 class="section-title">How we <span>work with you</span></h2>
-      <p class="section-subtitle">A transparent, collaborative 5-step journey from discovery to long-term success.</p>
-    </div>
-
-    <div class="timeline">
-      <!-- Step 1 -->
-      <div class="timeline-item reveal reveal-d1">
-        <div class="timeline-content">
-          <div class="step-number">1</div>
-          <h3 class="step-title">Discovery & Consultation</h3>
-          <p class="step-desc">We start by understanding your business goals, challenges, and market position through in-depth discovery sessions.</p>
-          <div class="step-detail">
-            <i class="fa-regular fa-circle-check"></i> <span>Free initial assessment</span>
+  </section>
+
+  <!-- ABOUT (dark navy) -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left reveal reveal-d1">
+          <div class="about-badge"><i class="fa-regular fa-compass"></i> Who We Are</div>
+          <h2 class="about-heading">We redefine <span>consulting</span> with integrity & innovation</h2>
+          <p class="about-description">Founded in 2015, Vision Vibe has grown into a trusted strategic partner for over 200+ businesses across the Middle East. Our team of 45+ experts combines deep industry knowledge with a forward-thinking mindset to drive measurable results.</p>
+          <div class="about-stats">
+            <div class="stat-item"><div class="stat-number">200+</div><div class="stat-label">Clients served</div></div>
+            <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client retention</div></div>
+            <div class="stat-item"><div class="stat-number">12+</div><div class="stat-label">Years of excellence</div></div>
           </div>
+          <ul class="about-list">
+            <li><i class="fa-solid fa-check-circle"></i> Strategic financial & operational advisory</li>
+            <li><i class="fa-solid fa-check-circle"></i> Full regulatory & compliance support</li>
+            <li><i class="fa-solid fa-check-circle"></i> Data-driven insights & digital transformation</li>
+          </ul>
         </div>
-        <div class="timeline-node"></div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="timeline-item reveal reveal-d2">
-        <div class="timeline-content">
-          <div class="step-number">2</div>
-          <h3 class="step-title">Strategic Roadmap</h3>
-          <p class="step-desc">Our experts craft a customized strategy with clear milestones, timelines, and measurable KPIs aligned to your vision.</p>
-          <div class="step-detail">
-            <i class="fa-regular fa-lightbulb"></i> <span>Data-backed recommendations</span>
+        <div class="about-right reveal reveal-d2">
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Vision Vibe team">
           </div>
-        </div>
-        <div class="timeline-node"></div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="timeline-item reveal reveal-d3">
-        <div class="timeline-content">
-          <div class="step-number">3</div>
-          <h3 class="step-title">Execution & Implementation</h3>
-          <p class="step-desc">We put the plan into action — handling operations, financial setup, compliance, and growth initiatives.</p>
-          <div class="step-detail">
-            <i class="fa-regular fa-handshake"></i> <span>Dedicated project lead</span>
-          </div>
-        </div>
-        <div class="timeline-node"></div>
-      </div>
-
-      <!-- Step 4 -->
-      <div class="timeline-item reveal reveal-d1">
-        <div class="timeline-content">
-          <div class="step-number">4</div>
-          <h3 class="step-title">Monitoring & Optimization</h3>
-          <p class="step-desc">Continuous tracking of performance metrics with agile adjustments to maximize efficiency and ROI.</p>
-          <div class="step-detail">
-            <i class="fa-regular fa-chart-line"></i> <span>Monthly performance reviews</span>
-          </div>
-        </div>
-        <div class="timeline-node"></div>
-      </div>
-
-      <!-- Step 5 -->
-      <div class="timeline-item reveal reveal-d2">
-        <div class="timeline-content">
-          <div class="step-number">5</div>
-          <h3 class="step-title">Scale & Long-Term Partnership</h3>
-          <p class="step-desc">We grow with you — providing ongoing advisory, expansion support, and strategic evolution for sustained success.</p>
-          <div class="step-detail">
-            <i class="fa-regular fa-gem"></i> <span>Lifetime client support</span>
-          </div>
-        </div>
-        <div class="timeline-node"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== TESTIMONIALS SECTION - TRUSTED BY BUSINESSES ACROSS UAE ========== -->
-<style>
-  /* Testimonials Section Styles */
-  .testimonials-section {
-    padding: 60px 0;
-    position: relative;
-    z-index: 5;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255,255,255,0.5);
-  }
-
-  /* Trusted By Logos Bar */
-  .trusted-bar {
-    margin-top: 40px;
-    margin-bottom: 70px;
-    text-align: center;
-  }
-
-  .trusted-label {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-    color: var(--gray-500);
-    margin-bottom: 24px;
-  }
-
-  .logo-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 48px;
-    row-gap: 32px;
-  }
-
-  .logo-item {
-    opacity: 0.7;
-    transition: all 0.25s ease;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--gray-500);
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .logo-item i {
-    font-size: 28px;
-    color: var(--gray-400);
-    transition: color 0.25s;
-  }
-
-  .logo-item span {
-    font-size: 16px;
-    font-weight: 500;
-  }
-
-  .logo-item:hover {
-    opacity: 1;
-  }
-
-  .logo-item:hover i {
-    color: var(--gold);
-  }
-
-  /* Testimonials Grid */
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-top: 20px;
-  }
-
-  .testimonial-card {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    border-radius: 28px;
-    padding: 32px 28px;
-    transition: all 0.35s var(--ease);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.1);
-  }
-
-  .testimonial-card:hover {
-    transform: translateY(-6px);
-    background: rgba(255, 255, 255, 0.98);
-    border-color: rgba(212, 175, 55, 0.35);
-    box-shadow: 0 25px 40px -16px rgba(10, 26, 47, 0.2);
-  }
-
-  /* Quote Icon */
-  .quote-icon {
-    font-size: 32px;
-    color: rgba(212, 175, 55, 0.35);
-    margin-bottom: 20px;
-    line-height: 1;
-  }
-
-  .testimonial-text {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--gray-700);
-    margin-bottom: 24px;
-    font-style: normal;
-    quotes: none;
-  }
-
-  /* Star Rating */
-  .rating {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 20px;
-  }
-
-  .rating i {
-    font-size: 14px;
-    color: var(--gold);
-  }
-
-  .rating i.fa-regular {
-    color: var(--gray-300);
-  }
-
-  /* Client Info */
-  .client-info {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    border-top: 1px solid rgba(10, 26, 47, 0.06);
-    padding-top: 20px;
-    margin-top: 8px;
-  }
-
-  .client-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 60px;
-    background: rgba(10, 26, 47, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .client-avatar i {
-    font-size: 24px;
-    color: var(--navy);
-  }
-
-  .client-details h4 {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-
-  .client-details p {
-    font-size: 12px;
-    color: var(--gray-500);
-  }
-
-  /* Responsive */
-  @media (max-width: 1000px) {
-    .testimonials-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-    }
-  }
-
-  @media (max-width: 700px) {
-    .testimonials-section {
-      padding: 80px 0;
-    }
-    .testimonials-grid {
-      grid-template-columns: 1fr;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    .logo-cloud {
-      gap: 32px;
-    }
-    .logo-item {
-      flex-direction: column;
-      text-align: center;
-    }
-    .logo-item i {
-      font-size: 32px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .testimonial-card {
-      padding: 24px 20px;
-    }
-    .testimonial-text {
-      font-size: 15px;
-    }
-  }
-</style>
-
-<!-- Testimonials Section -->
-<section class="testimonials-section" id="testimonials">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-badge">
-        <i class="fa-regular fa-message"></i> Testimonials
-      </div>
-      <h2 class="section-title">Trusted by businesses <span>across the UAE</span></h2>
-      <p class="section-subtitle">Hear what our clients say about their journey with Vision Vibe.</p>
-    </div>
-
-    <!-- Trusted By Logos Bar -->
-    <div class="trusted-bar reveal reveal-d1">
-      <div class="trusted-label">— Partnering with industry leaders —</div>
-      <div class="logo-cloud">
-        <div class="logo-item"><i class="fa-solid fa-building"></i> <span>Emirates Group</span></div>
-        <div class="logo-item"><i class="fa-solid fa-chart-simple"></i> <span>Emaar Properties</span></div>
-        <div class="logo-item"><i class="fa-solid fa-bolt"></i> <span>Dubai Holdings</span></div>
-        <div class="logo-item"><i class="fa-solid fa-bank"></i> <span>ADNOC</span></div>
-        <div class="logo-item"><i class="fa-solid fa-globe"></i> <span>DP World</span></div>
-      </div>
-    </div>
-
-    <!-- Testimonials Grid -->
-    <div class="testimonials-grid">
-      <!-- Testimonial 1 -->
-      <div class="testimonial-card reveal reveal-d1">
-        <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-        </div>
-        <p class="testimonial-text">"Vision Vibe transformed our financial operations completely. Their strategic guidance helped us scale 3x in just 18 months. The team is responsive, professional, and truly cares about our success."</p>
-        <div class="client-info">
-          <div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div>
-          <div class="client-details">
-            <h4>Ahmed Al Qasimi</h4>
-            <p>CEO, TechVantage FZCO</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonial 2 -->
-      <div class="testimonial-card reveal reveal-d2">
-        <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-        </div>
-        <p class="testimonial-text">"Outstanding consulting firm! They helped us navigate complex regulations in the Dubai market. From compliance to growth strategy, Vision Vibe exceeded every expectation. Highly recommended!"</p>
-        <div class="client-info">
-          <div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div>
-          <div class="client-details">
-            <h4>Sarah Johnson</h4>
-            <p>Founder, Nest Retail</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonial 3 -->
-      <div class="testimonial-card reveal reveal-d3">
-        <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-        </div>
-        <p class="testimonial-text">"Their operational excellence and financial advisory have been game-changing for our expansion across GCC. A true partner that delivers measurable ROI. Couldn't be happier with the results."</p>
-        <div class="client-info">
-          <div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div>
-          <div class="client-details">
-            <h4>Mohammed Hassan</h4>
-            <p>Managing Director, GulfLogistics</p>
+          <div class="about-card">
+            <p><i class="fa-solid fa-quote-left" style="color: var(--gold); margin-right: 6px;"></i> We don't just consult — we partner for the long run.</p>
+            <span>— Fatima Al Mansouri, Managing Partner</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<!-- ========== CONTACT FORM SECTION - DARK BLUE BG VERSION ========== -->
-<style>
-  /* Contact Form Section Styles - Dark Blue Background */
-  .contact-section {
-    padding: 120px 0;
-    position: relative;
-    z-index: 5;
-    background: var(--navy);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* Override section header colors for dark bg */
-  .contact-section .section-header .section-badge {
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--gold);
-  }
-
-  .contact-section .section-header .section-badge i {
-    color: var(--gold);
-  }
-
-  .contact-section .section-header .section-title {
-    color: var(--white);
-  }
-
-  .contact-section .section-header .section-title span {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-
-  .contact-section .section-header .section-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: start;
-    margin-top: 20px;
-  }
-
-  /* Left Side - Info (Dark Theme) */
-  .contact-info {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    border-radius: 32px;
-    padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px -14px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .contact-info:hover {
-    border-color: rgba(212, 175, 55, 0.3);
-  }
-
-  .contact-headline {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 36px;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
-  }
-
-  .contact-headline span {
-    color: var(--gold);
-  }
-
-  .contact-message {
-    font-size: 17px;
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 32px;
-  }
-
-  .contact-details {
-    margin: 32px 0;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .contact-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-  }
-
-  .contact-icon i {
-    font-size: 20px;
-    color: var(--gold);
-  }
-
-  .contact-item:hover .contact-icon {
-    background: rgba(212, 175, 55, 0.2);
-    transform: scale(1.05);
-  }
-
-  .contact-text h4 {
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .contact-text p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .social-links {
-    display: flex;
-    gap: 16px;
-    margin-top: 32px;
-  }
-
-  .social-link {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-    text-decoration: none;
-  }
-
-  .social-link i {
-    font-size: 18px;
-    color: var(--gold);
-  }
-
-  .social-link:hover {
-    background: var(--gold);
-    transform: translateY(-3px);
-  }
-
-  .social-link:hover i {
-    color: var(--navy);
-  }
-
-  /* Right Side - Form (Dark Theme) */
-  .contact-form-wrapper {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    border-radius: 32px;
-    padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px -14px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .contact-form-wrapper:hover {
-    border-color: rgba(212, 175, 55, 0.3);
-  }
-
-  .form-group {
-    margin-bottom: 24px;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 16px 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 18px;
-    transition: all 0.25s ease;
-    color: var(--white);
-    outline: none;
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 110px;
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
-
-  .form-group select {
-    color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-  }
-
-  .form-group select option {
-    background: var(--navy);
-    color: var(--white);
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-    background: rgba(255, 255, 255, 0.12);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .submit-btn {
-    width: 100%;
-    padding: 16px 28px;
-    background: var(--gold);
-    color: var(--navy);
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    border: none;
-    border-radius: 60px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.28s var(--ease);
-    margin-top: 12px;
-  }
-
-  .submit-btn:hover {
-    background: var(--gold-soft);
-    transform: translateY(-2px);
-    gap: 14px;
-    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-  }
-
-  .form-note {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  .form-note i {
-    color: var(--gold);
-    margin-right: 4px;
-  }
-
-  /* Success/Error Message - Dark Theme */
-  .form-message {
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 14px;
-    font-size: 14px;
-    text-align: center;
-    display: none;
-  }
-
-  .form-message.success {
-    background: rgba(212, 175, 55, 0.15);
-    color: var(--gold);
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    display: block;
-  }
-
-  .form-message.error {
-    background: rgba(220, 53, 69, 0.15);
-    color: #ff6b6b;
-    border: 1px solid rgba(220, 53, 69, 0.4);
-    display: block;
-  }
-
-  /* Responsive */
-  @media (max-width: 950px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-    .contact-section {
-      padding: 80px 0;
-    }
-  }
-
-  @media (max-width: 550px) {
-    .contact-info, .contact-form-wrapper {
-      padding: 28px 24px;
-    }
-    .contact-headline {
-      font-size: 28px;
-    }
-    .form-row {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-    .contact-item {
-      gap: 12px;
-    }
-    .contact-icon {
-      width: 42px;
-      height: 42px;
-    }
-  }
-</style>
-
-<!-- Contact Form Section - Dark Blue Background -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-badge">
-        <i class="fa-regular fa-paper-plane"></i> Get In Touch
+  <!-- SERVICES (clean white) -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i class="fa-regular fa-star"></i> What We Do</div>
+        <h2 class="section-title">Comprehensive solutions <span>tailored</span> for your success</h2>
+        <p class="section-subtitle">We deliver end-to-end business consulting services that drive growth, ensure compliance, and optimize performance.</p>
       </div>
-      <h2 class="section-title">Let's build your <span>future</span></h2>
-      <p class="section-subtitle">Ready to take the next step? Reach out and let's start a conversation.</p>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-d1">
+          <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3 class="service-title">Strategic Advisory</h3>
+          <p class="service-description">Data-driven market entry strategies, business planning, and growth roadmaps for UAE & GCC markets.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal reveal-d1">
+          <div class="service-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+          <h3 class="service-title">Financial Management</h3>
+          <p class="service-description">Full-spectrum accounting, CFO advisory, budgeting, and financial forecasting for sustainable growth.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal reveal-d2">
+          <div class="service-icon"><i class="fa-solid fa-gavel"></i></div>
+          <h3 class="service-title">Regulatory Compliance</h3>
+          <p class="service-description">Navigate complex regulations with confidence — from licensing to VAT, corporate tax, and AML compliance.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal reveal-d2">
+          <div class="service-icon"><i class="fa-solid fa-digital-tiling"></i></div>
+          <h3 class="service-title">Digital Transformation</h3>
+          <p class="service-description">Leverage cutting-edge technology to streamline operations, automate workflows, and scale efficiently.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal reveal-d3">
+          <div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div>
+          <h3 class="service-title">Market Expansion</h3>
+          <p class="service-description">Enter new markets with confidence — feasibility studies, partner identification, and local expertise.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card reveal reveal-d3">
+          <div class="service-icon"><i class="fa-solid fa-handshake"></i></div>
+          <h3 class="service-title">HR & Talent Advisory</h3>
+          <p class="service-description">Build winning teams with strategic HR planning, talent acquisition, and performance optimization.</p>
+          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="contact-grid">
-      <!-- Left Column - Contact Info -->
-      <div class="contact-info reveal reveal-d1">
-        <h3 class="contact-headline">Let's <span>connect</span> and create something great</h3>
-        <p class="contact-message">Whether you have a question, a project in mind, or just want to explore possibilities — we're here to help.</p>
-        
-        <div class="contact-details">
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fa-regular fa-building"></i></div>
-            <div class="contact-text">
-              <h4>Visit Us</h4>
-              <p>Level 14, Boulevard Plaza Tower 1<br>Downtown Dubai, UAE</p>
+  <!-- WHY US (dark navy) -->
+  <section class="why-us-section" id="why-us">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i class="fa-regular fa-star"></i> Why Vision Vibe</div>
+        <h2 class="section-title">Why businesses <span>choose us</span></h2>
+        <p class="section-subtitle">We combine deep expertise, strategic thinking, and a client-first approach to deliver measurable results.</p>
+      </div>
+      <div class="why-us-grid">
+        <div class="why-us-card reveal reveal-d1">
+          <div class="why-us-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3 class="why-us-card-title">15+ Years Excellence</h3>
+          <p class="why-us-desc">Decades of combined experience serving businesses across UAE & GCC with proven success.</p>
+        </div>
+        <div class="why-us-card reveal reveal-d1">
+          <div class="why-us-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3 class="why-us-card-title">Data-Driven Insights</h3>
+          <p class="why-us-desc">Strategic decisions backed by real analytics and industry intelligence.</p>
+        </div>
+        <div class="why-us-card reveal reveal-d2">
+          <div class="why-us-icon"><i class="fa-solid fa-handshake"></i></div>
+          <h3 class="why-us-card-title">Tailored Solutions</h3>
+          <p class="why-us-desc">Every business is unique — we craft personalized strategies for your specific goals.</p>
+        </div>
+        <div class="why-us-card reveal reveal-d2">
+          <div class="why-us-icon"><i class="fa-solid fa-headset"></i></div>
+          <h3 class="why-us-card-title">24/7 Dedicated Support</h3>
+          <p class="why-us-desc">Round-the-clock expert assistance and proactive advisory when you need it most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE (clean) -->
+  <section class="how-we-work" id="how-we-work">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i class="fa-regular fa-clock"></i> Our Process</div>
+        <h2 class="section-title">How we <span>work with you</span></h2>
+        <p class="section-subtitle">A transparent, collaborative 5-step journey from discovery to long-term success.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal reveal-d1">
+          <div class="timeline-content"><div class="step-number">1</div><h3 class="step-title">Discovery & Consultation</h3><p class="step-desc">We start by understanding your business goals, challenges, and market position through in-depth discovery sessions.</p><div class="step-detail"><i class="fa-regular fa-circle-check"></i> Free initial assessment</div></div><div class="timeline-node"></div>
+        </div>
+        <div class="timeline-item reveal reveal-d2">
+          <div class="timeline-content"><div class="step-number">2</div><h3 class="step-title">Strategic Roadmap</h3><p class="step-desc">Our experts craft a customized strategy with clear milestones, timelines, and measurable KPIs aligned to your vision.</p><div class="step-detail"><i class="fa-regular fa-lightbulb"></i> Data-backed recommendations</div></div><div class="timeline-node"></div>
+        </div>
+        <div class="timeline-item reveal reveal-d3">
+          <div class="timeline-content"><div class="step-number">3</div><h3 class="step-title">Execution & Implementation</h3><p class="step-desc">We put the plan into action — handling operations, financial setup, compliance, and growth initiatives.</p><div class="step-detail"><i class="fa-regular fa-handshake"></i> Dedicated project lead</div></div><div class="timeline-node"></div>
+        </div>
+        <div class="timeline-item reveal reveal-d1">
+          <div class="timeline-content"><div class="step-number">4</div><h3 class="step-title">Monitoring & Optimization</h3><p class="step-desc">Continuous tracking of performance metrics with agile adjustments to maximize efficiency and ROI.</p><div class="step-detail"><i class="fa-regular fa-chart-line"></i> Monthly performance reviews</div></div><div class="timeline-node"></div>
+        </div>
+        <div class="timeline-item reveal reveal-d2">
+          <div class="timeline-content"><div class="step-number">5</div><h3 class="step-title">Scale & Long-Term Partnership</h3><p class="step-desc">We grow with you — providing ongoing advisory, expansion support, and strategic evolution for sustained success.</p><div class="step-detail"><i class="fa-regular fa-gem"></i> Lifetime client support</div></div><div class="timeline-node"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (clean) -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i class="fa-regular fa-message"></i> Testimonials</div>
+        <h2 class="section-title">Trusted by businesses <span>across the UAE</span></h2>
+        <p class="section-subtitle">Hear what our clients say about their journey with Vision Vibe.</p>
+      </div>
+      <div class="trusted-bar reveal reveal-d1">
+        <div class="trusted-label">— Partnering with industry leaders —</div>
+        <div class="logo-cloud">
+          <div class="logo-item"><i class="fa-solid fa-building"></i> <span>Emirates Group</span></div>
+          <div class="logo-item"><i class="fa-solid fa-chart-simple"></i> <span>Emaar Properties</span></div>
+          <div class="logo-item"><i class="fa-solid fa-bolt"></i> <span>Dubai Holdings</span></div>
+          <div class="logo-item"><i class="fa-solid fa-bank"></i> <span>ADNOC</span></div>
+          <div class="logo-item"><i class="fa-solid fa-globe"></i> <span>DP World</span></div>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal reveal-d1">
+          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Vision Vibe transformed our financial operations completely. Their strategic guidance helped us scale 3x in just 18 months. The team is responsive, professional, and truly cares about our success."</p>
+          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Ahmed Al Qasimi</h4><p>CEO, TechVantage FZCO</p></div></div>
+        </div>
+        <div class="testimonial-card reveal reveal-d2">
+          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Outstanding consulting firm! They helped us navigate complex regulations in the Dubai market. From compliance to growth strategy, Vision Vibe exceeded every expectation. Highly recommended!"</p>
+          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Sarah Johnson</h4><p>Founder, Nest Retail</p></div></div>
+        </div>
+        <div class="testimonial-card reveal reveal-d3">
+          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p class="testimonial-text">"Their operational excellence and financial advisory have been game-changing for our expansion across GCC. A true partner that delivers measurable ROI. Couldn't be happier with the results."</p>
+          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Mohammed Hassan</h4><p>Managing Director, GulfLogistics</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (dark navy) -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i class="fa-regular fa-paper-plane"></i> Get In Touch</div>
+        <h2 class="section-title">Let's build your <span>future</span></h2>
+        <p class="section-subtitle">Ready to take the next step? Reach out and let's start a conversation.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal reveal-d1">
+          <h3 class="contact-headline">Let's <span>connect</span> and create something great</h3>
+          <p class="contact-message">Whether you have a question, a project in mind, or just want to explore possibilities — we're here to help.</p>
+          <div class="contact-details">
+            <div class="contact-item"><div class="contact-icon"><i class="fa-regular fa-building"></i></div><div class="contact-text"><h4>Visit Us</h4><p>Level 14, Boulevard Plaza Tower 1<br>Downtown Dubai, UAE</p></div></div>
+            <div class="contact-item"><div class="contact-icon"><i class="fa-regular fa-envelope"></i></div><div class="contact-text"><h4>Email Us</h4><p>hello@visionvibe.com<br>support@visionvibe.com</p></div></div>
+            <div class="contact-item"><div class="contact-icon"><i class="fa-solid fa-phone"></i></div><div class="contact-text"><h4>Call Us</h4><p>+971 4 123 4567<br>+971 50 987 6543</p></div></div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="contact-form-wrapper reveal reveal-d2">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group"><input type="text" id="firstName" placeholder="First name" required></div>
+              <div class="form-group"><input type="text" id="lastName" placeholder="Last name" required></div>
             </div>
-          </div>
-          
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
-            <div class="contact-text">
-              <h4>Email Us</h4>
-              <p>hello@visionvibe.com<br>support@visionvibe.com</p>
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <div class="contact-icon"><i class="fa-regular fa-phone"></i></div>
-            <div class="contact-text">
-              <h4>Call Us</h4>
-              <p>+971 4 123 4567<br>+971 50 987 6543</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="social-links">
-          <a href="#" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
-        </div>
-      </div>
-
-      <!-- Right Column - Contact Form -->
-      <div class="contact-form-wrapper reveal reveal-d2">
-        <form id="contactForm" action="#" method="POST">
-          <div class="form-row">
+            <div class="form-group"><input type="email" id="email" placeholder="Email address" required></div>
+            <div class="form-group"><input type="tel" id="phone" placeholder="Phone number"></div>
             <div class="form-group">
-              <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+              <select id="service">
+                <option value="" disabled selected>— Select a service —</option>
+                <option value="financial">Financial Advisory</option>
+                <option value="regulatory">Regulatory & Compliance</option>
+                <option value="strategy">Strategic Growth</option>
+                <option value="digital">Digital Transformation</option>
+                <option value="other">Other</option>
+              </select>
             </div>
-            <div class="form-group">
-              <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Email address" required>
-          </div>
-          
-          <div class="form-group">
-            <input type="tel" id="phone" name="phone" placeholder="Phone number">
-          </div>
-          
-          <div class="form-group">
-            <select id="service" name="service">
-              <option value="" disabled selected>— Select a service —</option>
-              <option value="financial">Financial Advisory</option>
-              <option value="regulatory">Regulatory & Compliance</option>
-              <option value="strategy">Strategic Growth</option>
-              <option value="digital">Digital Transformation</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <textarea id="message" name="message" placeholder="Tell us about your project or inquiry..."></textarea>
-          </div>
-          
-          <button type="submit" class="submit-btn">
-            Send Message <i class="fa-regular fa-arrow-right"></i>
-          </button>
-          <div class="form-note">
-            <i class="fa-regular fa-lock-keyhole"></i> Your information is safe with us. We'll respond within 24 hours.
-          </div>
-          <div id="formMessage" class="form-message"></div>
-        </form>
+            <div class="form-group"><textarea id="message" placeholder="Tell us about your project or inquiry..."></textarea></div>
+            <button type="submit" class="submit-btn">Send Message <i class="fa fa-envelope"></i></button>
+            <div class="form-note"><i class="fa-regular fa-lock-keyhole"></i> Your information is safe. We'll respond within 24 hours.</div>
+            <div id="formMessage" class="form-message"></div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<!-- ========== FOOTER SECTION - DARK BLUE THEME ========== -->
-<style>
-  /* Footer Styles */
-  .footer {
-    background: #0A1A2F;
-    position: relative;
-    z-index: 5;
-    padding: 70px 0 30px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
-    gap: 48px;
-    margin-bottom: 50px;
-  }
-
-  /* Brand Column */
-  .footer-brand .footer-logo {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    font-size: 28px;
-    color: #FFFFFF;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .footer-brand .footer-logo span {
-    color: #D4AF37;
-  }
-
-  .footer-brand .footer-logo .logo-dot {
-    width: 8px;
-    height: 8px;
-    background: #D4AF37;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .footer-description {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 24px;
-    max-width: 280px;
-  }
-
-  .footer-social {
-    display: flex;
-    gap: 14px;
-  }
-
-  .footer-social a {
-    width: 38px;
-    height: 38px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-    text-decoration: none;
-  }
-
-  .footer-social a i {
-    font-size: 16px;
-    color: #D4AF37;
-  }
-
-  .footer-social a:hover {
-    background: #D4AF37;
-    transform: translateY(-3px);
-  }
-
-  .footer-social a:hover i {
-    color: #0A1A2F;
-  }
-
-  /* Footer Headings */
-  .footer-col h4 {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    color: #FFFFFF;
-    margin-bottom: 24px;
-    letter-spacing: -0.3px;
-  }
-
-  .footer-links {
-    list-style: none;
-  }
-
-  .footer-links li {
-    margin-bottom: 12px;
-  }
-
-  .footer-links a {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 14px;
-    transition: all 0.2s ease;
-  }
-
-  .footer-links a:hover {
-    color: #D4AF37;
-    padding-left: 5px;
-  }
-
-  /* Contact Info */
-  .contact-item-footer {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .contact-item-footer i {
-    color: #D4AF37;
-    font-size: 16px;
-    margin-top: 3px;
-  }
-
-  .contact-item-footer p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .newsletter-form {
-    display: flex;
-    margin-top: 16px;
-  }
-
-  .newsletter-form input {
-    flex: 1;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 60px 0 0 60px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    color: #FFFFFF;
-    outline: none;
-  }
-
-  .newsletter-form input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
-
-  .newsletter-form button {
-    padding: 12px 20px;
-    background: #D4AF37;
-    border: none;
-    border-radius: 0 60px 60px 0;
-    color: #0A1A2F;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-
-  .newsletter-form button:hover {
-    background: #E6C56A;
-  }
-
-  /* Bottom Bar */
-  .footer-bottom {
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .copyright {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 13px;
-  }
-
-  .footer-legal {
-    display: flex;
-    gap: 24px;
-  }
-
-  .footer-legal a {
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s;
-  }
-
-  .footer-legal a:hover {
-    color: #D4AF37;
-  }
-
-  /* Responsive */
-  @media (max-width: 1000px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    .footer-brand {
-      grid-column: span 2;
-    }
-  }
-
-  @media (max-width: 650px) {
-    .footer {
-      padding: 50px 0 25px 0;
-    }
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 35px;
-    }
-    .footer-brand {
-      grid-column: span 1;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      text-align: center;
-    }
-    .footer-legal {
-      justify-content: center;
-    }
-  }
-</style>
-
-<!-- Footer Section -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <!-- Brand Column -->
-      <div class="footer-brand">
-        <a href="#" class="footer-logo">Vision<span>Vibe</span><span class="logo-dot"></span></a>
-        <p class="footer-description">Empowering businesses across the UAE & GCC with strategic financial management, regulatory compliance, and operational excellence.</p>
-        <div class="footer-social">
-          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo"><img src="img.png" alt="Vision Vibe"></a>
+          <p class="footer-description">Empowering businesses across the UAE & GCC with strategic financial management, regulatory compliance, and operational excellence.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#">Financial Advisory</a></li>
+            <li><a href="#">Regulatory Compliance</a></li>
+            <li><a href="#">Strategic Growth</a></li>
+            <li><a href="#">Digital Transformation</a></li>
+            <li><a href="#">Business Setup</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="contact-item-footer"><i class="fa-regular fa-building"></i><p>Level 14, Boulevard Plaza Tower 1, Downtown Dubai, UAE</p></div>
+          <div class="contact-item-footer"><i class="fa fa-envelope"></i><p>hello@visionvibe.com</p></div>
+          <div class="contact-item-footer"><i class="fa-solid fa-phone"></i><p>+971 4 123 4567</p></div>
+          <h4 style="margin-top: 20px;">Newsletter</h4>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
         </div>
       </div>
-
-      <!-- Quick Links -->
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#">Insights</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Services -->
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul class="footer-links">
-          <li><a href="#">Financial Advisory</a></li>
-          <li><a href="#">Regulatory Compliance</a></li>
-          <li><a href="#">Strategic Growth</a></li>
-          <li><a href="#">Digital Transformation</a></li>
-          <li><a href="#">Business Setup</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact & Newsletter -->
-      <div class="footer-col">
-        <h4>Get In Touch</h4>
-        <div class="contact-item-footer">
-          <i class="fa-regular fa-location-dot"></i>
-          <p>Level 14, Boulevard Plaza Tower 1, Downtown Dubai, UAE</p>
+      <div class="footer-bottom">
+        <div class="copyright">&copy; 2024 Vision Vibe. All rights reserved.</div>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
         </div>
-        <div class="contact-item-footer">
-          <i class="fa-regular fa-envelope"></i>
-          <p>hello@visionvibe.com</p>
-        </div>
-        <div class="contact-item-footer">
-          <i class="fa-regular fa-phone"></i>
-          <p>+971 4 123 4567</p>
-        </div>
-        
-        <h4 style="margin-top: 24px;">Newsletter</h4>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-          <input type="email" placeholder="Your email address" required>
-          <button type="submit">Subscribe</button>
-        </form>
       </div>
     </div>
+  </footer>
 
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-      <div class="copyright">
-        &copy; 2024 Vision Vibe. All rights reserved.
-      </div>
-      <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Cookie Policy</a>
-      </div>
-    </div>
-  </div>
-</footer>
+  <!-- SCRIPTS -->
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }, { passive: true });
 
-<script>
-  // Simple form submission handler with validation
-  (function() {
-    const form = document.getElementById('contactForm');
-    const messageDiv = document.getElementById('formMessage');
-    
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Basic validation
-        const firstName = document.getElementById('firstName')?.value.trim();
-        const lastName = document.getElementById('lastName')?.value.trim();
-        const email = document.getElementById('email')?.value.trim();
-        
-        if (!firstName || !lastName || !email) {
-          messageDiv.textContent = 'Please fill in all required fields (First name, Last name, Email).';
-          messageDiv.className = 'form-message error';
-          messageDiv.style.display = 'block';
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-            messageDiv.className = 'form-message';
-          }, 4000);
-          return;
-        }
-        
-        if (!email.includes('@') || !email.includes('.')) {
-          messageDiv.textContent = 'Please enter a valid email address.';
-          messageDiv.className = 'form-message error';
-          messageDiv.style.display = 'block';
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-            messageDiv.className = 'form-message';
-          }, 4000);
-          return;
-        }
-        
-        // Simulate form submission
-        messageDiv.textContent = 'Sending your message...';
-        messageDiv.className = 'form-message';
-        messageDiv.style.display = 'block';
-        
-        setTimeout(() => {
-          messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you shortly.';
-          messageDiv.className = 'form-message success';
-          form.reset();
-          
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-            messageDiv.className = 'form-message';
-          }, 5000);
-        }, 800);
-      });
+    // Mobile menu
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMenu() {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
     }
-  })();
-</script>
-
-
-  
-
-
-<script>
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  }, { passive: true });
-
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function toggleMenu() {
-    hamburgerBtn.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-  }
-  hamburgerBtn.addEventListener('click', toggleMenu);
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => { if (mobileMenu.classList.contains('active')) toggleMenu(); });
-  });
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 820 && mobileMenu.classList.contains('active')) toggleMenu();
-  });
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  function setHeroHeight() {
-    const hero = document.querySelector('.hero');
-    if (hero && window.innerWidth > 820) { hero.style.minHeight = `${window.innerHeight}px`; hero.style.height = `${window.innerHeight}px`; }
-    else if (hero && window.innerWidth <= 820) { hero.style.minHeight = '100vh'; hero.style.height = 'auto'; }
-  }
-  setHeroHeight();
-  window.addEventListener('resize', setHeroHeight);
-  window.addEventListener('load', () => {
-    document.querySelectorAll('.reveal').forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('visible');
+    hamburgerBtn.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => { if (mobileMenu.classList.contains('active')) toggleMenu(); });
     });
-  });
-</script>
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 820 && mobileMenu.classList.contains('active')) toggleMenu();
+    });
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Hero height
+    function setHeroHeight() {
+      const hero = document.querySelector('.hero');
+      if (hero && window.innerWidth > 820) {
+        hero.style.minHeight = `${window.innerHeight}px`;
+        hero.style.height = `${window.innerHeight}px`;
+      } else if (hero && window.innerWidth <= 820) {
+        hero.style.minHeight = '100vh';
+        hero.style.height = 'auto';
+      }
+    }
+    setHeroHeight();
+    window.addEventListener('resize', setHeroHeight);
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('visible');
+      });
+    });
+
+    // Contact form
+    (function() {
+      const form = document.getElementById('contactForm');
+      const messageDiv = document.getElementById('formMessage');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const firstName = document.getElementById('firstName')?.value.trim();
+          const lastName = document.getElementById('lastName')?.value.trim();
+          const email = document.getElementById('email')?.value.trim();
+          if (!firstName || !lastName || !email) {
+            messageDiv.textContent = 'Please fill in all required fields.';
+            messageDiv.className = 'form-message error';
+            messageDiv.style.display = 'block';
+            setTimeout(() => { messageDiv.style.display = 'none'; messageDiv.className = 'form-message'; }, 4000);
+            return;
+          }
+          if (!email.includes('@') || !email.includes('.')) {
+            messageDiv.textContent = 'Please enter a valid email address.';
+            messageDiv.className = 'form-message error';
+            messageDiv.style.display = 'block';
+            setTimeout(() => { messageDiv.style.display = 'none'; messageDiv.className = 'form-message'; }, 4000);
+            return;
+          }
+          messageDiv.textContent = 'Sending your message...';
+          messageDiv.className = 'form-message';
+          messageDiv.style.display = 'block';
+          setTimeout(() => {
+            messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you shortly.';
+            messageDiv.className = 'form-message success';
+            form.reset();
+            setTimeout(() => {
+              messageDiv.style.display = 'none';
+              messageDiv.className = 'form-message';
+            }, 5000);
+          }, 800);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
