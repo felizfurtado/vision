@@ -1,991 +1,1528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Testimonials • Vision Vibe Management Consulting FZC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Testimonials | Vision Vibe Management Consulting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        :root {
+            --navy: #0A1A2F;
+            --midnight: #102C57;
+            --gold: #D4AF37;
+            --gold-soft: #E6C56A;
+            --white: #FFFFFF;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #4B5563;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
-    body { background:#0a1622; color:#fff; line-height:1.5; -webkit-font-smoothing:antialiased; cursor: none; overflow-x: hidden; }
-    img { width:100%; display:block; object-fit:cover; }
-    .container { width:90%; max-width:1400px; margin:auto; position:relative; z-index:2; }
-    
-    /* Grid Background */
-    .grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 120px 120px;
-      pointer-events: none;
-      z-index: 0;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* Floating Squares */
-    .square {
-      position: fixed;
-      border: 1px solid rgba(255,255,255,.06);
-      background: rgba(255,255,255,.01);
-      backdrop-filter: blur(20px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .s1 { width: 100px; height: 100px; top: 12%; left: 4%; }
-    .s2 { width: 160px; height: 160px; top: 18%; right: 5%; }
-    .s3 { width: 80px; height: 80px; top: 45%; left: 8%; }
-    .s4 { width: 140px; height: 140px; top: 55%; right: 12%; }
-    .s5 { width: 60px; height: 60px; top: 72%; left: 3%; }
-    .s6 { width: 110px; height: 110px; top: 78%; right: 6%; }
-    .s7 { width: 90px; height: 90px; top: 88%; left: 15%; }
-    .s8 { width: 130px; height: 130px; top: 92%; right: 20%; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    /* Custom Cursor */
-    #cursor {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: #2ecc71;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 10000000000;
-      transform: translate(-50%,-50%);
-      transition: transform 0.08s, width 0.25s, height 0.25s, background 0.25s;
-      mix-blend-mode: normal;
-    }
-    #cursor-ring {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(46,204,113,0.5);
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 1000000000;
-      transform: translate(-50%,-50%);
-      transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s, opacity 0.3s;
-    }
-    
-    a:hover ~ #cursor,
-    button:hover ~ #cursor,
-    .cta-btn:hover ~ #cursor,
-    .talk-btn:hover ~ #cursor,
-    .menu-btn:hover ~ #cursor,
-    .drawer-link:hover ~ #cursor,
-    .drawer-cta:hover ~ #cursor,
-    .drawer-close:hover ~ #cursor,
-    .play-btn:hover ~ #cursor {
-      width: 24px;
-      height: 24px;
-      background: #27ae60;
-    }
-    
-    a:hover ~ #cursor-ring,
-    button:hover ~ #cursor-ring,
-    .cta-btn:hover ~ #cursor-ring,
-    .talk-btn:hover ~ #cursor-ring,
-    .menu-btn:hover ~ #cursor-ring,
-    .drawer-link:hover ~ #cursor-ring,
-    .drawer-cta:hover ~ #cursor-ring,
-    .drawer-close:hover ~ #cursor-ring,
-    .play-btn:hover ~ #cursor-ring {
-      width: 48px;
-      height: 48px;
-      border-color: rgba(46,204,113,0.8);
-    }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+            width: 100%;
+        }
 
-    /* ─── DRAWER OVERLAY ─── */
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 10000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-    .drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+        /* ----- REVEAL ANIMATION ----- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-d1 { transition-delay: 0.05s; }
+        .reveal-d2 { transition-delay: 0.12s; }
+        .reveal-d3 { transition-delay: 0.19s; }
+        .reveal-d4 { transition-delay: 0.26s; }
+        .reveal-d5 { transition-delay: 0.33s; }
 
-    /* ─── DRAWER ─── */
-    .drawer {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 380px;
-      max-width: 85vw;
-      height: 100vh;
-      background: #0e1c2c;
-      z-index: 10001;
-      transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid rgba(46,204,113,0.15);
-      overflow-y: auto;
-    }
-    .drawer.active {
-      right: 0;
-    }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 30px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .drawer-logo {
-      height: 45px;
-      width: auto;
-    }
-    .drawer-close {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    .drawer-close:hover {
-      background: #2ecc71;
-      border-color: #2ecc71;
-      color: #0a1622;
-    }
-    .drawer-nav {
-      flex: 1;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .drawer-link {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 16px 20px;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      border-radius: 4px;
-      position: relative;
-    }
-    .drawer-link:hover {
-      color: #fff;
-      background: rgba(46,204,113,0.08);
-    }
-    .drawer-link::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 0;
-      background: #2ecc71;
-      transition: height 0.3s ease;
-      border-radius: 0 2px 2px 0;
-    }
-    .drawer-link:hover::before {
-      height: 60%;
-    }
-    .drawer-link i {
-      width: 24px;
-      text-align: center;
-      font-size: 16px;
-      color: #2ecc71;
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
-    }
-    .drawer-link:hover i {
-      opacity: 1;
-    }
-    .drawer-footer {
-      padding: 30px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .drawer-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 16px 30px;
-      background: #2ecc71;
-      color: #0a1622;
-      border: none;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    .drawer-cta:hover {
-      background: #27ae60;
-      transform: translateY(-2px);
-    }
-    .drawer-info {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .drawer-info p {
-      font-size: 12px;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 5px;
-    }
-    .drawer-info a {
-      color: rgba(255,255,255,0.5);
-      text-decoration: none;
-      font-size: 13px;
-      transition: color 0.3s ease;
-    }
-    .drawer-info a:hover {
-      color: #2ecc71;
-    }
+        /* ----- NAVIGATION ----- */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--gray-200);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .nav.scrolled {
+            background: var(--white);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--navy);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 26px;
+            border-radius: 100px;
+            background: var(--navy);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.25s, transform 0.25s;
+        }
+        .nav-cta:hover {
+            background: var(--midnight);
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* Header */
-    header { position:absolute; width:100%; z-index:10; padding:30px 0; }
-    .nav { display:flex; justify-content:space-between; align-items:center; }
-    .logo img {
-      height: 70px;
-      width: auto;
-      display: block;
-    }
-    .right-nav { display:flex; gap:15px; align-items:center; }
-    .talk-btn { 
-      background:#2ecc71; 
-      color:#0a1622; 
-      border:none; 
-      padding:14px 30px; 
-      border-radius:50px; 
-      cursor:pointer; 
-      font-weight:600; 
-      font-size:14px; 
-      transition:0.3s ease; 
-      letter-spacing:0.5px; 
-      display: block;
-    }
-    .talk-btn:hover { background:#27ae60; }
-    .menu-btn { width:50px; height:50px; border-radius:50%; background:#2ecc71; color:#0a1622; display:flex; justify-content:center; align-items:center; font-size:24px; cursor:pointer; transition:0.3s ease; }
-    .menu-btn:hover { background:#27ae60; }
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            z-index: 999;
+            transform: translateX(100%);
+            transition: transform 0.4s var(--ease);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 48px 32px;
+            gap: 32px;
+            visibility: hidden;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.05);
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+            visibility: visible;
+        }
+        .mobile-menu ul {
+            list-style: none;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .mobile-menu ul li a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+        .mobile-menu ul li a:hover { color: var(--gold); }
 
-    /* Page Hero */
-    .page-hero { min-height: 45vh; position: relative; overflow: hidden; background: #0a1622; display: flex; align-items: flex-end; padding-bottom: 60px; }
-    .page-hero-image { position: absolute; inset: 0; opacity: 0.2; }
-    .page-hero-image img { width: 100%; height: 100%; object-fit: cover; }
-    .page-hero-image::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,11,15,0.3) 0%,rgba(5,11,15,0.92) 100%); }
-    .page-hero-content { position: relative; z-index: 2; }
-    .page-hero-title { font-size: 4.5vw; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; color: #fff; letter-spacing: -0.5px; text-shadow: 0 5px 25px rgba(0,0,0,0.5); }
-    .page-hero-breadcrumb { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
-    .page-hero-breadcrumb a { color: #2ecc71; text-decoration: none; }
+        /* ----- PAGE HEADER ----- */
+        .page-header {
+            padding: 140px 0 80px;
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+        .breadcrumb a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb i { font-size: 10px; }
+        .breadcrumb span { color: var(--gold); }
+        .page-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 56px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        .page-title span {
+            color: var(--gold);
+        }
+        .page-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    /* Stats Banner */
-    .stats-banner {
-      background: #0d1a28;
-      border-bottom: 1px solid rgba(46,204,113,0.1);
-      padding: 50px 0;
-      position: relative;
-      z-index: 1;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-      text-align: center;
-    }
-    .stat-item .stat-number {
-      font-family: 'Teko', sans-serif;
-      font-size: 48px;
-      font-weight: 600;
-      color: #2ecc71;
-      line-height: 1;
-    }
-    .stat-item .stat-label {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-top: 8px;
-    }
+        /* ----- SECTION HEADER ----- */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: rgba(10,26,47,0.06);
+            color: var(--navy);
+            margin-bottom: 16px;
+        }
+        .section-badge i { color: var(--gold); }
+        .section-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 44px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--navy);
+        }
+        .section-title span {
+            color: var(--midnight);
+            border-bottom: 3px solid var(--gold);
+            display: inline-block;
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--gray-500);
+            margin-top: 12px;
+        }
 
-    /* Testimonials Section */
-    .testimonials-page { padding: 100px 0; position: relative; z-index: 1; background: transparent; }
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #2ecc71; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; }
-    .section-eyebrow::before, .section-eyebrow::after { content: ''; width: 40px; height: 1px; background: #2ecc71; opacity: 0.5; }
-    .section-headline { font-size: 3.2vw; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.1; letter-spacing: -0.5px; }
+        /* ----- FEATURED TESTIMONIAL ----- */
+        .featured-testimonial-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .featured-testimonial {
+            background: linear-gradient(135deg, var(--navy), var(--midnight));
+            border-radius: 36px;
+            padding: 60px 56px;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .featured-testimonial::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .featured-quote-icon {
+            font-size: 80px;
+            color: rgba(212,175,55,0.2);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .featured-text {
+            font-size: 20px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(212,175,55,0.3);
+        }
+        .featured-avatar i {
+            font-size: 28px;
+            color: var(--gold);
+        }
+        .featured-author-info h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .featured-author-info p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+        .featured-rating {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+        }
+        .featured-rating i {
+            font-size: 14px;
+            color: var(--gold);
+        }
+        .featured-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .featured-image-accent {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(212,175,55,0.25);
+            border-radius: 20px;
+            top: -16px;
+            right: -16px;
+            z-index: 0;
+        }
 
-    /* Testimonial Grid */
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-    .testimonial-card {
-      background: #0a1622;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 40px 32px;
-      transition: all 0.35s ease;
-      position: relative;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(46,204,113,0.3);
-      box-shadow: 0 20px 35px rgba(0,0,0,0.4);
-      background: #0e1c2c;
-    }
-    .quote-icon {
-      font-size: 42px;
-      color: rgba(46,204,113,0.15);
-      position: absolute;
-      top: 30px;
-      right: 30px;
-    }
-    .testimonial-text {
-      font-size: 15px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 28px;
-      font-style: italic;
-      position: relative;
-      z-index: 1;
-    }
-    .client-info {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 24px;
-    }
-    .client-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: rgba(46,204,113,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .client-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .client-avatar i {
-      font-size: 28px;
-      color: #2ecc71;
-    }
-    .client-details h4 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-    .client-details p {
-      font-size: 11px;
-      color: #2ecc71;
-      letter-spacing: 1px;
-      font-weight: 500;
-    }
-    .stars {
-      margin-top: 6px;
-      color: #ffc107;
-      font-size: 11px;
-      letter-spacing: 2px;
-    }
+        /* ----- TESTIMONIALS GRID ----- */
+        .testimonials-grid-section {
+            padding: 0 0 100px;
+            background: var(--white);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 36px 30px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.35s var(--ease);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            position: relative;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212,175,55,0.3);
+            box-shadow: 0 24px 40px -18px rgba(10,26,47,0.12);
+        }
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease);
+            border-radius: 28px 28px 0 0;
+        }
+        .testimonial-card:hover::before {
+            transform: scaleX(1);
+        }
+        .quote-icon-small {
+            font-size: 32px;
+            color: rgba(212,175,55,0.2);
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+        .testimonial-rating i {
+            font-size: 13px;
+            color: var(--gold);
+        }
+        .testimonial-rating i.fa-regular {
+            color: var(--gray-300);
+        }
+        .testimonial-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 24px;
+            min-height: 100px;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-100);
+        }
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(10,26,47,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .author-avatar i {
+            font-size: 22px;
+            color: var(--navy);
+        }
+        .author-info h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+        .author-info p {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+        .service-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(212,175,55,0.08);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
 
-    /* Video Testimonials Section */
-    .video-section { padding: 60px 0 100px; position: relative; z-index: 1; background: transparent; }
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-    }
-    .video-card {
-      background: #0a1622;
-      border: 1px solid rgba(255,255,255,0.06);
-      overflow: hidden;
-      transition: all 0.35s ease;
-    }
-    .video-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(46,204,113,0.3);
-      background: #0e1c2c;
-    }
-    .video-thumb {
-      position: relative;
-      height: 220px;
-      overflow: hidden;
-    }
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s;
-    }
-    .video-card:hover .video-thumb img {
-      transform: scale(1.03);
-    }
-    .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: #2ecc71;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0a1622;
-      font-size: 22px;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .play-btn:hover {
-      background: #27ae60;
-      transform: translate(-50%, -50%) scale(1.1);
-    }
-    .video-content {
-      padding: 28px 30px;
-    }
-    .video-content h4 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-    .video-content p {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-    }
+        /* ----- TRUSTED BY ----- */
+        .trusted-section {
+            padding: 100px 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .trusted-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+        .trusted-logo {
+            text-align: center;
+            padding: 28px 20px;
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+        }
+        .trusted-logo:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212,175,55,0.25);
+            box-shadow: 0 12px 28px -12px rgba(0,0,0,0.08);
+        }
+        .trusted-logo i {
+            font-size: 36px;
+            color: var(--gray-400);
+            margin-bottom: 10px;
+            display: block;
+            transition: 0.3s;
+        }
+        .trusted-logo:hover i {
+            color: var(--gold);
+        }
+        .trusted-logo span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
 
-    /* Trust Bar */
-    .trust-bar {
-      background: #0d1a28;
-      border-top: 1px solid rgba(46,204,113,0.08);
-      border-bottom: 1px solid rgba(46,204,113,0.08);
-      padding: 40px 0;
-      position: relative;
-      z-index: 1;
-    }
-    .trust-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 60px;
-      flex-wrap: wrap;
-    }
-    .trust-logos span {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+        /* ----- VIDEO TESTIMONIALS ----- */
+        .video-testimonials-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .video-card {
+            background: var(--white);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+            transition: all 0.35s var(--ease);
+            cursor: pointer;
+        }
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212,175,55,0.3);
+            box-shadow: 0 24px 40px -18px rgba(10,26,47,0.12);
+        }
+        .video-thumbnail {
+            width: 100%;
+            aspect-ratio: 16/10;
+            position: relative;
+            overflow: hidden;
+            background: var(--navy);
+        }
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .play-button i {
+            font-size: 22px;
+            color: var(--navy);
+            margin-left: 4px;
+        }
+        .video-card:hover .play-button {
+            background: var(--gold);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-card:hover .play-button i {
+            color: var(--white);
+        }
+        .video-info {
+            padding: 20px 24px;
+        }
+        .video-info h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .video-info p {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
 
-    /* CTA */
-    .cta-section { padding: 100px 0; position: relative; z-index: 1; text-align: center; background: transparent; }
-    .cta-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(46,204,113,0.06) 0%, transparent 70%); pointer-events:none; }
-    .cta-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
-    .cta-headline { font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 24px; }
-    .cta-headline em { color: #2ecc71; font-style: normal; }
-    .cta-body { color: rgba(255,255,255,0.5); margin-bottom: 32px; font-size: 15px; }
-    .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: #2ecc71; color: #0a1622; text-decoration: none; padding: 16px 36px; font-weight: 700; font-size: 14px; transition: 0.3s; border-radius: 4px; }
-    .cta-btn:hover { background: #27ae60; gap: 15px; }
+        /* ----- STATS ----- */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--navy);
+            position: relative;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-card {
+            padding: 32px 20px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(212,175,55,0.2);
+            transform: translateY(-4px);
+        }
+        .stat-icon {
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .stat-number {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 48px;
+            color: var(--white);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        .stat-number .plus {
+            color: var(--gold);
+        }
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+        }
 
-    /* Footer */
-    .footer-v2 { background:#0a1622; border-top:1px solid rgba(255,255,255,0.06); position:relative; z-index:1; }
-    .fv2__top { padding:70px 0 50px; max-width:1400px; margin:0 auto; width:90%; display:grid; grid-template-columns:280px 1fr; gap:70px; border-bottom:1px solid rgba(255,255,255,0.05); align-items:start; }
-    .fv2__brand h3 { color:#2ecc71; font-size:20px; margin-bottom:16px; }
-    .fv2__tagline { font-size:13px; font-weight:300; color:rgba(255,255,255,0.4); line-height:1.8; margin-bottom:24px; }
-    .fv2__socials { display:flex; gap:10px; }
-    .fv2__social { width:34px; height:34px; border:1px solid rgba(255,255,255,0.12); border-radius:2px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.45); transition:all 0.2s; text-decoration:none; font-size:15px; }
-    .fv2__social:hover { border-color:#2ecc71; color:#2ecc71; background:rgba(46,204,113,0.05); }
-    .fv2__cols { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
-    .fv2__col { display:flex; flex-direction:column; gap:10px; }
-    .fv2__col-head { font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-bottom:8px; }
-    .fv2__lnk { font-size:13px; font-weight:400; color:rgba(255,255,255,0.5); transition:color 0.2s; text-decoration:none; }
-    .fv2__lnk:hover { color:#fff; }
-    .fv2__addr { font-size:13px; font-weight:300; color:rgba(255,255,255,0.35); line-height:1.7; }
-    .fv2__cta { display:inline-flex; align-items:center; gap:8px; margin-top:8px; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#2ecc71; text-decoration:none; }
-    .fv2__bottom { max-width:1400px; margin:0 auto; width:90%; padding:22px 0; display:flex; align-items:center; justify-content:space-between; gap:20px; }
-    .fv2__copy { font-size:11px; color:rgba(255,255,255,0.2); }
-    .fv2__legal { display:flex; gap:24px; }
-    .fv2__legal-lnk { font-size:11px; color:rgba(255,255,255,0.2); text-decoration:none; transition:color 0.2s; }
-    .fv2__legal-lnk:hover { color:rgba(255,255,255,0.55); }
-    .fv2__region { font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.15); }
-    
-    .footer-logo {
-      height: 50px;
-      width: auto;
-      margin-bottom: 20px;
-    }
+        /* ----- CTA SECTION ----- */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .cta-card {
+            background: linear-gradient(135deg, var(--navy), var(--midnight));
+            border-radius: 36px;
+            padding: 64px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-card h3 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 38px;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-card h3 span { color: var(--gold); }
+        .cta-card p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.6);
+            max-width: 550px;
+            margin: 0 auto 32px;
+            position: relative;
+            z-index: 1;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: var(--navy);
+            position: relative;
+            z-index: 1;
+        }
+        .btn-gold:hover {
+            background: var(--gold-soft);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+        }
+        .btn-outline-light {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .btn-outline-light:hover {
+            border-color: var(--white);
+            transform: translateY(-3px);
+        }
+        .cta-buttons {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    /* ─── RESPONSIVE STYLES ─── */
-    
-    @media (max-width: 1024px) {
-      .page-hero-title { font-size: 6.5vw; }
-      .fv2__top { grid-template-columns: 1fr; gap: 50px; }
-      .fv2__cols { grid-template-columns: repeat(3, 1fr); }
-    }
+        /* ----- FOOTER ----- */
+        .footer {
+            background: var(--navy);
+            padding: 60px 0 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .footer-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-bottom: 16px;
+        }
+        .footer-logo img {
+            height: 56px;
+            width: auto;
+        }
+        .footer-description {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 280px;
+            margin-bottom: 20px;
+        }
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s;
+            text-decoration: none;
+        }
+        .footer-social a i { font-size: 15px; color: var(--gold); }
+        .footer-social a:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+        }
+        .footer-social a:hover i { color: var(--navy); }
+        .footer-col h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+        .contact-item-footer {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .contact-item-footer i { color: var(--gold); font-size: 15px; margin-top: 2px; }
+        .contact-item-footer p {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 13px; }
+        .footer-legal { display: flex; gap: 20px; }
+        .footer-legal a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .footer-legal a:hover { color: var(--gold); }
 
-    @media (min-width: 901px) and (max-width: 1100px) {
-      .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1100px) {
+            .container { padding: 0 28px; }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+            .trusted-grid { grid-template-columns: repeat(3, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .featured-testimonial { grid-template-columns: 1fr; gap: 32px; }
+            .featured-image { max-width: 350px; margin: 0 auto; }
+        }
 
-    @media (max-width: 768px) {
-      .square, #cursor, #cursor-ring { display: none; }
-      body, * { cursor: auto !important; }
-      
-      header { padding: 20px 0; }
-      .logo img { height: 45px; }
-      .talk-btn { display: none !important; }
-      
-      .page-hero { min-height: 35vh; padding-bottom: 50px; }
-      .page-hero-title { font-size: 10vw; }
-      
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-      .testimonial-grid { grid-template-columns: 1fr; gap: 24px; }
-      .video-grid { grid-template-columns: 1fr; }
-      .section-headline { font-size: 9vw; }
-      .trust-logos { gap: 30px; }
-      
-      .fv2__top { grid-template-columns: 1fr; gap: 40px; padding: 40px 0 30px; }
-      .fv2__cols { grid-template-columns: 1fr; gap: 30px; }
-      .fv2__bottom { flex-direction: column; text-align: center; gap: 12px; padding: 20px 0; }
-      .fv2__legal { flex-direction: column; gap: 8px; align-items: center; }
-      .footer-logo { height: 40px; margin-bottom: 15px; }
-      
-      .drawer { width: 100%; max-width: 100%; }
-      
-      .testimonials-page { padding: 60px 0; }
-      .video-section { padding: 40px 0 60px; }
-      .cta-section { padding: 60px 0; }
-    }
+        @media (max-width: 820px) {
+            .container { padding: 0 24px; }
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: flex; }
+            .page-header { padding: 120px 0 60px; }
+            .page-title { font-size: 40px; }
+            .section-title { font-size: 36px; }
+            .featured-testimonial { padding: 40px 28px; }
+            .featured-text { font-size: 17px; }
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+            .video-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; }
+            .trusted-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .footer-legal { justify-content: center; }
+        }
 
-    @media (max-width: 480px) {
-      .page-hero-title { font-size: 11vw; }
-      .stats-grid { grid-template-columns: 1fr; gap: 24px; }
-      .cta-headline { font-size: 9vw; }
-      .testimonial-card { padding: 28px 22px; }
-    }
-  </style>
-
-  <style>
-    @media (max-width: 768px) {
-      #cursor,
-      #cursor-ring {
-        display: none !important;
-      }
-      
-      body, 
-      body * {
-        cursor: auto !important;
-      }
-    }
-  </style>
+        @media (max-width: 480px) {
+            .page-title { font-size: 32px; }
+            .section-title { font-size: 28px; }
+            .featured-testimonial { padding: 32px 20px; }
+            .featured-text { font-size: 16px; }
+            .testimonial-card { padding: 28px 20px; }
+            .trusted-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .stat-card { padding: 24px 14px; }
+            .stat-number { font-size: 32px; }
+            .cta-card { padding: 40px 24px; }
+            .cta-card h3 { font-size: 28px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="grid-overlay"></div>
-  <div class="square s1"></div><div class="square s2"></div><div class="square s3"></div>
-  <div class="square s4"></div><div class="square s5"></div><div class="square s6"></div>
-  <div class="square s7"></div><div class="square s8"></div>
-
-  <div id="cursor"></div><div id="cursor-ring"></div>
-
-  <!-- ─── DRAWER OVERLAY ─── -->
-  <div class="drawer-overlay" id="drawerOverlay"></div>
-
-  <!-- ─── DRAWER ─── -->
-  <div class="drawer" id="drawer">
-    <div class="drawer-header">
-      <img src="img.png" alt="Vision Vibe Management" class="drawer-logo">
-      <button class="drawer-close" id="drawerClose">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">
-        <i class="fas fa-home"></i>
-        Home
-      </a>
-      <a href="about.html" class="drawer-link">
-        <i class="fas fa-building"></i>
-        About Us
-      </a>
-      <a href="services.html" class="drawer-link">
-        <i class="fas fa-cogs"></i>
-        Services
-      </a>
-      <a href="testimonials.html" class="drawer-link">
-        <i class="fas fa-star"></i>
-        Testimonials
-      </a>
-      <a href="contact.html" class="drawer-link">
-        <i class="fas fa-envelope"></i>
-        Contact
-      </a>
+    <!-- NAVIGATION -->
+    <nav class="nav" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">
+                <img src="img.png" alt="Vision Vibe">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <a href="index.html#contact" class="nav-cta">Get in Touch <i class="fa-solid fa-arrow-right"></i></a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
-    <div class="drawer-footer">
-      <a href="#consultation" class="drawer-cta">
-        Get Free Consultation <i class="fas fa-arrow-right"></i>
-      </a>
-      <div class="drawer-info">
-        <p>Ajman Free Zone, UAE</p>
-        <a href="tel:+971525147440">+971 52 514 7440</a>
-      </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="testimonials.html">Testimonials</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
     </div>
-  </div>
 
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <img src="img.png" alt="Vision Vibe Management">
-      </div>
-      <div class="right-nav">
-        <button class="talk-btn">Get Free Consultation</button>
-        <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="page-hero-image">
-      <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop" alt="Client Testimonials">
-    </div>
-    <div class="container page-hero-content">
-      <h1 class="page-hero-title">Client Testimonials</h1>
-      <div class="page-hero-breadcrumb"><a href="index.html">Home</a> / <span>Testimonials</span></div>
-    </div>
-  </section>
-
-  <!-- Stats Banner -->
-  <div class="stats-banner">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Happy Clients</div></div>
-        <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client Retention</div></div>
-        <div class="stat-item"><div class="stat-number">4.9</div><div class="stat-label">Google Rating</div></div>
-        <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">5-Star Reviews</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Written Testimonials -->
-  <section class="testimonials-page">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">What Our Clients Say</div>
-        <h2 class="section-headline">Trusted by Businesses Across the UAE</h2>
-      </div>
-      <div class="testimonial-grid">
-        
-        <!-- Testimonial 1 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"Vision Vibe has been an absolute game-changer for our company. Their accounting and tax consultancy services are top-notch. They saved us over 30% in tax liabilities and streamlined our entire financial process. Highly recommended!"</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed Al Mansoori">
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <div class="breadcrumb reveal">
+                    <a href="index.html">Home</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Testimonials</span>
+                </div>
+                <h1 class="page-title reveal reveal-d1">What Our <span>Clients</span> Say</h1>
+                <p class="page-subtitle reveal reveal-d2">Real stories from businesses we've helped transform across the UAE and beyond.</p>
             </div>
-            <div class="client-details">
-              <h4>Ahmed Al Mansoori</h4>
-              <p>CEO, Al Mansoori Trading</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+    </section>
+
+    <!-- FEATURED TESTIMONIAL -->
+    <section class="featured-testimonial-section">
+        <div class="container">
+            <div class="featured-testimonial reveal">
+                <div class="featured-content">
+                    <div class="featured-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                    <p class="featured-text">
+                        "Vision Vibe transformed our financial operations completely. Their strategic guidance helped us scale 3x in just 18 months. The team is responsive, professional, and truly cares about our success. From business setup to ongoing compliance, they've been an invaluable partner every step of the way."
+                    </p>
+                    <div class="featured-author">
+                        <div class="featured-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="featured-author-info">
+                            <h4>Ahmed Al Qasimi</h4>
+                            <p>CEO, TechVantage FZCO — Dubai, UAE</p>
+                            <div class="featured-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-image-wrapper">
+                    <div class="featured-image-accent"></div>
+                    <div class="featured-image">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&auto=format" alt="Client success story">
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Testimonial 2 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"The team at Vision Vibe handled our company formation in Dubai Free Zone seamlessly. From documentation to visa processing, everything was done professionally and on time. Their PRO services are exceptional."</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Johnson">
+    <!-- TESTIMONIALS GRID -->
+    <section class="testimonials-grid-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge"><i class="fa-regular fa-message"></i> Client Stories</div>
+                <h2 class="section-title">Trusted by businesses <span>across the UAE</span></h2>
+                <p class="section-subtitle">Hear directly from our clients about their journey with Vision Vibe Management Consulting.</p>
             </div>
-            <div class="client-details">
-              <h4>Sarah Johnson</h4>
-              <p>Founder, TechHub ME</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card reveal reveal-d1">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Outstanding consulting firm! They helped us navigate complex regulations in the Dubai market. From compliance to growth strategy, Vision Vibe exceeded every expectation. Highly recommended for any business looking to establish or expand in the UAE."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Founder, Nest Retail — Abu Dhabi</p>
+                            <div class="service-tag">Business Setup</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal reveal-d1">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Their operational excellence and financial advisory have been game-changing for our expansion across GCC. A true partner that delivers measurable ROI. The accounting and bookkeeping services are impeccable — couldn't be happier with the results."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Mohammed Hassan</h4>
+                            <p>Managing Director, GulfLogistics</p>
+                            <div class="service-tag">Accounting & Auditing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal reveal-d2">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Vision Vibe handled our VAT registration and ongoing compliance with absolute precision. They made a complex process feel effortless. The team's knowledge of UAE tax regulations is outstanding — they saved us from costly mistakes."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>CFO, Eastern Star Trading LLC</p>
+                            <div class="service-tag">VAT & Corporate Tax</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal reveal-d2">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "We approached Vision Vibe for management consulting during a critical growth phase. Their strategic roadmap and market entry analysis gave us the confidence to expand into Saudi Arabia. Results have exceeded projections by 40%."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Khalid Mahmoud</h4>
+                            <p>CEO, Innovate Solutions DMCC</p>
+                            <div class="service-tag">Management Consulting</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card reveal reveal-d3">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "The PR management team transformed our brand presence in the Middle East. Media coverage increased by 300% within six months. Their crisis communication strategy also proved invaluable during a challenging period last year."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Layla Al Marri</h4>
+                            <p>Marketing Director, Al Fajr Group</p>
+                            <div class="service-tag">PR Management</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card reveal reveal-d3">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Setting up our free zone company through Vision Vibe was seamless. They handled everything from license to visas in record time. Their ongoing bookkeeping support keeps us compliant without any stress. True one-stop solution!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Robert Chen</h4>
+                            <p>Managing Partner, Pacific Ventures</p>
+                            <div class="service-tag">Business Setup</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 7 -->
+                <div class="testimonial-card reveal reveal-d4">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Their audit team is thorough and professional. They identified several areas for improvement in our internal controls that saved us significant costs. The audit report was delivered on time and was well-received by our board."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Fatima Hassan</h4>
+                            <p>Finance Manager, Dar Al Salam Holdings</p>
+                            <div class="service-tag">Auditing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 8 -->
+                <div class="testimonial-card reveal reveal-d4">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Vision Vibe has been our trusted partner for over 5 years. They've supported us through setup, growth, and now expansion into multiple emirates. Their consistency, expertise, and personalized approach make them irreplaceable."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Omar Al Zaabi</h4>
+                            <p>Chairman, Zaabi Group of Companies</p>
+                            <div class="service-tag">All Services</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 9 -->
+                <div class="testimonial-card reveal reveal-d5">
+                    <div class="quote-icon-small"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="testimonial-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "As a startup founder, I was overwhelmed by the compliance requirements. Vision Vibe guided me through every step — from trade license to corporate tax registration. They're more than consultants; they're growth partners."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Amira Noor</h4>
+                            <p>Founder, Bloom Technologies FZE</p>
+                            <div class="service-tag">Business Setup & Tax</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Testimonial 3 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"We've been working with Vision Vibe for over 3 years now. Their audit support and financial advisory have given us complete peace of mind. Professional, responsive, and truly dedicated to their clients."</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rajesh Khanna">
+    <!-- TRUSTED BY -->
+    <section class="trusted-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge"><i class="fa-solid fa-handshake"></i> Trusted Partners</div>
+                <h2 class="section-title">Organizations that <span>trust us</span></h2>
+                <p class="section-subtitle">We're proud to have partnered with leading businesses across diverse industries in the Middle East.</p>
             </div>
-            <div class="client-details">
-              <h4>Rajesh Khanna</h4>
-              <p>Director, Khanna Group</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="trusted-grid">
+                <div class="trusted-logo reveal reveal-d1">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Emirates Group</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d1">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Emaar Properties</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d2">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Dubai Holdings</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d2">
+                    <i class="fa-solid fa-bank"></i>
+                    <span>ADNOC</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d3">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>DP World</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d3">
+                    <i class="fa-solid fa-industry"></i>
+                    <span>TAQA Group</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d4">
+                    <i class="fa-solid fa-plane"></i>
+                    <span>flydubai</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d4">
+                    <i class="fa-solid fa-city"></i>
+                    <span>Nakheel</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d5">
+                    <i class="fa-solid fa-ship"></i>
+                    <span>Gulf Navigation</span>
+                </div>
+                <div class="trusted-logo reveal reveal-d5">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>DarkMatter</span>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Testimonial 4 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"Excellent business consultancy services! Vision Vibe helped us restructure our operations and improve profitability by 40% within 6 months. Their strategic insights are invaluable."</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Fatima Al Zaabi">
+    <!-- VIDEO TESTIMONIALS -->
+    <section class="video-testimonials-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge"><i class="fa-solid fa-play"></i> Watch & Listen</div>
+                <h2 class="section-title">Hear from our <span>clients</span> directly</h2>
+                <p class="section-subtitle">Video testimonials showcasing real results and experiences from our valued clients.</p>
             </div>
-            <div class="client-details">
-              <h4>Fatima Al Zaabi</h4>
-              <p>Managing Partner, Al Zaabi Holdings</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="video-grid">
+                <div class="video-card reveal reveal-d1">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&auto=format" alt="Client interview">
+                        <div class="play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4>How We Scaled 3x with Vision Vibe</h4>
+                        <p>Ahmed Al Qasimi — CEO, TechVantage FZCO</p>
+                    </div>
+                </div>
+                <div class="video-card reveal reveal-d2">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&auto=format" alt="Client success story">
+                        <div class="play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4>Navigating UAE Regulations Successfully</h4>
+                        <p>Sarah Johnson — Founder, Nest Retail</p>
+                    </div>
+                </div>
+                <div class="video-card reveal reveal-d3">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&auto=format" alt="Business transformation">
+                        <div class="play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4>From Startup to Enterprise — Our Journey</h4>
+                        <p>Mohammed Hassan — MD, GulfLogistics</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Testimonial 5 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"The tax compliance support from Vision Vibe is outstanding. They handled our corporate tax registration and filing flawlessly. Their team is always available to answer our queries. 5 stars!"</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="Mohammed Rashed">
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card reveal reveal-d1">
+                    <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                    <div class="stat-number">4.9<span class="plus">/5</span></div>
+                    <div class="stat-label">Average Client Rating</div>
+                </div>
+                <div class="stat-card reveal reveal-d2">
+                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-number">200<span class="plus">+</span></div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card reveal reveal-d3">
+                    <div class="stat-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <div class="stat-number">98<span class="plus">%</span></div>
+                    <div class="stat-label">Client Retention Rate</div>
+                </div>
+                <div class="stat-card reveal reveal-d4">
+                    <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="stat-number">15<span class="plus">+</span></div>
+                    <div class="stat-label">Years of Trust</div>
+                </div>
             </div>
-            <div class="client-details">
-              <h4>Mohammed Rashed</h4>
-              <p>CFO, Rashed Logistics</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card reveal">
+                <h3>Join <span>200+</span> satisfied clients</h3>
+                <p>Ready to experience the Vision Vibe difference? Let's discuss how we can help your business achieve its goals.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-gold">
+                        Schedule a Free Consultation <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="services.html" class="btn btn-outline-light">
+                        Explore Our Services
+                    </a>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Testimonial 6 -->
-        <div class="testimonial-card">
-          <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
-          <p class="testimonial-text">"From startup to scaling, Vision Vibe has been with us every step of the way. Their bookkeeping and financial reporting services are accurate and timely. Highly professional team!"</p>
-          <div class="client-info">
-            <div class="client-avatar">
-              <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Lisa Chen">
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="img.png" alt="Vision Vibe">
+                    </a>
+                    <p class="footer-description">One-stop solution for businesses in the Middle East — Business Setup, Accounting, Auditing, VAT & Corporate Tax, Management Consulting, and PR Management.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#business-setup">Business Setup</a></li>
+                        <li><a href="services.html#accounting">Accounting & Bookkeeping</a></li>
+                        <li><a href="services.html#auditing">Auditing</a></li>
+                        <li><a href="services.html#tax">VAT & Corporate Tax</a></li>
+                        <li><a href="services.html#consulting">Management Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="contact-item-footer">
+                        <i class="fa-regular fa-building"></i>
+                        <p>UAE · Middle East</p>
+                    </div>
+                    <div class="contact-item-footer">
+                        <i class="fa-regular fa-envelope"></i>
+                        <p>hello@visionvibe.com</p>
+                    </div>
+                    <div class="contact-item-footer">
+                        <i class="fa-solid fa-phone"></i>
+                        <p>+971 4 123 4567</p>
+                    </div>
+                </div>
             </div>
-            <div class="client-details">
-              <h4>Lisa Chen</h4>
-              <p>Co-Founder, EcoMart UAE</p>
-              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <div class="footer-bottom">
+                <div class="copyright">&copy; 2024 Vision Vibe Management Consulting Services FZC. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
             </div>
-          </div>
         </div>
+    </footer>
 
-      </div>
-    </div>
-  </section>
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }, { passive: true });
 
-  <!-- Video Testimonials -->
-  <section class="video-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Video Reviews</div>
-        <h2 class="section-headline">Hear From Our Clients</h2>
-      </div>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-thumb">
-            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=2074&auto=format&fit=crop" alt="Video testimonial">
-            <div class="play-btn"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="video-content">
-            <h4>Ahmed Al Mansoori - CEO, Al Mansoori Trading</h4>
-            <p>"Vision Vibe transformed our financial operations completely. Watch to learn how."</p>
-          </div>
-        </div>
-        <div class="video-card">
-          <div class="video-thumb">
-            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop" alt="Video testimonial">
-            <div class="play-btn"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="video-content">
-            <h4>Sarah Johnson - Founder, TechHub ME</h4>
-            <p>"The best decision we made was partnering with Vision Vibe for our company setup."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        // Mobile menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        function toggleMenu() {
+            hamburgerBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 820 && mobileMenu.classList.contains('active')) toggleMenu();
+        });
 
-  <!-- Trust Bar -->
-  <div class="trust-bar">
-    <div class="container">
-      <div class="trust-logos">
-        <span>★★★★★ Google Rating</span>
-        <span>98% Client Satisfaction</span>
-        <span>500+ Businesses Supported</span>
-        <span>4.9/5 Average Rating</span>
-      </div>
-    </div>
-  </div>
+        // Reveal animations
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-inner">
-        <h2 class="cta-headline">Join Our <em>Happy Clients</em></h2>
-        <p class="cta-body">Experience the Vision Vibe difference. Schedule your free consultation today and see why 500+ businesses trust us.</p>
-        <a href="#" class="cta-btn">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </section>
+        // Check for visible elements on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    el.classList.add('visible');
+                }
+            });
+        });
 
-  <!-- Footer -->
-  <footer class="footer-v2">
-    <div class="fv2__top">
-      <div class="fv2__brand">
-        <img src="img.png" alt="Vision Vibe Management" class="footer-logo">
-        <p class="fv2__tagline">Empowering businesses across the UAE with expert financial, tax, and advisory solutions.</p>
-        <div class="fv2__socials">
-          <a href="#" class="fv2__social"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="fv2__social"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="fv2__social"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-      <div class="fv2__cols">
-        <div class="fv2__col">
-          <div class="fv2__col-head">Services</div>
-          <a href="#" class="fv2__lnk">Accounting & Bookkeeping</a>
-          <a href="#" class="fv2__lnk">Tax Consultancy</a>
-          <a href="#" class="fv2__lnk">Audit Support</a>
-          <a href="#" class="fv2__lnk">Business Consultancy</a>
-          <a href="#" class="fv2__lnk">Company Formation</a>
-          <a href="#" class="fv2__lnk">PRO Services</a>
-        </div>
-        <div class="fv2__col">
-          <div class="fv2__col-head">Company</div>
-          <a href="#" class="fv2__lnk">About Us</a>
-          <a href="#" class="fv2__lnk">Our Approach</a>
-          <a href="#" class="fv2__lnk">Industries</a>
-          <a href="#" class="fv2__lnk">Contact</a>
-        </div>
-        <div class="fv2__col">
-          <div class="fv2__col-head">Get In Touch</div>
-          <p class="fv2__addr">B.C. 1306233, Ajman Free Zone C1 Building, Ajman Free Zone, Ajman, UAE</p>
-          <a href="mailto:info@visionvibeconsulting.com" class="fv2__lnk">info@visionvibeconsulting.com</a>
-          <a href="tel:+971525147440" class="fv2__lnk">+971 52 514 7440</a>
-          <a href="#" class="fv2__cta">Schedule a Consultation <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="fv2__bottom">
-      <span class="fv2__copy">© 2025 Vision Vibe Management Consulting FZC. All rights reserved.</span>
-      <div class="fv2__legal">
-        <a href="#" class="fv2__legal-lnk">Privacy Policy</a>
-        <a href="#" class="fv2__legal-lnk">Terms of Use</a>
-        <a href="#" class="fv2__legal-lnk">Cookie Policy</a>
-      </div>
-      <span class="fv2__region">UAE · GCC · MENA</span>
-    </div>
-  </footer>
-
-  <script>
-    // Custom Cursor
-    const cursor = document.getElementById('cursor');
-    const cursorRing = document.getElementById('cursor-ring');
-    
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursorRing.style.left = e.clientX + 'px';
-      cursorRing.style.top = e.clientY + 'px';
-    });
-    
-    document.body.style.cursor = 'none';
-    
-    const allElements = document.querySelectorAll('*');
-    allElements.forEach(el => {
-      el.style.cursor = 'none';
-    });
-
-    // Drawer Functionality
-    const menuBtn = document.getElementById('menuBtn');
-    const drawer = document.getElementById('drawer');
-    const drawerOverlay = document.getElementById('drawerOverlay');
-    const drawerClose = document.getElementById('drawerClose');
-    const drawerLinks = document.querySelectorAll('.drawer-link, .drawer-cta');
-
-    function openDrawer() {
-      drawer.classList.add('active');
-      drawerOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDrawer() {
-      drawer.classList.remove('active');
-      drawerOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    menuBtn.addEventListener('click', openDrawer);
-    drawerClose.addEventListener('click', closeDrawer);
-    drawerOverlay.addEventListener('click', closeDrawer);
-
-    drawerLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        closeDrawer();
-      });
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer.classList.contains('active')) {
-        closeDrawer();
-      }
-    });
-
-    document.addEventListener('touchmove', function(e) {
-      if (drawer.classList.contains('active') && e.target === drawer) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-  </script>
-
-  <script>
-    if (window.innerWidth > 768) {
-      const cursor = document.getElementById('cursor');
-      const cursorRing = document.getElementById('cursor-ring');
-      
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        cursorRing.style.left = e.clientX + 'px';
-        cursorRing.style.top = e.clientY + 'px';
-      });
-      
-      document.body.style.cursor = 'none';
-      document.querySelectorAll('*').forEach(el => {
-        el.style.cursor = 'none';
-      });
-    }
-  </script>
-
+        // Video play button click
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                alert('▶ Video testimonial would play here.\n\nIn production, this would open a video modal or play the client testimonial video.');
+            });
+        });
+    </script>
 </body>
 </html>
