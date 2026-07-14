@@ -816,99 +816,6 @@ background-size: 56px 100px;
       background: var(--navy);
       box-shadow: 0 0 0 6px rgba(212,175,55,0.2);
     }
-
-    /* ----- TESTIMONIALS (clean) ----- */
-    .testimonials-section {
-      padding: 80px 0;
-      background: var(--gray-50);
-      border-bottom: 1px solid var(--gray-100);
-    }
-    .trusted-bar {
-      margin: 0 0 48px 0;
-      text-align: center;
-    }
-    .trusted-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-      color: var(--gray-400);
-      margin-bottom: 20px;
-    }
-    .logo-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 44px;
-      row-gap: 24px;
-    }
-    .logo-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0.6;
-      transition: 0.25s;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--gray-500);
-    }
-    .logo-item i { font-size: 26px; color: var(--gray-400); }
-    .logo-item:hover { opacity: 1; }
-    .logo-item:hover i { color: var(--gold); }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 28px;
-    }
-    .testimonial-card {
-      background: var(--white);
-      border-radius: 28px;
-      padding: 30px 28px;
-      border: 1px solid var(--gray-100);
-      transition: 0.35s var(--ease);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
-    }
-    .testimonial-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212,175,55,0.2);
-      box-shadow: 0 20px 32px -14px rgba(10,26,47,0.06);
-    }
-    .quote-icon { font-size: 28px; color: rgba(212,175,55,0.3); margin-bottom: 16px; }
-    .rating { display: flex; gap: 4px; margin-bottom: 16px; }
-    .rating i { font-size: 13px; color: var(--gold); }
-    .rating i.fa-regular { color: var(--gray-300); }
-    .testimonial-text {
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--gray-700);
-      margin-bottom: 20px;
-    }
-    .client-info {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border-top: 1px solid var(--gray-100);
-      padding-top: 18px;
-    }
-    .client-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 60px;
-      background: rgba(10,26,47,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .client-avatar i { font-size: 22px; color: var(--navy); }
-    .client-details h4 {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--navy);
-    }
-    .client-details p { font-size: 12px; color: var(--gray-500); }
-
     /* ----- CONTACT (dark navy) ----- */
     .contact-section {
       padding: 80px 0;
@@ -1236,7 +1143,6 @@ background-size: 56px 100px;
       .section-title { font-size: 38px; }
       .services-grid { grid-template-columns: repeat(2,1fr); }
       .why-us-grid { grid-template-columns: repeat(2,1fr); }
-      .testimonials-grid { grid-template-columns: repeat(2,1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .footer-brand { grid-column: span 2; }
     }
@@ -1262,7 +1168,6 @@ background-size: 56px 100px;
       .about-right { display: flex; flex-direction: column; align-items: center; }
       .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .why-us-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
-      .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-brand { grid-column: span 1; }
@@ -1285,7 +1190,6 @@ background-size: 56px 100px;
       .contact-headline { font-size: 26px; }
       .service-card { padding: 24px 20px; }
       .why-us-card { padding: 24px 18px; }
-      .testimonial-card { padding: 24px 20px; }
       .f-card { display: none; }
       .logo-cloud { gap: 24px; }
     }
@@ -1295,13 +1199,12 @@ background-size: 56px 100px;
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="container nav-inner">
-      <a href="#" class="logo"><img src="img.png" alt="Vision Vibe"></a>
+      <a href="index.html" class="logo"><img src="img.png" alt="Vision Vibe"></a>
       <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
       <a href="#contact" class="nav-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
       <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
@@ -1312,12 +1215,11 @@ background-size: 56px 100px;
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-   <ul >
-                <li><a href="index.html">Home</a></li>
+    <ul >
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
     <a href="#contact" class="mobile-cta">Get started <i class="fa-solid fa-arrow-right"></i></a>
   </div>
@@ -1390,37 +1292,37 @@ background-size: 56px 100px;
           <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
           <h3 class="service-title">Strategic Advisory</h3>
           <p class="service-description">Data-driven market entry strategies, business planning, and growth roadmaps for UAE & GCC markets.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html#consulting" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="service-card reveal reveal-d1">
           <div class="service-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
           <h3 class="service-title">Financial Management</h3>
           <p class="service-description">Full-spectrum accounting, CFO advisory, budgeting, and financial forecasting for sustainable growth.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html#accounting" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="service-card reveal reveal-d2">
           <div class="service-icon"><i class="fa-solid fa-gavel"></i></div>
           <h3 class="service-title">Regulatory Compliance</h3>
           <p class="service-description">Navigate complex regulations with confidence — from licensing to VAT, corporate tax, and AML compliance.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html#tax" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="service-card reveal reveal-d2">
           <div class="service-icon"><i class="fa-solid fa-digital-tiling"></i></div>
           <h3 class="service-title">Digital Transformation</h3>
           <p class="service-description">Leverage cutting-edge technology to streamline operations, automate workflows, and scale efficiently.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="service-card reveal reveal-d3">
           <div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div>
           <h3 class="service-title">Market Expansion</h3>
           <p class="service-description">Enter new markets with confidence — feasibility studies, partner identification, and local expertise.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html#consulting" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <div class="service-card reveal reveal-d3">
           <div class="service-icon"><i class="fa-solid fa-handshake"></i></div>
           <h3 class="service-title">HR & Talent Advisory</h3>
           <p class="service-description">Build winning teams with strategic HR planning, talent acquisition, and performance optimization.</p>
-          <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="services.html" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -1486,48 +1388,6 @@ background-size: 56px 100px;
       </div>
     </div>
   </section>
-
-  <!-- TESTIMONIALS (clean) -->
-  <section class="testimonials-section" id="testimonials">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge"><i class="fa-regular fa-message"></i> Testimonials</div>
-        <h2 class="section-title">Trusted by businesses <span>across the UAE</span></h2>
-        <p class="section-subtitle">Hear what our clients say about their journey with Vision Vibe.</p>
-      </div>
-      <div class="trusted-bar reveal reveal-d1">
-        <div class="trusted-label">— Partnering with industry leaders —</div>
-        <div class="logo-cloud">
-          <div class="logo-item"><i class="fa-solid fa-building"></i> <span>Emirates Group</span></div>
-          <div class="logo-item"><i class="fa-solid fa-chart-simple"></i> <span>Emaar Properties</span></div>
-          <div class="logo-item"><i class="fa-solid fa-bolt"></i> <span>Dubai Holdings</span></div>
-          <div class="logo-item"><i class="fa-solid fa-bank"></i> <span>ADNOC</span></div>
-          <div class="logo-item"><i class="fa-solid fa-globe"></i> <span>DP World</span></div>
-        </div>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal reveal-d1">
-          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="testimonial-text">"Vision Vibe transformed our financial operations completely. Their strategic guidance helped us scale 3x in just 18 months. The team is responsive, professional, and truly cares about our success."</p>
-          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Ahmed Al Qasimi</h4><p>CEO, TechVantage FZCO</p></div></div>
-        </div>
-        <div class="testimonial-card reveal reveal-d2">
-          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="testimonial-text">"Outstanding consulting firm! They helped us navigate complex regulations in the Dubai market. From compliance to growth strategy, Vision Vibe exceeded every expectation. Highly recommended!"</p>
-          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Sarah Johnson</h4><p>Founder, Nest Retail</p></div></div>
-        </div>
-        <div class="testimonial-card reveal reveal-d3">
-          <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
-          <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-          <p class="testimonial-text">"Their operational excellence and financial advisory have been game-changing for our expansion across GCC. A true partner that delivers measurable ROI. Couldn't be happier with the results."</p>
-          <div class="client-info"><div class="client-avatar"><i class="fa-regular fa-circle-user"></i></div><div class="client-details"><h4>Mohammed Hassan</h4><p>Managing Director, GulfLogistics</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT (dark navy) -->
   <section class="contact-section" id="contact">
     <div class="container">
@@ -1546,10 +1406,10 @@ background-size: 56px 100px;
             <div class="contact-item"><div class="contact-icon"><i class="fa-solid fa-phone"></i></div><div class="contact-text"><h4>Call Us</h4><p>+971 4 123 4567<br>+971 50 987 6543</p></div></div>
           </div>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://x.com/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
           </div>
         </div>
         <div class="contact-form-wrapper reveal reveal-d2">
@@ -1585,33 +1445,32 @@ background-size: 56px 100px;
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#" class="footer-logo"><img src="img.png" alt="Vision Vibe"></a>
+          <a href="index.html" class="footer-logo"><img src="img.png" alt="Vision Vibe"></a>
           <p class="footer-description">Empowering businesses across the UAE & GCC with strategic financial management, regulatory compliance, and operational excellence.</p>
           <div class="footer-social">
-            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
           </div>
         </div>
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul class="footer-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="#">Financial Advisory</a></li>
-            <li><a href="#">Regulatory Compliance</a></li>
-            <li><a href="#">Strategic Growth</a></li>
-            <li><a href="#">Digital Transformation</a></li>
-            <li><a href="#">Business Setup</a></li>
+            <li><a href="services.html#accounting">Financial Advisory</a></li>
+            <li><a href="services.html#tax">Regulatory Compliance</a></li>
+            <li><a href="services.html#consulting">Strategic Growth</a></li>
+            <li><a href="services.html">Digital Transformation</a></li>
+            <li><a href="services.html#business-setup">Business Setup</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1695,12 +1554,16 @@ background-size: 56px 100px;
     (function() {
       const form = document.getElementById('contactForm');
       const messageDiv = document.getElementById('formMessage');
+      const whatsappNumber = '918762529770';
       if (form) {
         form.addEventListener('submit', function(e) {
           e.preventDefault();
           const firstName = document.getElementById('firstName')?.value.trim();
           const lastName = document.getElementById('lastName')?.value.trim();
           const email = document.getElementById('email')?.value.trim();
+          const phone = document.getElementById('phone')?.value.trim();
+          const service = document.getElementById('service')?.value || '';
+          const projectMessage = document.getElementById('message')?.value.trim();
           if (!firstName || !lastName || !email) {
             messageDiv.textContent = 'Please fill in all required fields.';
             messageDiv.className = 'form-message error';
@@ -1719,7 +1582,16 @@ background-size: 56px 100px;
           messageDiv.className = 'form-message';
           messageDiv.style.display = 'block';
           setTimeout(() => {
-            messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you shortly.';
+            const whatsappMessage = [
+              'New inquiry from Vision Vibe website',
+              `Name: ${firstName} ${lastName}`,
+              `Email: ${email}`,
+              phone ? `Phone: ${phone}` : null,
+              service ? `Service: ${service}` : null,
+              projectMessage ? `Message: ${projectMessage}` : null
+            ].filter(Boolean).join('\n');
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank', 'noopener,noreferrer');
+            messageDiv.textContent = 'Opening WhatsApp with your message...';
             messageDiv.className = 'form-message success';
             form.reset();
             setTimeout(() => {
